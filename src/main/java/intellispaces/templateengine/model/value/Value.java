@@ -1,84 +1,102 @@
 package intellispaces.templateengine.model.value;
 
-import intellispaces.templateengine.builder.value.StringValueBuilder;
+import intellispaces.commons.exception.UnexpectedViolationException;
 import intellispaces.templateengine.exception.ResolveTemplateException;
+import intellispaces.templateengine.model.value.user.UserValue;
 
-public interface Value {
+/**
+ * Expression value.
+ */
+public interface Value extends UserValue {
 
+  /**
+   * Value type.
+   */
   ValueType type();
 
+  Value origin();
+
+  @Override
+  StringValue typename();
+
+  @Override
+  BooleanValue isVoid();
+
+  @Override
+  BooleanValue asBoolean() throws ResolveTemplateException;
+
+  @Override
+  IntegerValue asInteger() throws ResolveTemplateException;
+
+  @Override
+  RealValue asReal() throws ResolveTemplateException;
+
+  @Override
+  StringValue asString() throws ResolveTemplateException;
+
+  @Override
+  ListValue asList() throws ResolveTemplateException;
+
+  @Override
+  MapValue asMap() throws ResolveTemplateException;
+
+  @Override
+  default BooleanValue eq(UserValue other) throws ResolveTemplateException {
+    if (other instanceof Value) {
+      return eq((Value) other);
+    }
+    throw new UnexpectedViolationException("Expected instance of the {} class", Value.class.getSimpleName());
+  }
+
+  BooleanValue eq(Value other) throws ResolveTemplateException;
+
+  @Override
+  BooleanValue isEmpty() throws ResolveTemplateException;
+
+  @Override
+  BooleanValue isBlank() throws ResolveTemplateException;
+
+  @Override
+  StringValue capitalizeFirstLetter() throws ResolveTemplateException;
+
+  @Override
+  Value invert() throws ResolveTemplateException;
+
+  @Override
+  default Value fetch(UserValue key) throws ResolveTemplateException {
+    if (key instanceof Value) {
+      return fetch((Value) key);
+    }
+    throw new UnexpectedViolationException("Expected instance of the {} class", Value.class.getSimpleName());
+  }
+
+  Value fetch(Value key) throws ResolveTemplateException;
+
+  @Override
+  default Value find(UserValue element) throws ResolveTemplateException {
+    if (element instanceof Value) {
+      return find((Value) element);
+    }
+    throw new UnexpectedViolationException("Expected instance of the {} class", Value.class.getSimpleName());
+  }
+
   /**
-   * Value type name.<p/>
+   * Search for given element inside current value.<p/>
    *
-   * The class {@link StringValue} is used as result.
-   */
-  default StringValue typename() {
-    return StringValueBuilder.build(type().typename());
-  }
-
-  default BooleanValue eq(Value other) throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}", typename().get());
-  }
-
-  default BooleanValue isEmpty() throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Expected type is List or Map. Actual {}" + typename().get());
-  }
-
-  default BooleanValue isBlank() throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Expected type is String. Actual {}" + typename().get());
-  }
-
-  default StringValue capitalizeFirstLetter() throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Expected type is String. Actual {}" + typename().get());
-  }
-
-  default BooleanValue not() throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Expected type is boolean. Actual {}" + typename().get());
-  }
-
-  default Value at(Value indexValue) throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}" + typename().get());
-  }
-
-  /**
-   * Match value.
+   * This operation is applicable for string, list and map.
    *
-   * @param keyValue the key element.
-   * @return value's element.
-   * @throws ResolveTemplateException
+   * @param element the element.
+   * @return found element or void if element is not found. If element is found then operations index, isFirst and isLast are applicable.
+   * @throws ResolveTemplateException throws if operation is not applicable for this value.
    */
-  default Value match(Value keyValue) throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}" + typename().get());
-  }
+  Value find(Value element) throws ResolveTemplateException;
 
-  /**
-   * Gets value's element by key.
-   *
-   * @param keyValue the element key.
-   * @return value's element.
-   * @throws ResolveTemplateException
-   */
-  default Value get(Value keyValue) throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}" + typename().get());
-  }
+  @Override
+  Value index() throws ResolveTemplateException;
 
-  default BooleanValue contains(Value keyValue) throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}" + typename().get());
-  }
+  @Override
+  Value isFirst() throws ResolveTemplateException;
 
-  default Value call(Value methodName) throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}" + typename().get());
-  }
-
-  default IntegerValue index() throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}" + typename().get());
-  }
-
-  default BooleanValue isFirst() throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}" + typename().get());
-  }
-
-  default BooleanValue isLast() throws ResolveTemplateException {
-    throw new ResolveTemplateException("Not expected template parameter type. Actual {}" + typename().get());
-  }
+  @Override
+  Value isLast() throws ResolveTemplateException;
 }

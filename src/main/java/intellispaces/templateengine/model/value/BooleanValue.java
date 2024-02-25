@@ -1,7 +1,11 @@
 package intellispaces.templateengine.model.value;
 
-import intellispaces.templateengine.builder.value.BooleanValueBuilder;
+import intellispaces.templateengine.exception.ResolveTemplateException;
+import intellispaces.templateengine.object.value.ValueTypes;
 
+/**
+ * Boolean value.
+ */
 public interface BooleanValue extends Value {
 
   boolean get();
@@ -11,7 +15,6 @@ public interface BooleanValue extends Value {
     return ValueTypes.Boolean;
   }
 
-  default BooleanValue not() {
-    return BooleanValueBuilder.build(!get());
-  }
+  @Override
+  BooleanValue invert() throws ResolveTemplateException;
 }

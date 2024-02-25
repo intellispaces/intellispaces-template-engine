@@ -2,7 +2,7 @@ package intellispaces.templateengine;
 
 import intellispaces.templateengine.exception.ParseTemplateException;
 import intellispaces.templateengine.exception.ResolveTemplateException;
-import intellispaces.templateengine.function.parse.ParseFunctions;
+import intellispaces.templateengine.function.parse.ParseTemplateFunctions;
 import intellispaces.templateengine.function.resolve.ResolveFunctions;
 import intellispaces.templateengine.model.TextTemplate;
 
@@ -14,10 +14,10 @@ import java.util.Map;
 public interface TemplateEngine {
 
   static TextTemplate parseTemplate(String source) throws ParseTemplateException {
-    return ParseFunctions.parse(source);
+    return ParseTemplateFunctions.parseTemplate(source);
   }
 
-  static String resolveTemplate(TextTemplate template, Map<String, Object> params) throws ResolveTemplateException {
-    return ResolveFunctions.resolve(template, params);
+  static String resolveTemplate(TextTemplate template, Map<String, Object> variables) throws ResolveTemplateException {
+    return ResolveFunctions.resolveTemplate(template, variables);
   }
 }

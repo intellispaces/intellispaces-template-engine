@@ -2,13 +2,14 @@ package intellispaces.templateengine.model.element;
 
 import intellispaces.templateengine.exception.ResolveTemplateException;
 import intellispaces.templateengine.function.resolve.ResolveFunctions;
+import intellispaces.templateengine.object.element.TemplateElementTypes;
 import intellispaces.templateengine.model.value.Value;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * The "Format" marker.
+ * Marker <format>.
  */
 public interface MarkerFormat extends TemplateElement {
 
@@ -17,10 +18,10 @@ public interface MarkerFormat extends TemplateElement {
     return TemplateElementTypes.MarkerFormat;
   }
 
-  List<String> types();
+  List<MarkerFormatType> types();
 
   @Override
-  default String resolve(Map<String, Value> params) throws ResolveTemplateException {
-    return ResolveFunctions.resolve(this, params);
+  default String resolve(Map<String, Value> variables) throws ResolveTemplateException {
+    return ResolveFunctions.resolve(this, variables);
   }
 }

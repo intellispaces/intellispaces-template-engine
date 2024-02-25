@@ -2,6 +2,7 @@ package intellispaces.templateengine.model.element;
 
 import intellispaces.templateengine.exception.ResolveTemplateException;
 import intellispaces.templateengine.function.resolve.ResolveFunctions;
+import intellispaces.templateengine.object.element.TemplateElementTypes;
 import intellispaces.templateengine.model.expression.Expression;
 import intellispaces.templateengine.model.value.Value;
 
@@ -15,17 +16,17 @@ public interface StatementForeach extends TemplateElement {
 
   @Override
   default TemplateElementType type() {
-    return TemplateElementTypes.ForeachStatement;
+    return TemplateElementTypes.StatementForeach;
   }
 
   Expression collectionExpression();
 
   String itemName();
 
-  List<TemplateElement> subStatements();
+  List<TemplateElement> subElements();
 
   @Override
-  default String resolve(Map<String, Value> params) throws ResolveTemplateException {
-    return ResolveFunctions.resolve(this, params);
+  default String resolve(Map<String, Value> variables) throws ResolveTemplateException {
+    return ResolveFunctions.resolve(this, variables);
   }
 }

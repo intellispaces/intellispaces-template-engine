@@ -1,9 +1,11 @@
 package intellispaces.templateengine.model.value;
 
-import intellispaces.templateengine.builder.value.BooleanValueBuilder;
+import intellispaces.templateengine.exception.ResolveTemplateException;
+import intellispaces.templateengine.object.value.ValueTypes;
 
-import java.util.Objects;
-
+/**
+ * Integer number value.
+ */
 public interface IntegerValue extends Value {
 
   int get();
@@ -14,13 +16,5 @@ public interface IntegerValue extends Value {
   }
 
   @Override
-  default BooleanValue eq(Value other) {
-    if (other instanceof IntegerValue) {
-      return BooleanValueBuilder.build(Objects.equals(get(), ((IntegerValue) other).get()));
-    } else if (other instanceof DoubleValue) {
-        return BooleanValueBuilder.build(Objects.equals((double) get(), ((DoubleValue) other).get()));
-    } else {
-      return BooleanValueBuilder.build(false);
-    }
-  }
+  IntegerValue invert() throws ResolveTemplateException;
 }

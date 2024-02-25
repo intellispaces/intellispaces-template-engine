@@ -1,0 +1,75 @@
+----------------------------------------- 1. Simple message ---------------------------------------
+Test message
+
+----------------------------------------- 2. Print variables --------------------------------------
+2.1) {{$str1}}
+2.2) {{$str2}}
+2.3) {{$int1}}
+2.4) {{$real1}}
+2.5) {{$bool1}}
+2.6) {{$bool2}}
+2.7) {{print $list1}}
+2.8) {{print $map1}}
+
+----------------------------------------- 3. Print literals ---------------------------------------
+3.1) ->{{print ""}}<-
+3.2) ->{{print " "}}<-
+3.3) {{print "abc"}}
+3.4) {{print 123}}
+3.5) {{print 123.456}}
+
+----------------------------------------- 4. Text operations --------------------------------------
+4.1) {{print "".isBlank()}}
+4.2) {{print "abc".isBlank()}}
+4.3) {{print "abc".eq($str2)}}
+4.4) {{print "abc".capitalizeFirstLetter()}}
+4.5) {{format nobr}}1
+2
+3{{end format}}
+
+----------------------------------------- 5. Number operations ------------------------------------
+5.1) {{print 123.eq($int1)}}
+5.2) {{print 123.45.eq($int1)}}
+5.3) {{print 123.45.eq($real1)}}
+
+---------------------------------------- 6. When statement ----------------------------------------
+6.1)
+{{when true}}
+  {{print "Condition true"}}
+{{end}}
+6.2) {{when "".isBlank()}}{{print "Sting is blank"}}{{end}}
+6.3)
+{{when $bool1}}
+  {{print "Condition true"}}
+{{end}}
+6.4)
+{{when $bool2}}
+  {{print "Condition true"}}
+{{else}}
+  {{print "Condition false"}}
+{{end}}
+
+----------------------------------------- 7. Foreach statement ------------------------------------
+7.1)
+{{for item : $list1}}
+  {{$item}}
+{{end}}
+7.2)
+{{for item : $list1}}{{$item}} {{end}}|
+7.3)
+{{for item : $list1}}
+  {{$item.index()}}: {{$item}} - {{$item.isFirst()}}/{{$item.isLast()}}
+{{end}}
+
+----------------------------------------- 8. Fetch statement --------------------------------------
+8.1)
+{{$list1[1]}}
+8.2)
+{{$map1["key2"]}}
+8.3)
+{{print "abc"[1]}}
+
+----------------------------------------- 9. Set statement ----------------------------------------
+9.1)
+{{set localVar = "abc"}}
+{{$localVar}}

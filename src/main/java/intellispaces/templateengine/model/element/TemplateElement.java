@@ -17,21 +17,9 @@ public interface TemplateElement {
   TextPosition position();
 
   /**
-   * Element length, characters.
-   */
-  default int length() {
-    return text().length();
-  }
-
-  /**
-   * Element text.
-   */
-  String text();
-
-  /**
    * Element type.
    */
   TemplateElementType type();
 
-  String resolve(Map<String, Value> params) throws ResolveTemplateException;
+  String resolve(Map<String, Value> variables) throws ResolveTemplateException;
 }

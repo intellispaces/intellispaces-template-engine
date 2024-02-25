@@ -1,11 +1,11 @@
 package intellispaces.templateengine.model.expression;
 
 /**
- * Template keyword.
+ * Expression keyword.
  */
 public interface Keyword {
 
   String name();
 
-  String wording();
+  String word();
 }

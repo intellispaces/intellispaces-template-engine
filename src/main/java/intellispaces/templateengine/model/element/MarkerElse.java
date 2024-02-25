@@ -1,12 +1,14 @@
 package intellispaces.templateengine.model.element;
 
 import intellispaces.templateengine.function.resolve.ResolveFunctions;
+import intellispaces.templateengine.model.expression.Expression;
+import intellispaces.templateengine.object.element.TemplateElementTypes;
 import intellispaces.templateengine.model.value.Value;
 
 import java.util.Map;
 
 /**
- * The "Else" marker element.
+ * Marker <else>.
  */
 public interface MarkerElse extends TemplateElement {
 
@@ -15,13 +17,10 @@ public interface MarkerElse extends TemplateElement {
     return TemplateElementTypes.MarkerElse;
   }
 
-  @Override
-  default String text() {
-    return MarkerTypes.Else.text();
-  }
+  Expression condition();
 
   @Override
-  default String resolve(Map<String, Value> params) {
-    return ResolveFunctions.resolve(this, params);
+  default String resolve(Map<String, Value> variables) {
+    return ResolveFunctions.resolve(this, variables);
   }
 }

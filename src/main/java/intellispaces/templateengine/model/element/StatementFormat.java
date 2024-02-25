@@ -2,27 +2,28 @@ package intellispaces.templateengine.model.element;
 
 import intellispaces.templateengine.exception.ResolveTemplateException;
 import intellispaces.templateengine.function.resolve.ResolveFunctions;
+import intellispaces.templateengine.object.element.TemplateElementTypes;
 import intellispaces.templateengine.model.value.Value;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * The "Format" marker.
+ * Statement <format>.
  */
 public interface StatementFormat extends TemplateElement {
 
   @Override
   default TemplateElementType type() {
-    return TemplateElementTypes.FormatStatement;
+    return TemplateElementTypes.StatementFormat;
   }
 
-  List<String> types();
+  List<MarkerFormatType> types();
 
-  List<TemplateElement> subStatements();
+  List<TemplateElement> subElements();
 
   @Override
-  default String resolve(Map<String, Value> params) throws ResolveTemplateException {
-    return ResolveFunctions.resolve(this, params);
+  default String resolve(Map<String, Value> variables) throws ResolveTemplateException {
+    return ResolveFunctions.resolve(this, variables);
   }
 }

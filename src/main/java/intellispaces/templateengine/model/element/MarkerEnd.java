@@ -1,12 +1,13 @@
 package intellispaces.templateengine.model.element;
 
 import intellispaces.templateengine.function.resolve.ResolveFunctions;
+import intellispaces.templateengine.object.element.TemplateElementTypes;
 import intellispaces.templateengine.model.value.Value;
 
 import java.util.Map;
 
 /**
- * The "End" marker element.
+ * Marker <end>.
  */
 public interface MarkerEnd extends TemplateElement {
 
@@ -16,12 +17,7 @@ public interface MarkerEnd extends TemplateElement {
   }
 
   @Override
-  default String text() {
-    return MarkerTypes.End.text();
-  }
-
-  @Override
-  default String resolve(Map<String, Value> params) {
-    return ResolveFunctions.resolve(this, params);
+  default String resolve(Map<String, Value> variables) {
+    return ResolveFunctions.resolve(this, variables);
   }
 }

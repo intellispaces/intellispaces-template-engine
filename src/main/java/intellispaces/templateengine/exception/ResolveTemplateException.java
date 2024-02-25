@@ -1,8 +1,6 @@
 package intellispaces.templateengine.exception;
 
-import intellispaces.commons.exception.ExpectedViolationException;
-
-public class ResolveTemplateException extends ExpectedViolationException {
+public class ResolveTemplateException extends TemplateException {
 
   public ResolveTemplateException(final String messageTemplate, final Object... arguments) {
     super(messageTemplate, arguments);

@@ -1,21 +1,34 @@
 package intellispaces.templateengine.model.expression;
 
-import intellispaces.templateengine.exception.ResolveTemplateException;
 import intellispaces.templateengine.model.value.Value;
 
-import java.util.Map;
+/**
+ * Expression literal.
+ */
+public interface Literal extends Operand {
 
-public interface Literal /*extends TemplateElement*/ {
+  @Override
+  default boolean isLiteral() {
+    return true;
+  }
 
-//  @Override
-//  default TemplateElementType type() {
-//    return TemplateElementTypes.Literal;
-//  }
+  @Override
+  default boolean isVariable() {
+    return false;
+  }
 
-//  @Override
-//  default String resolve(Map<String, Value> params) throws ResolveTemplateException {
-//    return text();
-//  };
+  @Override
+  default Literal asLiteral() {
+    return this;
+  }
 
+  @Override
+  default Variable asVariable() {
+    return null;
+  }
+
+  /**
+   * Literal value.
+   */
   Value value();
 }

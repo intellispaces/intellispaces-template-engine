@@ -1,19 +1,31 @@
 package intellispaces.templateengine.model.expression;
 
+import intellispaces.templateengine.function.compile.CompiledStatement;
+
+import java.util.List;
+
 /**
- * Expression template element.
+ * Parsed expression statement.
  */
-public interface Expression /*extends TemplateElement*/ {
+public interface Expression {
 
-//  @Override
-//  default TemplateElementType type() {
-//    return TemplateElementTypes.Expression;
-//  }
+  /**
+   * Expression statement.
+   */
+  String statement();
 
-  Expression expression();
+  /**
+   * Prepared statement.
+   */
+  String preparedStatement();
 
-//  @Override
-//  default String resolve(Map<String, Value> params) throws ResolveTemplateException {
-//    return ResolveFunctions.resolve(this, params);
-//  }
+  /**
+   * Compiled expression.
+   */
+  CompiledStatement compiledExpression();
+
+  /**
+   * List of expression operands.
+   */
+  List<Operand> operands();
 }

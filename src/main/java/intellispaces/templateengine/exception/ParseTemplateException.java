@@ -1,8 +1,6 @@
 package intellispaces.templateengine.exception;
 
-import intellispaces.commons.exception.ExpectedViolationException;
-
-public class ParseTemplateException extends ExpectedViolationException {
+public class ParseTemplateException extends TemplateException {
 
   public ParseTemplateException(final String messageTemplate, final Object... arguments) {
     super(messageTemplate, arguments);
