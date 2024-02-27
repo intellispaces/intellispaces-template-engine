@@ -1,6 +1,6 @@
 package intellispaces.templateengine.exception;
 
-public class ParseTemplateException extends TemplateException {
+public class ParseTemplateException extends TemplateEngineException {
 
   public ParseTemplateException(final String messageTemplate, final Object... arguments) {
     super(messageTemplate, arguments);

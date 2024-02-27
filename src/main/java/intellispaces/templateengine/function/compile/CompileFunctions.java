@@ -1,6 +1,6 @@
 package intellispaces.templateengine.function.compile;
 
-import intellispaces.commons.exception.ExpectedViolationException;
+import intellispaces.commons.exception.PossibleViolationException;
 import intellispaces.templateengine.exception.ParseTemplateException;
 import intellispaces.templateengine.exception.ResolveTemplateException;
 import intellispaces.templateengine.function.compile.impl.CompiledFileObject;
@@ -87,7 +87,7 @@ public final class CompileFunctions {
   }
 
   private static String getSupportJarPath() {
-    return getJarPath(ExpectedViolationException.class);
+    return getJarPath(PossibleViolationException.class);
   }
 
   private static String getJarPath(Class<?> classFromJar) {

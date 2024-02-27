@@ -1,6 +1,6 @@
 package intellispaces.templateengine.exception;
 
-public class ResolveTemplateException extends TemplateException {
+public class ResolveTemplateException extends TemplateEngineException {
 
   public ResolveTemplateException(final String messageTemplate, final Object... arguments) {
     super(messageTemplate, arguments);
