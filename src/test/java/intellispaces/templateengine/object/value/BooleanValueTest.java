@@ -41,7 +41,7 @@ public class BooleanValueTest {
     // Given
     BooleanValue booleanValue = BooleanValueBuilder.build(true);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = 123;
+      int expectedValue = 123;
       castFunctions.when(() -> CastFunctions.castToInteger(booleanValue)).thenReturn(expectedValue);
 
       // When
@@ -58,7 +58,7 @@ public class BooleanValueTest {
     // Given
     BooleanValue booleanValue = BooleanValueBuilder.build(true);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = 3.14;
+      double expectedValue = 3.14;
       castFunctions.when(() -> CastFunctions.castToReal(booleanValue)).thenReturn(expectedValue);
 
       // When
@@ -75,7 +75,7 @@ public class BooleanValueTest {
     // Given
     BooleanValue booleanValue = BooleanValueBuilder.build(true);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = "true";
+      String expectedValue = "true";
       castFunctions.when(() -> CastFunctions.castToString(booleanValue)).thenReturn(expectedValue);
 
       // When
@@ -92,7 +92,7 @@ public class BooleanValueTest {
     // Given
     BooleanValue booleanValue = BooleanValueBuilder.build(true);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = List.of();
+      List<?> expectedValue = List.of();
       castFunctions.when(() -> CastFunctions.castToList(booleanValue)).thenReturn(expectedValue);
 
       // When

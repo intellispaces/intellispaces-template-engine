@@ -20,6 +20,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.security.CodeSource;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -91,7 +92,7 @@ public final class CompileFunctions {
   }
 
   private static String getJarPath(Class<?> classFromJar) {
-    var jarPath = getJarPathByProtectionDomain(classFromJar);
+    String jarPath = getJarPathByProtectionDomain(classFromJar);
     if (jarPath == null) {
       jarPath = getJarPathByResource(classFromJar);
     }
@@ -100,7 +101,7 @@ public final class CompileFunctions {
 
   private static String getJarPathByProtectionDomain(Class<?> classFromJar) {
     try {
-      var codeSource = classFromJar.getProtectionDomain().getCodeSource();
+      CodeSource codeSource = classFromJar.getProtectionDomain().getCodeSource();
       if (codeSource != null) {
         return path(codeSource.getLocation());
       }
@@ -111,11 +112,11 @@ public final class CompileFunctions {
   }
 
   private static String getJarPathByResource(Class<?> classFromJar) {
-    var classResource = classFromJar.getResource(classFromJar.getSimpleName() + ".class");
+    URL classResource = classFromJar.getResource(classFromJar.getSimpleName() + ".class");
     if (classResource != null) {
-      var url = classResource.toString();
+      String url = classResource.toString();
       if (url.startsWith("jar:file:")) {
-        var path = url.replaceAll("^jar:(file:.*[.]jar)!/.*", "$1");
+        String path = url.replaceAll("^jar:(file:.*[.]jar)!/.*", "$1");
         try {
           return path(new URL(path));
         } catch (Exception e) {

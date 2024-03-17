@@ -19,7 +19,7 @@ public class TemplateTest {
   public void testDemo() throws Exception {
     // Given
     String source = ResourceFunctions.readResourceAsString(TemplateTest.class, "/demo.template").orElseThrow();
-    var variables = new HashMap<String, Object>();
+    Map<String, Object> variables = new HashMap<>();
     variables.put("str1", "This is string variable str1");
     variables.put("str2", "abc");
     variables.put("int1", 123);

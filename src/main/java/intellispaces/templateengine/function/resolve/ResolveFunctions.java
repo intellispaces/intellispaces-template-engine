@@ -27,7 +27,7 @@ import java.util.Map;
 public interface ResolveFunctions {
 
   static String resolveTemplate(TextTemplate template, Map<String, Object> variables) throws ResolveTemplateException {
-    var values = new HashMap<String, Value>();
+    Map<String, Value> values = new HashMap<>();
     for (Map.Entry<String, Object> entry : variables.entrySet()) {
       values.put(entry.getKey(), CastFunctions.objectToValue(entry.getValue()));
     }
@@ -70,7 +70,7 @@ public interface ResolveFunctions {
 
   static String resolve(StatementForeach statement, Map<String, Value> variables) throws ResolveTemplateException {
     var sb = new StringBuilder();
-    var subParams = new HashMap<>(variables);
+    Map<String, Value> subParams = new HashMap<>(variables);
     List<Value> values = ResolveExpressionFunctions.resolveExpressionToList(statement.collectionExpression(), variables);
     if (values != null) {
       int index = 0;

@@ -51,7 +51,7 @@ public class VoidValueTest {
   @Test
   public void testAString() throws Exception {
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = "string";
+      String expectedValue = "string";
       castFunctions.when(() -> CastFunctions.castToString(VoidValues.get())).thenReturn(expectedValue);
 
       StringValue stringValue = VoidValues.get().asString();
@@ -63,7 +63,7 @@ public class VoidValueTest {
   @Test
   public void testAsList() throws Exception {
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = List.of();
+      List<?> expectedValue = List.of();
       castFunctions.when(() -> CastFunctions.castToList(VoidValues.get())).thenReturn(expectedValue);
 
       ListValue listValue = VoidValues.get().asList();

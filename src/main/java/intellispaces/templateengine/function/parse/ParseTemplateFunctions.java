@@ -73,7 +73,7 @@ public final class ParseTemplateFunctions {
    * @return list of text blocks.
    */
   static List<TextBlock> splitByMarkers(String source) {
-    var blocks = new ArrayList<TextBlock>();
+    List<TextBlock> blocks = new ArrayList<>();
     char[] chars = source.toCharArray();
     MutableTextPosition curPosition = TextPositionBuilder.buildMutable(0, 1, 1);
     TextBlock block = readBlock(chars, curPosition);
@@ -167,8 +167,8 @@ public final class ParseTemplateFunctions {
    * @throws ParseTemplateException throws when template can't be parsed.
    */
   private static List<TemplateElement> analyzeElements(List<TextBlock> blocks) throws ParseTemplateException {
-    var elements = new ArrayList<TemplateElement>(blocks.size());
-    for (var block : blocks) {
+    List<TemplateElement> elements = new ArrayList<>(blocks.size());
+    for (TextBlock block : blocks) {
       if (block.isMarker()) {
         TemplateElement marker = analyzeMarker(block);
         elements.add(marker);
@@ -184,49 +184,49 @@ public final class ParseTemplateFunctions {
 
   private static TemplateElement analyzeMarker(TextBlock block) throws ParseTemplateException {
     // Marker <print>
-    var markerPrint = asMarkerPrint(block);
+    MarkerPrint markerPrint = asMarkerPrint(block);
     if (markerPrint != null) {
       return markerPrint;
     }
 
     // Short marker <print>
-    var shortMarkerPrint = asShortMarkerPrint(block);
+    MarkerPrint shortMarkerPrint = asShortMarkerPrint(block);
     if (shortMarkerPrint != null) {
       return shortMarkerPrint;
     }
 
     // Marker <set>
-    var markerSet = asMarkerSet(block);
+    MarkerSet markerSet = asMarkerSet(block);
     if (markerSet != null) {
       return markerSet;
     }
 
     // Marker <format>
-    var markerFormat = asMarkerFormat(block);
+    MarkerFormat markerFormat = asMarkerFormat(block);
     if (markerFormat != null) {
       return markerFormat;
     }
 
     // Marker <foreach>
-    var markerForeach = asMarkerForeach(block);
+    MarkerForeach markerForeach = asMarkerForeach(block);
     if (markerForeach != null) {
       return markerForeach;
     }
 
     // Marker <when>
-    var markerWhen = asMarkerWhen(block);
+    MarkerWhen markerWhen = asMarkerWhen(block);
     if (markerWhen != null) {
       return markerWhen;
     }
 
     // Marker <else>
-    var markerElse = asMarkerElse(block);
+    MarkerElse markerElse = asMarkerElse(block);
     if (markerElse != null) {
       return markerElse;
     }
 
     // Marker <end>
-    var markerEnd = asMarkerEnd(block);
+    MarkerEnd markerEnd = asMarkerEnd(block);
     if (markerEnd != null) {
       return markerEnd;
     }
@@ -297,7 +297,7 @@ public final class ParseTemplateFunctions {
   }
 
   private static MarkerWhen asMarkerWhen(TextBlock block) throws ParseTemplateException {
-    var matcher = MARKER_WHEN_PATTERN.matcher(block.text());
+    Matcher matcher = MARKER_WHEN_PATTERN.matcher(block.text());
     if (matcher.matches()) {
       return MarkerWhenBuilder.get()
           .position(block.position())
@@ -391,7 +391,7 @@ public final class ParseTemplateFunctions {
   }
 
   private static List<TemplateElement> analyzeStatements(ListIterator<TemplateElement> iterator) throws ParseTemplateException {
-    var resultElements = new ArrayList<TemplateElement>();
+    List<TemplateElement> resultElements = new ArrayList<>();
     while (iterator.hasNext()) {
       TemplateElement element = iterator.next();
       if (TemplateElementTypes.MarkerFormat.equals(element.type())) {

@@ -32,7 +32,7 @@ public interface ResolveExpressionFunctions {
   }
 
   static Value resolveExpression(Expression expression, Map<String, Value> variables) throws ResolveTemplateException {
-    var values = makeVariables(expression.operands(), variables);
+    Value[] values = makeVariables(expression.operands(), variables);
     try {
       return expression.compiledExpression().resolve(values);
     } catch (Exception e) {

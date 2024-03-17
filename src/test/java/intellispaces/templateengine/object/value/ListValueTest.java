@@ -37,7 +37,7 @@ public class ListValueTest {
     // Given
     ListValue listValue = ListValueBuilder.build("true");
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = true;
+      boolean expectedValue = true;
       castFunctions.when(() -> CastFunctions.castToBoolean(listValue)).thenReturn(expectedValue);
 
       // When
@@ -54,7 +54,7 @@ public class ListValueTest {
     // Given
     ListValue listValue = ListValueBuilder.build("123");
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = 123;
+      int expectedValue = 123;
       castFunctions.when(() -> CastFunctions.castToInteger(listValue)).thenReturn(expectedValue);
 
       // When
@@ -71,7 +71,7 @@ public class ListValueTest {
     // Given
     ListValue listValue = ListValueBuilder.build("3.14");
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = 3.14;
+      double expectedValue = 3.14;
       castFunctions.when(() -> CastFunctions.castToReal(listValue)).thenReturn(expectedValue);
 
       // When
@@ -88,7 +88,7 @@ public class ListValueTest {
     // Given
     ListValue listValue = ListValueBuilder.build("abc");
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = "abc";
+      String expectedValue = "abc";
       castFunctions.when(() -> CastFunctions.castToString(listValue)).thenReturn(expectedValue);
 
       // When

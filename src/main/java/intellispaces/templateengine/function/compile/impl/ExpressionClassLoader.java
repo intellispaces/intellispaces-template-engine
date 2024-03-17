@@ -1,5 +1,6 @@
 package intellispaces.templateengine.function.compile.impl;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class ExpressionClassLoader extends ClassLoader {
@@ -12,12 +13,12 @@ public class ExpressionClassLoader extends ClassLoader {
 
   @Override
   protected Class<?> findClass(String className) throws ClassNotFoundException {
-    var itr = snippetFileObjects.iterator();
+    Iterator<CompiledFileObject> itr = snippetFileObjects.iterator();
     while (itr.hasNext()) {
-      var file = itr.next();
+      CompiledFileObject file = itr.next();
       if (file.getClassName().equals(className)) {
         itr.remove();
-        var bytes = file.getBytes();
+        byte[] bytes = file.getBytes();
         return super.defineClass(className, bytes, 0, bytes.length);
       }
     }

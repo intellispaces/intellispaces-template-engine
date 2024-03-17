@@ -3,9 +3,9 @@ package intellispaces.templateengine.model.value.user;
 import intellispaces.templateengine.exception.ResolveTemplateException;
 
 /**
- * Expression value in user context.<p/>
+ * Expression value in user context.
  *
- * This interface represents user's views of the value.
+ * <p>This interface represents user's views of the expression value.
  */
 public interface UserValue {
 

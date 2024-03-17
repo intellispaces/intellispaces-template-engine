@@ -48,7 +48,7 @@ public final class ParseExpressionFunctions {
   public static Expression parseExpression(String statement) throws ParseTemplateException {
     ValidateExpressionFunctions.validateExpression(statement);
 
-    var operands = new ArrayList<Operand>();
+    List<Operand> operands = new ArrayList<>();
     String preparedStatement = prepareStatement(statement, operands);
     CompiledStatement compiledStatement = compileStatement(preparedStatement);
     return ExpressionBuilder.get()
@@ -116,7 +116,7 @@ public final class ParseExpressionFunctions {
   }
 
   private static ValueAndWording readListOrMap(char[] chars, int beginIndex) {
-    var values = new ArrayList<Value>();
+    List<Value> values = new ArrayList<>();
     boolean isList = false;
     int ind = beginIndex + 1;
     while (ind < chars.length) {
@@ -155,7 +155,7 @@ public final class ParseExpressionFunctions {
     if (isList) {
       value = ListValueBuilder.build(values);
     } else {
-      var map = new HashMap<Value, Value>();
+      Map<Value, Value> map = new HashMap<Value, Value>();
       for (int i = 0; i < values.size(); i += 2) {
         map.put(values.get(i), values.get(i + 1));
       }

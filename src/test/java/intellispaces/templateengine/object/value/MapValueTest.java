@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -36,7 +37,7 @@ public class MapValueTest {
     // Given
     MapValue mapValue = MapValueBuilder.build("true", true);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = true;
+      boolean expectedValue = true;
       castFunctions.when(() -> CastFunctions.castToBoolean(mapValue)).thenReturn(expectedValue);
 
       // When
@@ -53,7 +54,7 @@ public class MapValueTest {
     // Given
     MapValue mapValue = MapValueBuilder.build("123", 123);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = 123;
+      int expectedValue = 123;
       castFunctions.when(() -> CastFunctions.castToInteger(mapValue)).thenReturn(expectedValue);
 
       // When
@@ -70,7 +71,7 @@ public class MapValueTest {
     // Given
     MapValue mapValue = MapValueBuilder.build("3.14", 3.14);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = 3.14;
+      double expectedValue = 3.14;
       castFunctions.when(() -> CastFunctions.castToReal(mapValue)).thenReturn(expectedValue);
 
       // When
@@ -87,7 +88,7 @@ public class MapValueTest {
     // Given
     MapValue mapValue = MapValueBuilder.build("abc", 1);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = "abc";
+      String expectedValue = "abc";
       castFunctions.when(() -> CastFunctions.castToString(mapValue)).thenReturn(expectedValue);
 
       // When
@@ -104,7 +105,7 @@ public class MapValueTest {
     // Given
     MapValue mapValue = MapValueBuilder.build("abc", 1);
     try (MockedStatic<CastFunctions> castFunctions = Mockito.mockStatic(CastFunctions.class)) {
-      var expectedValue = new ArrayList<>();
+      List<?> expectedValue = new ArrayList<>();
       castFunctions.when(() -> CastFunctions.castToList(mapValue)).thenReturn(expectedValue);
 
       // When

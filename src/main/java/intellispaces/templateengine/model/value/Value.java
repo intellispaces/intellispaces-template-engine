@@ -81,9 +81,9 @@ public interface Value extends UserValue {
   }
 
   /**
-   * Search for given element inside current value.<p/>
+   * Search for given element inside current value.
    *
-   * This operation is applicable for string, list and map.
+   * <p>This operation is applicable for string, list and map.
    *
    * @param element the element.
    * @return found element or void if element is not found. If element is found then operations index, isFirst and isLast are applicable.
