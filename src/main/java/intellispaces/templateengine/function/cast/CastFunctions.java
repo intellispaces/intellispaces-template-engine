@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static intellispaces.commons.ExceptionFunctions.coverThrowableFunction;
-import static intellispaces.commons.ExceptionFunctions.uncoverThrowable;
+import static intellispaces.commons.function.ExceptionFunctions.coverThrowableFunction;
+import static intellispaces.commons.function.ExceptionFunctions.uncoverThrowable;
 
 public interface CastFunctions {
 

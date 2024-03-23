@@ -1,6 +1,6 @@
 package intellispaces.templateengine.function.common;
 
-import intellispaces.commons.CharFunctions;
+import intellispaces.commons.function.CharFunctions;
 
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;

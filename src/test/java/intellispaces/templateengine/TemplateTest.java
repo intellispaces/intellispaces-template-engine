@@ -1,6 +1,6 @@
 package intellispaces.templateengine;
 
-import intellispaces.commons.ResourceFunctions;
+import intellispaces.commons.function.ResourceFunctions;
 import intellispaces.templateengine.model.TextTemplate;
 import org.junit.jupiter.api.Test;
 

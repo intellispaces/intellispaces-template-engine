@@ -1,6 +1,6 @@
 package intellispaces.templateengine.function.parse;
 
-import intellispaces.commons.CharFunctions;
+import intellispaces.commons.function.CharFunctions;
 import intellispaces.commons.exception.UnexpectedViolationException;
 import intellispaces.templateengine.object.expression.ExpressionBuilder;
 import intellispaces.templateengine.object.expression.Keywords;

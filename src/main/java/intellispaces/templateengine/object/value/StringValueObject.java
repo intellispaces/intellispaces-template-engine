@@ -1,6 +1,6 @@
 package intellispaces.templateengine.object.value;
 
-import intellispaces.commons.StringFunctions;
+import intellispaces.commons.function.StringFunctions;
 import intellispaces.templateengine.exception.IrregularValueTypeException;
 import intellispaces.templateengine.exception.ResolveTemplateException;
 import intellispaces.templateengine.model.value.BooleanValue;

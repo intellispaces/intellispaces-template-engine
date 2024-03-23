@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
-import static intellispaces.commons.ExceptionFunctions.coverThrowableFunction;
+import static intellispaces.commons.function.ExceptionFunctions.coverThrowableFunction;
 
 public final class ListValueBuilder {
   private List<Value> list;
