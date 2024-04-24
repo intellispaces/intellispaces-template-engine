@@ -1,9 +1,9 @@
 package intellispaces.templateengine.template;
 
-import intellispaces.templateengine.element.TemplateElement;
+import intellispaces.templateengine.template.element.TemplateElement;
 import intellispaces.templateengine.exception.ResolveTemplateException;
-import intellispaces.templateengine.expression.value.ValueFunctions;
-import intellispaces.templateengine.expression.value.Value;
+import intellispaces.templateengine.template.expression.value.ValueFunctions;
+import intellispaces.templateengine.template.expression.value.Value;
 
 import java.util.HashMap;
 import java.util.Map;

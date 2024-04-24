@@ -1,6 +1,6 @@
 package intellispaces.templateengine.template;
 
-import intellispaces.templateengine.element.TemplateElement;
+import intellispaces.templateengine.template.element.TemplateElement;
 
 import java.util.List;
 

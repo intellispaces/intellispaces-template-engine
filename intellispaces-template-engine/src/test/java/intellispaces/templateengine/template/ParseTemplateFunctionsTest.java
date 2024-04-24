@@ -1,15 +1,15 @@
 package intellispaces.templateengine.template;
 
-import intellispaces.templateengine.expression.value.ValueTypes;
-import intellispaces.templateengine.position.Position;
-import intellispaces.templateengine.position.PositionBuilder;
-import intellispaces.templateengine.element.StatementForeach;
-import intellispaces.templateengine.element.StatementFormat;
-import intellispaces.templateengine.element.StatementWhen;
-import intellispaces.templateengine.element.MarkerFormatTypes;
-import intellispaces.templateengine.element.TemplateElementTypes;
-import intellispaces.templateengine.block.TextBlock;
-import intellispaces.templateengine.element.MarkerPrint;
+import intellispaces.templateengine.template.expression.value.ValueTypes;
+import intellispaces.templateengine.template.source.position.Position;
+import intellispaces.templateengine.template.source.position.PositionBuilder;
+import intellispaces.templateengine.template.element.StatementForeach;
+import intellispaces.templateengine.template.element.StatementFormat;
+import intellispaces.templateengine.template.element.StatementWhen;
+import intellispaces.templateengine.template.element.MarkerFormatTypes;
+import intellispaces.templateengine.template.element.TemplateElementTypes;
+import intellispaces.templateengine.template.source.block.SourceBlock;
+import intellispaces.templateengine.template.element.MarkerPrint;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -28,13 +28,13 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
     assertThat(block.isMarker()).isFalse();
     assertThat(block.value()).isEqualTo("");
-    assertThat(block.text()).isEqualTo("");
+    assertThat(block.wording()).isEqualTo("");
     assertThat(block.position().offset()).isEqualTo(0);
     assertThat(block.position().row()).isEqualTo(1);
     assertThat(block.position().column()).isEqualTo(1);
@@ -48,13 +48,13 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
     assertThat(block.isMarker()).isFalse();
     assertThat(block.value()).isEqualTo("Simple text");
-    assertThat(block.text()).isEqualTo("Simple text");
+    assertThat(block.wording()).isEqualTo("Simple text");
     assertThat(block.position().offset()).isEqualTo(0);
     assertThat(block.position().row()).isEqualTo(1);
     assertThat(block.position().column()).isEqualTo(1);
@@ -68,13 +68,13 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(11, 1, 12);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
     assertThat(block.isMarker()).isFalse();
     assertThat(block.value()).isEqualTo("");
-    assertThat(block.text()).isEqualTo("");
+    assertThat(block.wording()).isEqualTo("");
     assertThat(block.position().offset()).isEqualTo(11);
     assertThat(block.position().row()).isEqualTo(1);
     assertThat(block.position().column()).isEqualTo(12);
@@ -88,7 +88,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(12, 1, 13);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNull();
@@ -101,13 +101,13 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
     assertThat(block.isMarker()).isTrue();
     assertThat(block.value()).isEqualTo("MARKER");
-    assertThat(block.text()).isEqualTo("{{MARKER}}");
+    assertThat(block.wording()).isEqualTo("{{MARKER}}");
     assertThat(block.position().offset()).isEqualTo(0);
     assertThat(block.position().row()).isEqualTo(1);
     assertThat(block.position().column()).isEqualTo(1);
@@ -121,13 +121,13 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(10, 1, 11);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
     assertThat(block.isMarker()).isFalse();
     assertThat(block.value()).isEqualTo(" Simple text");
-    assertThat(block.text()).isEqualTo(" Simple text");
+    assertThat(block.wording()).isEqualTo(" Simple text");
     assertThat(block.position().offset()).isEqualTo(10);
     assertThat(block.position().row()).isEqualTo(1);
     assertThat(block.position().column()).isEqualTo(11);
@@ -141,13 +141,13 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
     assertThat(block.isMarker()).isFalse();
     assertThat(block.value()).isEqualTo("Simple ");
-    assertThat(block.text()).isEqualTo("Simple ");
+    assertThat(block.wording()).isEqualTo("Simple ");
     assertThat(block.position().offset()).isEqualTo(0);
     assertThat(block.position().row()).isEqualTo(1);
     assertThat(block.position().column()).isEqualTo(1);
@@ -161,13 +161,13 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(7, 1, 8);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
     assertThat(block.isMarker()).isTrue();
     assertThat(block.value()).isEqualTo("MARKER");
-    assertThat(block.text()).isEqualTo("{{MARKER}}");
+    assertThat(block.wording()).isEqualTo("{{MARKER}}");
     assertThat(block.position().offset()).isEqualTo(7);
     assertThat(block.position().row()).isEqualTo(1);
     assertThat(block.position().column()).isEqualTo(8);
@@ -181,13 +181,13 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    TextBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
     assertThat(block.isMarker()).isFalse();
     assertThat(block.value()).isEqualTo("{{Simple text");
-    assertThat(block.text()).isEqualTo("{{Simple text");
+    assertThat(block.wording()).isEqualTo("{{Simple text");
     assertThat(block.position().offset()).isEqualTo(0);
     assertThat(block.position().row()).isEqualTo(1);
     assertThat(block.position().column()).isEqualTo(1);
@@ -200,13 +200,13 @@ public class ParseTemplateFunctionsTest {
     String source = "Simple text";
 
     // When
-    List<TextBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
 
     // Then
     assertThat(blocks).hasSize(1);
     assertThat(blocks.get(0).isMarker()).isFalse();
     assertThat(blocks.get(0).value()).isEqualTo("Simple text");
-    assertThat(blocks.get(0).text()).isEqualTo("Simple text");
+    assertThat(blocks.get(0).wording()).isEqualTo("Simple text");
     assertThat(blocks.get(0).position().offset()).isEqualTo(0);
     assertThat(blocks.get(0).position().row()).isEqualTo(1);
     assertThat(blocks.get(0).position().column()).isEqualTo(1);
@@ -219,13 +219,13 @@ public class ParseTemplateFunctionsTest {
     String source = "{{MARKER}}Simple text";
 
     // When
-    List<TextBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
 
     // Then
     assertThat(blocks).hasSize(2);
     assertThat(blocks.get(0).isMarker()).isTrue();
     assertThat(blocks.get(0).value()).isEqualTo("MARKER");
-    assertThat(blocks.get(0).text()).isEqualTo("{{MARKER}}");
+    assertThat(blocks.get(0).wording()).isEqualTo("{{MARKER}}");
     assertThat(blocks.get(0).position().offset()).isEqualTo(0);
     assertThat(blocks.get(0).position().row()).isEqualTo(1);
     assertThat(blocks.get(0).position().column()).isEqualTo(1);
@@ -233,7 +233,7 @@ public class ParseTemplateFunctionsTest {
 
     assertThat(blocks.get(1).isMarker()).isFalse();
     assertThat(blocks.get(1).value()).isEqualTo("Simple text");
-    assertThat(blocks.get(1).text()).isEqualTo("Simple text");
+    assertThat(blocks.get(1).wording()).isEqualTo("Simple text");
     assertThat(blocks.get(1).position().offset()).isEqualTo(10);
     assertThat(blocks.get(1).position().row()).isEqualTo(1);
     assertThat(blocks.get(1).position().column()).isEqualTo(11);
@@ -246,13 +246,13 @@ public class ParseTemplateFunctionsTest {
     String source = "Simple {{MARKER}} text";
 
     // When
-    List<TextBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
 
     // Then
     assertThat(blocks).hasSize(3);
     assertThat(blocks.get(0).isMarker()).isFalse();
     assertThat(blocks.get(0).value()).isEqualTo("Simple ");
-    assertThat(blocks.get(0).text()).isEqualTo("Simple ");
+    assertThat(blocks.get(0).wording()).isEqualTo("Simple ");
     assertThat(blocks.get(0).position().offset()).isEqualTo(0);
     assertThat(blocks.get(0).position().row()).isEqualTo(1);
     assertThat(blocks.get(0).position().column()).isEqualTo(1);
@@ -260,7 +260,7 @@ public class ParseTemplateFunctionsTest {
 
     assertThat(blocks.get(1).isMarker()).isTrue();
     assertThat(blocks.get(1).value()).isEqualTo("MARKER");
-    assertThat(blocks.get(1).text()).isEqualTo("{{MARKER}}");
+    assertThat(blocks.get(1).wording()).isEqualTo("{{MARKER}}");
     assertThat(blocks.get(1).position().offset()).isEqualTo(7);
     assertThat(blocks.get(1).position().row()).isEqualTo(1);
     assertThat(blocks.get(1).position().column()).isEqualTo(8);
@@ -268,7 +268,7 @@ public class ParseTemplateFunctionsTest {
 
     assertThat(blocks.get(2).isMarker()).isFalse();
     assertThat(blocks.get(2).value()).isEqualTo(" text");
-    assertThat(blocks.get(2).text()).isEqualTo(" text");
+    assertThat(blocks.get(2).wording()).isEqualTo(" text");
     assertThat(blocks.get(2).position().offset()).isEqualTo(17);
     assertThat(blocks.get(2).position().row()).isEqualTo(1);
     assertThat(blocks.get(2).position().column()).isEqualTo(18);
@@ -281,13 +281,13 @@ public class ParseTemplateFunctionsTest {
     String source = "Simple text{{MARKER}}";
 
     // When
-    List<TextBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
 
     // Then
     assertThat(blocks).hasSize(2);
     assertThat(blocks.get(0).isMarker()).isFalse();
     assertThat(blocks.get(0).value()).isEqualTo("Simple text");
-    assertThat(blocks.get(0).text()).isEqualTo("Simple text");
+    assertThat(blocks.get(0).wording()).isEqualTo("Simple text");
     assertThat(blocks.get(0).position().offset()).isEqualTo(0);
     assertThat(blocks.get(0).position().row()).isEqualTo(1);
     assertThat(blocks.get(0).position().column()).isEqualTo(1);
@@ -295,7 +295,7 @@ public class ParseTemplateFunctionsTest {
 
     assertThat(blocks.get(1).isMarker()).isTrue();
     assertThat(blocks.get(1).value()).isEqualTo("MARKER");
-    assertThat(blocks.get(1).text()).isEqualTo("{{MARKER}}");
+    assertThat(blocks.get(1).wording()).isEqualTo("{{MARKER}}");
     assertThat(blocks.get(1).position().offset()).isEqualTo(11);
     assertThat(blocks.get(1).position().row()).isEqualTo(1);
     assertThat(blocks.get(1).position().column()).isEqualTo(12);

@@ -1,42 +1,42 @@
 package intellispaces.templateengine.template;
 
-import intellispaces.templateengine.text.TextFunctions;
-import intellispaces.templateengine.element.MarkerPrintBuilder;
-import intellispaces.templateengine.element.StatementForeach;
-import intellispaces.templateengine.element.StatementWhen;
-import intellispaces.templateengine.element.StatementWhenBranch;
-import intellispaces.templateengine.element.TemplateElementType;
-import intellispaces.templateengine.element.TextElement;
-import intellispaces.templateengine.block.TextBlockBuilder;
-import intellispaces.templateengine.element.MarkerElseBuilder;
-import intellispaces.templateengine.element.MarkerEndBuilder;
-import intellispaces.templateengine.element.MarkerForeachBuilder;
-import intellispaces.templateengine.element.MarkerFormatBuilder;
-import intellispaces.templateengine.element.MarkerFormatTypes;
-import intellispaces.templateengine.element.MarkerSetBuilder;
-import intellispaces.templateengine.element.MarkerWhenBuilder;
-import intellispaces.templateengine.element.StatementForeachBuilder;
-import intellispaces.templateengine.element.StatementFormatBuilder;
-import intellispaces.templateengine.element.StatementWhenBranchBuilder;
-import intellispaces.templateengine.element.StatementWhenBuilder;
-import intellispaces.templateengine.element.TemplateElementTypes;
-import intellispaces.templateengine.element.TextElementBuilder;
+import intellispaces.templateengine.template.source.TemplateSourceFunctions;
+import intellispaces.templateengine.template.element.MarkerPrintBuilder;
+import intellispaces.templateengine.template.element.StatementForeach;
+import intellispaces.templateengine.template.element.StatementWhen;
+import intellispaces.templateengine.template.element.StatementWhenBranch;
+import intellispaces.templateengine.template.element.TemplateElementType;
+import intellispaces.templateengine.template.element.TextElement;
+import intellispaces.templateengine.template.source.block.SourceBlockBuilder;
+import intellispaces.templateengine.template.element.MarkerElseBuilder;
+import intellispaces.templateengine.template.element.MarkerEndBuilder;
+import intellispaces.templateengine.template.element.MarkerForeachBuilder;
+import intellispaces.templateengine.template.element.MarkerFormatBuilder;
+import intellispaces.templateengine.template.element.MarkerFormatTypes;
+import intellispaces.templateengine.template.element.MarkerSetBuilder;
+import intellispaces.templateengine.template.element.MarkerWhenBuilder;
+import intellispaces.templateengine.template.element.StatementForeachBuilder;
+import intellispaces.templateengine.template.element.StatementFormatBuilder;
+import intellispaces.templateengine.template.element.StatementWhenBranchBuilder;
+import intellispaces.templateengine.template.element.StatementWhenBuilder;
+import intellispaces.templateengine.template.element.TemplateElementTypes;
+import intellispaces.templateengine.template.element.TextElementBuilder;
 import intellispaces.templateengine.exception.ParseTemplateException;
-import intellispaces.templateengine.block.TextBlock;
-import intellispaces.templateengine.element.MarkerElse;
-import intellispaces.templateengine.element.MarkerFormatType;
-import intellispaces.templateengine.element.MarkerWhen;
-import intellispaces.templateengine.element.MarkerEnd;
-import intellispaces.templateengine.element.MarkerForeach;
-import intellispaces.templateengine.element.MarkerFormat;
-import intellispaces.templateengine.element.MarkerPrint;
-import intellispaces.templateengine.element.MarkerSet;
-import intellispaces.templateengine.element.StatementFormat;
-import intellispaces.templateengine.element.TemplateElement;
-import intellispaces.templateengine.expression.ParseExpressionFunctions;
-import intellispaces.templateengine.position.MutablePosition;
-import intellispaces.templateengine.position.Position;
-import intellispaces.templateengine.position.PositionBuilder;
+import intellispaces.templateengine.template.source.block.SourceBlock;
+import intellispaces.templateengine.template.element.MarkerElse;
+import intellispaces.templateengine.template.element.MarkerFormatType;
+import intellispaces.templateengine.template.element.MarkerWhen;
+import intellispaces.templateengine.template.element.MarkerEnd;
+import intellispaces.templateengine.template.element.MarkerForeach;
+import intellispaces.templateengine.template.element.MarkerFormat;
+import intellispaces.templateengine.template.element.MarkerPrint;
+import intellispaces.templateengine.template.element.MarkerSet;
+import intellispaces.templateengine.template.element.StatementFormat;
+import intellispaces.templateengine.template.element.TemplateElement;
+import intellispaces.templateengine.template.expression.ParseExpressionFunctions;
+import intellispaces.templateengine.template.source.position.MutablePosition;
+import intellispaces.templateengine.template.source.position.Position;
+import intellispaces.templateengine.template.source.position.PositionBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,11 +71,11 @@ public final class ParseTemplateFunctions {
    * @param source template source.
    * @return list of text blocks.
    */
-  public static List<TextBlock> splitByMarkers(String source) {
-    List<TextBlock> blocks = new ArrayList<>();
+  public static List<SourceBlock> splitByMarkers(String source) {
+    List<SourceBlock> blocks = new ArrayList<>();
     char[] chars = source.toCharArray();
     MutablePosition curPosition = PositionBuilder.buildMutable(0, 1, 1);
-    TextBlock block = readBlock(chars, curPosition);
+    SourceBlock block = readBlock(chars, curPosition);
     while (block != null && block.length() > 0) {
       movePosition(curPosition, block, chars);
       blocks.add(block);
@@ -91,7 +91,7 @@ public final class ParseTemplateFunctions {
    * @param position read position.
    * @return text block or <code>null</code>.
    */
-  public static TextBlock readBlock(char[] source, Position position) {
+  public static SourceBlock readBlock(char[] source, Position position) {
     if (position.offset() > source.length) {
       return null;
     }
@@ -115,7 +115,7 @@ public final class ParseTemplateFunctions {
         curOffset++;
       }
     }
-    return TextBlockBuilder.get()
+    return SourceBlockBuilder.get()
         .position(PositionBuilder.build(position))
         .marker(marker)
         .value(readElementValue(marker, source, position.offset(), curOffset - position.offset()))
@@ -143,7 +143,7 @@ public final class ParseTemplateFunctions {
     return new String(source, position, numChars);
   }
 
-  private static void movePosition(MutablePosition position, TextBlock block, char[] source) {
+  private static void movePosition(MutablePosition position, SourceBlock block, char[] source) {
     int row = position.row();
     int column = position.column();
     for (int i = 0; i < block.length(); i++) {
@@ -165,23 +165,23 @@ public final class ParseTemplateFunctions {
    * @return list of template elements.
    * @throws ParseTemplateException throws when template can't be parsed.
    */
-  private static List<TemplateElement> analyzeElements(List<TextBlock> blocks) throws ParseTemplateException {
+  private static List<TemplateElement> analyzeElements(List<SourceBlock> blocks) throws ParseTemplateException {
     List<TemplateElement> elements = new ArrayList<>(blocks.size());
-    for (TextBlock block : blocks) {
+    for (SourceBlock block : blocks) {
       if (block.isMarker()) {
         TemplateElement marker = analyzeMarker(block);
         elements.add(marker);
       } else {
         elements.add(TextElementBuilder.get()
             .position(block.position())
-            .text(block.text())
+            .text(block.wording())
             .build());
       }
     }
     return elements;
   }
 
-  private static TemplateElement analyzeMarker(TextBlock block) throws ParseTemplateException {
+  private static TemplateElement analyzeMarker(SourceBlock block) throws ParseTemplateException {
     // Marker <print>
     MarkerPrint markerPrint = asMarkerPrint(block);
     if (markerPrint != null) {
@@ -233,7 +233,7 @@ public final class ParseTemplateFunctions {
     throw ParseTemplateException.withMessage("Invalid template marker at position {}:{}", block.position().row(), block.position().column());
   }
 
-  private static MarkerPrint asMarkerPrint(TextBlock block) throws ParseTemplateException {
+  private static MarkerPrint asMarkerPrint(SourceBlock block) throws ParseTemplateException {
     Matcher matcher = MARKER_PRINT_PATTERN.matcher(block.value());
     if (matcher.matches()) {
       return MarkerPrintBuilder.get()
@@ -244,7 +244,7 @@ public final class ParseTemplateFunctions {
     return null;
   }
 
-  private static MarkerPrint asShortMarkerPrint(TextBlock block) throws ParseTemplateException {
+  private static MarkerPrint asShortMarkerPrint(SourceBlock block) throws ParseTemplateException {
     Matcher matcher = MARKER_PRINT_SHORT_PATTERN.matcher(block.value());
     if (matcher.matches()) {
       return MarkerPrintBuilder.get()
@@ -255,8 +255,8 @@ public final class ParseTemplateFunctions {
     return null;
   }
 
-  private static MarkerSet asMarkerSet(TextBlock block) throws ParseTemplateException {
-    Matcher matcher = MARKER_SET_PATTERN.matcher(block.text());
+  private static MarkerSet asMarkerSet(SourceBlock block) throws ParseTemplateException {
+    Matcher matcher = MARKER_SET_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
       return MarkerSetBuilder.get()
           .position(block.position())
@@ -267,8 +267,8 @@ public final class ParseTemplateFunctions {
     return null;
   }
 
-  private static MarkerFormat asMarkerFormat(TextBlock block)  {
-    Matcher matcher = MARKER_FORMAT_PATTERN.matcher(block.text());
+  private static MarkerFormat asMarkerFormat(SourceBlock block)  {
+    Matcher matcher = MARKER_FORMAT_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
       return MarkerFormatBuilder.get()
           .position(block.position())
@@ -283,8 +283,8 @@ public final class ParseTemplateFunctions {
     return null;
   }
 
-  private static MarkerForeach asMarkerForeach(TextBlock block) throws ParseTemplateException {
-    Matcher matcher = MARKER_FOREACH_PATTERN.matcher(block.text());
+  private static MarkerForeach asMarkerForeach(SourceBlock block) throws ParseTemplateException {
+    Matcher matcher = MARKER_FOREACH_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
       return MarkerForeachBuilder.get()
           .position(block.position())
@@ -295,8 +295,8 @@ public final class ParseTemplateFunctions {
     return null;
   }
 
-  private static MarkerWhen asMarkerWhen(TextBlock block) throws ParseTemplateException {
-    Matcher matcher = MARKER_WHEN_PATTERN.matcher(block.text());
+  private static MarkerWhen asMarkerWhen(SourceBlock block) throws ParseTemplateException {
+    Matcher matcher = MARKER_WHEN_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
       return MarkerWhenBuilder.get()
           .position(block.position())
@@ -306,8 +306,8 @@ public final class ParseTemplateFunctions {
     return null;
   }
 
-  private static MarkerElse asMarkerElse(TextBlock block) throws ParseTemplateException {
-    Matcher matcher = MARKER_ELSE_PATTERN.matcher(block.text());
+  private static MarkerElse asMarkerElse(SourceBlock block) throws ParseTemplateException {
+    Matcher matcher = MARKER_ELSE_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
       String condition = matcher.group(2);
       return MarkerElseBuilder.get()
@@ -318,8 +318,8 @@ public final class ParseTemplateFunctions {
     return null;
   }
 
-  private static MarkerEnd asMarkerEnd(TextBlock block) {
-    Matcher matcher = MARKER_END_PATTERN.matcher(block.text());
+  private static MarkerEnd asMarkerEnd(SourceBlock block) {
+    Matcher matcher = MARKER_END_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
       return MarkerEndBuilder.get()
           .position(block.position())
@@ -337,7 +337,7 @@ public final class ParseTemplateFunctions {
           result.set(ind - 1,
               TextElementBuilder.get()
                   .position(prevElement.position())
-                  .text(TextFunctions.removeLastGaps(((TextElement) prevElement).text()))
+                  .text(TemplateSourceFunctions.removeLastGaps(((TextElement) prevElement).text()))
                   .build()
           );
         }
@@ -346,7 +346,7 @@ public final class ParseTemplateFunctions {
           result.set(ind + 1,
               TextElementBuilder.get()
                   .position(nextElement.position())
-                  .text(TextFunctions.removeFirstBlanksAndLineBreak(((TextElement) nextElement).text()))
+                  .text(TemplateSourceFunctions.removeFirstBlanksAndLineBreak(((TextElement) nextElement).text()))
                   .build()
           );
         }
@@ -369,11 +369,11 @@ public final class ParseTemplateFunctions {
   }
 
   private static boolean isEndWithLineBreakIgnoreBlanks(TemplateElement element) {
-    return element.type() == TemplateElementTypes.Text && TextFunctions.isEndWithLineBreakIgnoreBlanks(((TextElement) element).text());
+    return element.type() == TemplateElementTypes.Text && TemplateSourceFunctions.isEndWithLineBreakIgnoreBlanks(((TextElement) element).text());
   }
 
   private static boolean isBeginWithLineBreakIgnoreBlanks(TemplateElement element) {
-    return element.type() == TemplateElementTypes.Text && TextFunctions.isBeginWithLineBreakIgnoreBlanks(((TextElement) element).text());
+    return element.type() == TemplateElementTypes.Text && TemplateSourceFunctions.isBeginWithLineBreakIgnoreBlanks(((TextElement) element).text());
   }
 
   private static boolean isHiddenElement(TemplateElementType elementType) {
