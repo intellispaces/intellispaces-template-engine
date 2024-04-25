@@ -18,7 +18,7 @@ class MarkerEndImpl extends AbstractElement implements MarkerEnd {
 
   @Override
   public String resolve(Map<String, Value> variables) {
-    return ResolveElementFunctions.resolve(this, variables);
+    return ElementFunctions.resolve(this, variables);
   }
 
   @Override

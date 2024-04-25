@@ -27,7 +27,7 @@ class MarkerPrintImpl extends AbstractElement implements MarkerPrint {
 
   @Override
   public String resolve(Map<String, Value> variables) throws ResolveTemplateException {
-    return ResolveElementFunctions.resolve(this, variables);
+    return ElementFunctions.resolve(this, variables);
   }
 
   @Override

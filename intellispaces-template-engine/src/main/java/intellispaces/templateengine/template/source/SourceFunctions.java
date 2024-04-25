@@ -8,7 +8,7 @@ import static java.lang.Character.isLetter;
 /**
  * Template source text functions.
  */
-public interface TemplateSourceFunctions {
+public interface SourceFunctions {
 
   static boolean isWordChar(char ch) {
     return isLetter(ch) || isDigit(ch) || (ch == '_');

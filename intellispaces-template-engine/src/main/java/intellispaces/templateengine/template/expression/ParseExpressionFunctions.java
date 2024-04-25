@@ -3,7 +3,7 @@ package intellispaces.templateengine.template.expression;
 import intellispaces.commons.exception.UnexpectedViolationException;
 import intellispaces.commons.string.CharFunctions;
 import intellispaces.templateengine.exception.ParseTemplateException;
-import intellispaces.templateengine.template.source.TemplateSourceFunctions;
+import intellispaces.templateengine.template.source.SourceFunctions;
 import intellispaces.templateengine.template.expression.compilation.CompileFunctions;
 import intellispaces.templateengine.template.expression.value.BooleanValueBuilder;
 import intellispaces.templateengine.template.expression.value.IntegerValueBuilder;
@@ -74,7 +74,7 @@ public final class ParseExpressionFunctions {
         String variableName = readWord(chars, ind + 1);
         ind += variableName.length() + 1;
         appendVariable(preparedStatement, variableName, operands, operandWord2IndexMap);
-      } else if (TemplateSourceFunctions.isWordChar(curChar)) {
+      } else if (SourceFunctions.isWordChar(curChar)) {
         String word = readWord(chars, ind);
         Optional<Literal> keyword = parseKeyword(word);
         if (keyword.isPresent()) {
@@ -122,7 +122,7 @@ public final class ParseExpressionFunctions {
         String number = readNumber(chars, ind);
         ind += number.length();
         values.add(parseNumber(number));
-      } else if (TemplateSourceFunctions.isWordChar(curChar)) {
+      } else if (SourceFunctions.isWordChar(curChar)) {
         String word = readWord(chars, ind);
         Optional<Literal> keyword = parseKeyword(word);
         keyword.ifPresent(literal -> values.add(literal.value()));
@@ -188,7 +188,7 @@ public final class ParseExpressionFunctions {
 
   private static String readWord(char[] chars, int beginIndex) {
     int ind = beginIndex;
-    while (ind < chars.length && TemplateSourceFunctions.isWordChar(chars[ind])) {
+    while (ind < chars.length && SourceFunctions.isWordChar(chars[ind])) {
       ind++;
     }
     return new String(chars, beginIndex, ind - beginIndex);

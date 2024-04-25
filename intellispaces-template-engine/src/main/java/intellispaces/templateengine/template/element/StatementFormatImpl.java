@@ -34,6 +34,6 @@ class StatementFormatImpl extends AbstractElement implements StatementFormat {
 
   @Override
   public String resolve(Map<String, Value> variables) throws ResolveTemplateException {
-    return ResolveElementFunctions.resolve(this, variables);
+    return ElementFunctions.resolve(this, variables);
   }
 }

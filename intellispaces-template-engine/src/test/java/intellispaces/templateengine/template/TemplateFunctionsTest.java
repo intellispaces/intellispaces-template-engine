@@ -17,9 +17,9 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ParseTemplateFunctions}.
+ * Tests for {@link TemplateFunctions}.
  */
-public class ParseTemplateFunctionsTest {
+public class TemplateFunctionsTest {
 
   @Test
   public void testReadBlock_whenEmptySource() {
@@ -28,7 +28,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -48,7 +48,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -68,7 +68,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(11, 1, 12);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -88,7 +88,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(12, 1, 13);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNull();
@@ -101,7 +101,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -121,7 +121,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(10, 1, 11);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -141,7 +141,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -161,7 +161,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(7, 1, 8);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -181,7 +181,7 @@ public class ParseTemplateFunctionsTest {
     Position position = PositionBuilder.build(0, 1, 1);
 
     // When
-    SourceBlock block = ParseTemplateFunctions.readBlock(source, position);
+    SourceBlock block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -200,7 +200,7 @@ public class ParseTemplateFunctionsTest {
     String source = "Simple text";
 
     // When
-    List<SourceBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = TemplateFunctions.splitByMarkers(source);
 
     // Then
     assertThat(blocks).hasSize(1);
@@ -219,7 +219,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{MARKER}}Simple text";
 
     // When
-    List<SourceBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = TemplateFunctions.splitByMarkers(source);
 
     // Then
     assertThat(blocks).hasSize(2);
@@ -246,7 +246,7 @@ public class ParseTemplateFunctionsTest {
     String source = "Simple {{MARKER}} text";
 
     // When
-    List<SourceBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = TemplateFunctions.splitByMarkers(source);
 
     // Then
     assertThat(blocks).hasSize(3);
@@ -281,7 +281,7 @@ public class ParseTemplateFunctionsTest {
     String source = "Simple text{{MARKER}}";
 
     // When
-    List<SourceBlock> blocks = ParseTemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = TemplateFunctions.splitByMarkers(source);
 
     // Then
     assertThat(blocks).hasSize(2);
@@ -308,7 +308,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{print true}}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -329,7 +329,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{print  123\t}}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -350,7 +350,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{print  \t3.14  }}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -371,7 +371,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{print \" abc \" }}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -392,7 +392,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{print $varName}}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -412,7 +412,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{$varName}}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -432,7 +432,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{  $varName  }}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -452,7 +452,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{format nobr}}{{end}}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -469,7 +469,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{for item : $listVar}}{{end}}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);
@@ -492,7 +492,7 @@ public class ParseTemplateFunctionsTest {
     String source = "{{when true}}{{end}}";
 
     // When
-    Template template = ParseTemplateFunctions.parseTemplate(source);
+    Template template = TemplateFunctions.parseTemplate(source);
 
     // Then
     assertThat(template.elements()).hasSize(1);

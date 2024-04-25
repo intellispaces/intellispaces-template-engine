@@ -26,6 +26,6 @@ class MarkerFormatImpl extends AbstractElement implements MarkerFormat {
 
   @Override
   public String resolve(Map<String, Value> variables) {
-    return ResolveElementFunctions.resolve(this, variables);
+    return ElementFunctions.resolve(this, variables);
   }
 }

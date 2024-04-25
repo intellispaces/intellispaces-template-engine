@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Functions to resolve template element to string representation.
  */
-public interface ResolveElementFunctions {
+public interface ElementFunctions {
 
   static String resolve(TextElement element, Map<String, Value> variables) {
     return element.text();

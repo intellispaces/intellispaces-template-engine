@@ -25,7 +25,7 @@ class TextElementImpl extends AbstractElement implements TextElement {
 
   @Override
   public String resolve(Map<String, Value> variables) {
-    return ResolveElementFunctions.resolve(this, variables);
+    return ElementFunctions.resolve(this, variables);
   }
 
   @Override

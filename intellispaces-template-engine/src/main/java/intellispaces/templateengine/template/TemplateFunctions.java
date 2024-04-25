@@ -1,6 +1,9 @@
 package intellispaces.templateengine.template;
 
-import intellispaces.templateengine.template.source.TemplateSourceFunctions;
+import intellispaces.templateengine.exception.ResolveTemplateException;
+import intellispaces.templateengine.template.expression.value.Value;
+import intellispaces.templateengine.template.expression.value.ValueFunctions;
+import intellispaces.templateengine.template.source.SourceFunctions;
 import intellispaces.templateengine.template.element.MarkerPrintBuilder;
 import intellispaces.templateengine.template.element.StatementForeach;
 import intellispaces.templateengine.template.element.StatementWhen;
@@ -40,15 +43,17 @@ import intellispaces.templateengine.template.source.position.PositionBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Parse template functions.
+ * Template functions (parsing and resolvind).
  */
-public final class ParseTemplateFunctions {
+public final class TemplateFunctions {
 
   /**
    * Parse template.
@@ -63,6 +68,27 @@ public final class ParseTemplateFunctions {
             glueElements(
                 analyzeElements(
                     splitByMarkers(source)))));
+  }
+
+  /**
+   * Resolve template.
+   *
+   * @param template the template.
+   * @param variables variables.
+   * @return resolving template.
+   * @throws ResolveTemplateException throws when template can't be resolved.
+   */
+  public static String resolveTemplate(Template template, Map<String, Object> variables) throws ResolveTemplateException {
+    Map<String, Value> values = new HashMap<>();
+    for (Map.Entry<String, Object> entry : variables.entrySet()) {
+      values.put(entry.getKey(), ValueFunctions.objectToValue(entry.getValue()));
+    }
+
+    var sb = new StringBuilder();
+    for (TemplateElement element : template.elements()) {
+      sb.append(element.resolve(values));
+    }
+    return sb.toString();
   }
 
   /**
@@ -337,7 +363,7 @@ public final class ParseTemplateFunctions {
           result.set(ind - 1,
               TextElementBuilder.get()
                   .position(prevElement.position())
-                  .text(TemplateSourceFunctions.removeLastGaps(((TextElement) prevElement).text()))
+                  .text(SourceFunctions.removeLastGaps(((TextElement) prevElement).text()))
                   .build()
           );
         }
@@ -346,7 +372,7 @@ public final class ParseTemplateFunctions {
           result.set(ind + 1,
               TextElementBuilder.get()
                   .position(nextElement.position())
-                  .text(TemplateSourceFunctions.removeFirstBlanksAndLineBreak(((TextElement) nextElement).text()))
+                  .text(SourceFunctions.removeFirstBlanksAndLineBreak(((TextElement) nextElement).text()))
                   .build()
           );
         }
@@ -369,11 +395,11 @@ public final class ParseTemplateFunctions {
   }
 
   private static boolean isEndWithLineBreakIgnoreBlanks(TemplateElement element) {
-    return element.type() == TemplateElementTypes.Text && TemplateSourceFunctions.isEndWithLineBreakIgnoreBlanks(((TextElement) element).text());
+    return element.type() == TemplateElementTypes.Text && SourceFunctions.isEndWithLineBreakIgnoreBlanks(((TextElement) element).text());
   }
 
   private static boolean isBeginWithLineBreakIgnoreBlanks(TemplateElement element) {
-    return element.type() == TemplateElementTypes.Text && TemplateSourceFunctions.isBeginWithLineBreakIgnoreBlanks(((TextElement) element).text());
+    return element.type() == TemplateElementTypes.Text && SourceFunctions.isBeginWithLineBreakIgnoreBlanks(((TextElement) element).text());
   }
 
   private static boolean isHiddenElement(TemplateElementType elementType) {
@@ -525,7 +551,7 @@ public final class ParseTemplateFunctions {
         || TemplateElementTypes.MarkerForeach == element.type();
   }
 
-  private ParseTemplateFunctions() {}
+  private TemplateFunctions() {}
 
   private static final char OPEN_CURLY_BRACE = '{';
   private static final char CLOSE_CURLY_BRACE = '}';

@@ -33,6 +33,6 @@ class MarkerForeachImpl extends AbstractElement implements MarkerForeach {
 
   @Override
   public String resolve(Map<String, Value> variables) {
-    return ResolveElementFunctions.resolve(this, variables);
+    return ElementFunctions.resolve(this, variables);
   }
 }
