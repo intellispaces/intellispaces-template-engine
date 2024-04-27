@@ -3,23 +3,28 @@
 
     <parent>
         <groupId>intellispaces</groupId>
-        <artifactId>intellispaces-parent-pom</artifactId>
+        <artifactId>intellispacesframework-parent-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-template-engine-root</artifactId>
+    <artifactId>intellispacesframework-template-engine-root</artifactId>
     <packaging>pom</packaging>
 	
 	<modules>
-        <module>intellispaces-template-engine-model</module>
-	    <module>intellispaces-template-engine</module>
+        <module>intellispacesframework-template-engine-model</module>
+	    <module>intellispacesframework-template-engine</module>
 	</modules>
 	
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>intellispaces</groupId>
-                <artifactId>intellispaces-template-engine-model</artifactId>
+                <artifactId>intellispacesframework-template-engine-model</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>intellispaces</groupId>
+                <artifactId>intellispacesframework-commons</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
