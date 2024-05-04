@@ -7,19 +7,19 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispacesframework-template-engine-root</artifactId>
+    <artifactId>intellispacesframework-templateengine-parent</artifactId>
     <packaging>pom</packaging>
 	
 	<modules>
-        <module>intellispacesframework-template-engine-model</module>
-	    <module>intellispacesframework-template-engine</module>
+        <module>intellispacesframework-templateengine-model</module>
+	    <module>intellispacesframework-templateengine</module>
 	</modules>
 	
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>intellispaces</groupId>
-                <artifactId>intellispacesframework-template-engine-model</artifactId>
+                <artifactId>intellispacesframework-templateengine-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>

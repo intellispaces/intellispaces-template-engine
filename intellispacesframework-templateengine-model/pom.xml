@@ -3,11 +3,11 @@
 
     <parent>
         <groupId>intellispaces</groupId>
-        <artifactId>intellispacesframework-template-engine-root</artifactId>
+        <artifactId>intellispacesframework-templateengine-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispacesframework-template-engine-model</artifactId>
+    <artifactId>intellispacesframework-templateengine-model</artifactId>
     <packaging>jar</packaging>
 	
     <build>
