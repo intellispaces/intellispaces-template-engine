@@ -1,6 +1,8 @@
 package tech.intellispacesframework.templateengine.template.expression.compilation;
 
 import tech.intellispacesframework.commons.exception.PossibleViolationException;
+import tech.intellispacesframework.templateengine.TemplateEngine;
+import tech.intellispacesframework.templateengine.template.Template;
 import tech.intellispacesframework.templateengine.template.expression.CompiledExpression;
 import tech.intellispacesframework.templateengine.exception.ParseTemplateException;
 import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
@@ -23,8 +25,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.security.CodeSource;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 /**
  * Expression compilation functions.
@@ -59,7 +61,7 @@ public final class CompileFunctions {
     var diagnosticListener = new CompileDiagnosticListener();
     JavaCompiler.CompilationTask compilerTask = COMPILER.getTask(null, fileManager, diagnosticListener, compileOptions, null, List.of(sourceFileObject));
     if (!compilerTask.call()) {
-      throw ParseTemplateException.withMessage("Failed to compile expression: {}", statement);
+      throw ParseTemplateException.withMessage("Failed to compile expression: {}. Reason(s):\n{}", statement, diagnosticListener.getMessage());
     }
     return fileManager.getGeneratedOutputFiles();
   }
@@ -77,19 +79,20 @@ public final class CompileFunctions {
   }
 
   private static List<String> makeCompileOptions() {
-    String classpath = Stream.of(System.getProperty("java.class.path"), getCurrentJarPath(), getSupportJarPath())
-        .filter(s -> s != null && !s.isEmpty())
-        .reduce("", (s1, s2) -> s1.endsWith(File.pathSeparator) ? s1 + s2 : s1 + File.pathSeparator + s2);
-    LOG.debug("Text template compiler classpath: " + classpath);
+    String classpath = getClassPaths().stream()
+        .filter(p -> p != null && !p.isEmpty())
+        .reduce("", (p1, p2) -> p1.endsWith(File.pathSeparator) ? p1 + p2 : p1 + File.pathSeparator + p2);
+    LOG.debug("Template compiler classpath: " + classpath);
     return List.of("-classpath", classpath);
   }
 
-  private static String getCurrentJarPath() {
-    return getJarPath(CompileFunctions.class);
-  }
-
-  private static String getSupportJarPath() {
-    return getJarPath(PossibleViolationException.class);
+  private static Set<String> getClassPaths() {
+    return Set.of(
+        System.getProperty("java.class.path"),
+        getJarPath(Template.class),
+        getJarPath(TemplateEngine.class),
+        getJarPath(PossibleViolationException.class)
+    );
   }
 
   private static String getJarPath(Class<?> classFromJar) {
@@ -135,12 +138,20 @@ public final class CompileFunctions {
   private CompileFunctions() {}
 
   private static final class CompileDiagnosticListener implements DiagnosticListener<JavaFileObject> {
+    private int index;
+    private final StringBuilder sb = new StringBuilder();
+
     @Override
     public void report(Diagnostic<? extends JavaFileObject> diagnostic) {
+      sb.append(index)
+          .append(". [").append(diagnostic.getKind().name()).append("] ")
+          .append(diagnostic.getMessage(null))
+          .append("\n");
+      index++;
+    }
 
-      System.out.println();
-
-      //todo: store diagnostic message
+    String getMessage() {
+      return sb.toString();
     }
   }
 }
