@@ -18,12 +18,22 @@ Test message
 3.4) {{print 123}}
 3.5) {{print 123.456}}
 
------------------------------------------ 4. Text operations --------------------------------------
-4.1) {{print "".isBlank()}}
-4.2) {{print "abc".isBlank()}}
-4.3) {{print "abc".eq($str2)}}
-4.4) {{print "abc".capitalizeFirstLetter()}}
-4.5) {{format nobr}}1
+--------------------------------------- 4. String operations --------------------------------------
+4.1) {{print "".isEmpty()}}
+4.2) {{print "abc".isEmpty()}}
+4.3) {{print "".isNotEmpty()}}
+4.4) {{print "abc".isNotEmpty()}}
+
+4.5) {{print " ".isBlank()}}
+4.6) {{print "abc".isBlank()}}
+4.7) {{print " ".isNotBlank()}}
+4.8) {{print "abc".isNotBlank()}}
+
+4.9) {{print "abc".eq($str2)}}
+
+4.10) {{print "abc".capitalizeFirstLetter()}}
+
+4.11) {{format nobr}}1
 2
 3{{end format}}
 
@@ -58,7 +68,7 @@ Test message
 {{for item : $list1}}{{$item}} {{end}}|
 7.3)
 {{for item : $list1}}
-  {{$item.index()}}: {{$item}} - {{$item.isFirst()}}/{{$item.isLast()}}
+  {{$item.index()}}: {{$item}} - isFirst: {{$item.isFirst()}}, isNotFirst: {{$item.isNotFirst()}}, isLast: {{$item.isLast()}}, isNotLast: {{$item.isNotLast()}}
 {{end}}
 
 ----------------------------------------- 8. Fetch statement --------------------------------------

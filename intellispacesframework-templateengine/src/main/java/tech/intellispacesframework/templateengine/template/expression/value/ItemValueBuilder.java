@@ -5,9 +5,9 @@ import java.util.Objects;
 
 public final class ItemValueBuilder {
   private Value value;
-  private Value index;
-  private Value first;
-  private Value last;
+  private IntegerValue index;
+  private BooleanValue first;
+  private BooleanValue last;
 
   public static ItemValueBuilder get() {
     return new ItemValueBuilder();
@@ -43,7 +43,7 @@ public final class ItemValueBuilder {
     return this;
   }
 
-  public ItemValueBuilder index(Value index) {
+  public ItemValueBuilder index(IntegerValue index) {
     this.index = index;
     return this;
   }
@@ -53,7 +53,7 @@ public final class ItemValueBuilder {
     return this;
   }
 
-  public ItemValueBuilder first(Value first) {
+  public ItemValueBuilder first(BooleanValue first) {
     this.first = first;
     return this;
   }
@@ -63,7 +63,7 @@ public final class ItemValueBuilder {
     return this;
   }
 
-  public ItemValueBuilder last(Value last) {
+  public ItemValueBuilder last(BooleanValue last) {
     this.last = last;
     return this;
   }

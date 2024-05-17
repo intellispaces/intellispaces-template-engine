@@ -1,18 +1,18 @@
 package tech.intellispacesframework.templateengine.template.expression.compilation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import tech.intellispacesframework.commons.exception.PossibleViolationException;
 import tech.intellispacesframework.templateengine.TemplateEngine;
-import tech.intellispacesframework.templateengine.template.Template;
-import tech.intellispacesframework.templateengine.template.expression.CompiledExpression;
 import tech.intellispacesframework.templateengine.exception.ParseTemplateException;
 import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
+import tech.intellispacesframework.templateengine.template.Template;
+import tech.intellispacesframework.templateengine.template.expression.CompiledExpression;
 import tech.intellispacesframework.templateengine.template.expression.compilation.impl.CompiledFileObject;
 import tech.intellispacesframework.templateengine.template.expression.compilation.impl.ExpressionClassLoader;
 import tech.intellispacesframework.templateengine.template.expression.compilation.impl.ExpressionJavaFileManager;
 import tech.intellispacesframework.templateengine.template.expression.compilation.impl.SourceFileObject;
 import tech.intellispacesframework.templateengine.template.expression.value.Value;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
@@ -138,7 +138,7 @@ public final class CompileFunctions {
   private CompileFunctions() {}
 
   private static final class CompileDiagnosticListener implements DiagnosticListener<JavaFileObject> {
-    private int index;
+    private int index = 1;
     private final StringBuilder sb = new StringBuilder();
 
     @Override

@@ -1,8 +1,8 @@
 package tech.intellispacesframework.templateengine.template.element;
 
-import tech.intellispacesframework.templateengine.template.source.position.Position;
 import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 import tech.intellispacesframework.templateengine.template.expression.value.Value;
+import tech.intellispacesframework.templateengine.template.source.position.Position;
 
 import java.util.Map;
 

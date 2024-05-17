@@ -1,11 +1,11 @@
 package tech.intellispacesframework.templateengine.template.expression.value;
 
-import tech.intellispacesframework.templateengine.exception.IrregularValueTypeException;
-import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
-import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import tech.intellispacesframework.templateengine.exception.IrregularValueTypeException;
+import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
+import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -145,11 +145,25 @@ public class StringValueTest {
   }
 
   @Test
+  public void testIsNotEmpty() throws ResolveTemplateException {
+    assertThat(StringValueBuilder.build("abc").isNotEmpty().get()).isTrue();
+    assertThat(StringValueBuilder.build("").isNotEmpty().get()).isFalse();
+  }
+
+  @Test
   public void testIsBlank() throws ResolveTemplateException {
     assertThat(StringValueBuilder.build("abc").isBlank().get()).isFalse();
     assertThat(StringValueBuilder.build("").isBlank().get()).isTrue();
     assertThat(StringValueBuilder.build(" ").isBlank().get()).isTrue();
     assertThat(StringValueBuilder.build("\t\r\n").isBlank().get()).isTrue();
+  }
+
+  @Test
+  public void testIsNotBlank() throws ResolveTemplateException {
+    assertThat(StringValueBuilder.build("abc").isNotBlank().get()).isTrue();
+    assertThat(StringValueBuilder.build("").isNotBlank().get()).isFalse();
+    assertThat(StringValueBuilder.build(" ").isNotBlank().get()).isFalse();
+    assertThat(StringValueBuilder.build("\t\r\n").isNotBlank().get()).isFalse();
   }
 
   @Test
@@ -167,28 +181,28 @@ public class StringValueTest {
   }
 
   @Test
-  public void testFetch() throws Exception {
-    assertThatThrownBy(() -> StringValueBuilder.build("abc").fetch(BooleanValueBuilder.build(true)))
+  public void testGet() throws Exception {
+    assertThatThrownBy(() -> StringValueBuilder.build("abc").get(BooleanValueBuilder.build(true)))
         .isExactlyInstanceOf(IrregularValueTypeException.class)
-        .hasMessage("Invalid index type: boolean. Expected integer");
+        .hasMessage("Invalid index type: boolean. Expected integer value");
 
     Value stringValue = StringValueBuilder.build("abc");
 
-    Value element0 = stringValue.fetch(IntegerValueBuilder.build(0));
+    Value element0 = stringValue.get(IntegerValueBuilder.build(0));
     assertThat(element0.type()).isEqualTo(ValueTypes.String);
     assertThat(ValueFunctions.valueToObject(element0)).isEqualTo("a");
     assertThat(element0.index().asInteger().get()).isEqualTo(0);
     assertThat(element0.isFirst().asBoolean().get()).isTrue();
     assertThat(element0.isLast().asBoolean().get()).isFalse();
 
-    Value element2 = stringValue.fetch(IntegerValueBuilder.build(2));
+    Value element2 = stringValue.get(IntegerValueBuilder.build(2));
     assertThat(element2.type()).isEqualTo(ValueTypes.String);
     assertThat(ValueFunctions.valueToObject(element2)).isEqualTo("c");
     assertThat(element2.index().asInteger().get()).isEqualTo(2);
     assertThat(element2.isFirst().asBoolean().get()).isFalse();
     assertThat(element2.isLast().asBoolean().get()).isTrue();
 
-    Value negativeElement = stringValue.fetch(IntegerValueBuilder.build(-1));
+    Value negativeElement = stringValue.get(IntegerValueBuilder.build(-1));
     assertThat(negativeElement.type()).isEqualTo(ValueTypes.Void);
     assertThat(negativeElement.index().asInteger().get()).isEqualTo(-1);
     assertThatThrownBy(negativeElement::isFirst)
@@ -198,7 +212,7 @@ public class StringValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value element3 = stringValue.fetch(IntegerValueBuilder.build(3));
+    Value element3 = stringValue.get(IntegerValueBuilder.build(3));
     assertThat(element3.type()).isEqualTo(ValueTypes.Void);
     assertThat(element3.index().asInteger().get()).isEqualTo(3);
     assertThatThrownBy(element3::isFirst)
@@ -340,9 +354,23 @@ public class StringValueTest {
   }
 
   @Test
+  public void testIsNotFirst() {
+    assertThatThrownBy(() -> StringValueBuilder.build("abc").isNotFirst())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotFirst' is not applicable for this value");
+  }
+
+  @Test
   public void testIsLast() {
     assertThatThrownBy(() -> StringValueBuilder.build("abc").isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
+  }
+
+  @Test
+  public void testIsNotLast() {
+    assertThatThrownBy(() -> StringValueBuilder.build("abc").isNotLast())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }
 }

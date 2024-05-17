@@ -1,7 +1,7 @@
 package tech.intellispacesframework.templateengine.template.expression.value;
 
-import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 import org.junit.jupiter.api.Test;
+import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 
 import java.util.List;
 import java.util.Map;

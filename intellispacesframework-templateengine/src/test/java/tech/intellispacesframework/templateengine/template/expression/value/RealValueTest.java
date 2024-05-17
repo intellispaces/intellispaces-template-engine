@@ -1,10 +1,10 @@
 package tech.intellispacesframework.templateengine.template.expression.value;
 
-import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
-import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
+import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -139,7 +139,14 @@ public class RealValueTest {
   public void testIsEmpty() {
     assertThatThrownBy(() -> RealValueBuilder.build(123.4).isEmpty())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
-        .hasMessage("Operation 'isEmpty' is not applicable for value type real. Expected string, List or map");
+        .hasMessage("Operation 'isEmpty' is not applicable for value type real. Expected string, list or map");
+  }
+
+  @Test
+  public void testIsNotEmpty() {
+    assertThatThrownBy(() -> RealValueBuilder.build(123.4).isNotEmpty())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotEmpty' is not applicable for value type real. Expected string, list or map");
   }
 
   @Test
@@ -147,6 +154,13 @@ public class RealValueTest {
     assertThatThrownBy(() -> RealValueBuilder.build(123.4).isBlank())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isBlank' is not applicable for value type real. Expected string");
+  }
+
+  @Test
+  public void testIsNotBlank() {
+    assertThatThrownBy(() -> RealValueBuilder.build(123.4).isNotBlank())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotBlank' is not applicable for value type real. Expected string");
   }
 
   @Test
@@ -162,10 +176,10 @@ public class RealValueTest {
   }
 
   @Test
-  public void testFetch() {
-    assertThatThrownBy(() -> RealValueBuilder.build(123.4).fetch(IntegerValueBuilder.build(0)))
+  public void testGet() {
+    assertThatThrownBy(() -> RealValueBuilder.build(123.4).get(IntegerValueBuilder.build(0)))
         .isExactlyInstanceOf(NotApplicableOperationException.class)
-        .hasMessage("Operation 'fetch' is not applicable for value type real. Expected map, list or string");
+        .hasMessage("Operation 'get' is not applicable for value type real. Expected map, list or string");
   }
 
   @Test
@@ -190,9 +204,23 @@ public class RealValueTest {
   }
 
   @Test
+  public void testIsNotFirst() {
+    assertThatThrownBy(() -> RealValueBuilder.build(123.4).isNotFirst())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotFirst' is not applicable for this value");
+  }
+
+  @Test
   public void testIsLast() {
     assertThatThrownBy(() -> RealValueBuilder.build(123.4).isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
+  }
+
+  @Test
+  public void testIsNotLast() {
+    assertThatThrownBy(() -> RealValueBuilder.build(123.4).isNotLast())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }
 }

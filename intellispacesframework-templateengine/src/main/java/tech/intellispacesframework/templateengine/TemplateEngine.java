@@ -2,8 +2,8 @@ package tech.intellispacesframework.templateengine;
 
 import tech.intellispacesframework.templateengine.exception.ParseTemplateException;
 import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
-import tech.intellispacesframework.templateengine.template.TemplateFunctions;
 import tech.intellispacesframework.templateengine.template.Template;
+import tech.intellispacesframework.templateengine.template.TemplateFunctions;
 
 import java.util.Map;
 

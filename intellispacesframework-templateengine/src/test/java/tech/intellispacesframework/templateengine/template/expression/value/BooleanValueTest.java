@@ -1,10 +1,10 @@
 package tech.intellispacesframework.templateengine.template.expression.value;
 
-import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
-import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
+import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -133,17 +133,31 @@ public class BooleanValueTest {
   }
 
   @Test
-  public void isEmpty() {
+  public void testIsEmpty() {
     assertThatThrownBy(() -> BooleanValueBuilder.build(true).isEmpty())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
-        .hasMessage("Operation 'isEmpty' is not applicable for value type boolean. Expected string, List or map");
+        .hasMessage("Operation 'isEmpty' is not applicable for value type boolean. Expected string, list or map");
   }
 
   @Test
-  public void isBlank() {
+  public void testIsNotEmpty() {
+    assertThatThrownBy(() -> BooleanValueBuilder.build(true).isNotEmpty())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotEmpty' is not applicable for value type boolean. Expected string, list or map");
+  }
+
+  @Test
+  public void testIsBlank() {
     assertThatThrownBy(() -> BooleanValueBuilder.build(true).isBlank())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isBlank' is not applicable for value type boolean. Expected string");
+  }
+
+  @Test
+  public void testIsNotBlank() {
+    assertThatThrownBy(() -> BooleanValueBuilder.build(true).isNotBlank())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotBlank' is not applicable for value type boolean. Expected string");
   }
 
   @Test
@@ -160,10 +174,10 @@ public class BooleanValueTest {
   }
 
   @Test
-  public void testFetch() {
-    assertThatThrownBy(() -> BooleanValueBuilder.build(true).fetch(IntegerValueBuilder.build(0)))
+  public void testGet() {
+    assertThatThrownBy(() -> BooleanValueBuilder.build(true).get(IntegerValueBuilder.build(0)))
         .isExactlyInstanceOf(NotApplicableOperationException.class)
-        .hasMessage("Operation 'fetch' is not applicable for value type boolean. Expected map, list or string");
+        .hasMessage("Operation 'get' is not applicable for value type boolean. Expected map, list or string");
   }
 
   @Test
@@ -188,9 +202,23 @@ public class BooleanValueTest {
   }
 
   @Test
+  public void testIsNotFirst() {
+    assertThatThrownBy(() -> BooleanValueBuilder.build(true).isNotFirst())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotFirst' is not applicable for this value");
+  }
+
+  @Test
   public void testIsLast() {
     assertThatThrownBy(() -> BooleanValueBuilder.build(true).isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
+  }
+
+  @Test
+  public void testIsNotLast() {
+    assertThatThrownBy(() -> BooleanValueBuilder.build(true).isNotLast())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }
 }

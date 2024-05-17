@@ -7,11 +7,11 @@ import java.util.Objects;
 
 class ItemValueImpl implements Value {
   private final Value element;
-  private final Value index;
-  private final Value first;
-  private final Value last;
+  private final IntegerValue index;
+  private final BooleanValue first;
+  private final BooleanValue last;
 
-  ItemValueImpl(Value element, Value index, Value first, Value last) {
+  ItemValueImpl(Value element, IntegerValue index, BooleanValue first, BooleanValue last) {
     this.element = element;
     this.index = index;
     this.first = first;
@@ -24,12 +24,12 @@ class ItemValueImpl implements Value {
   }
 
   @Override
-  public Value index() {
+  public IntegerValue index() {
     return index;
   }
 
   @Override
-  public Value isFirst() throws ResolveTemplateException {
+  public BooleanValue isFirst() throws ResolveTemplateException {
     if (first == null) {
       throw NotApplicableOperationException.withMessage("Operation 'isFirst' is not applicable for this value");
     }
@@ -37,11 +37,27 @@ class ItemValueImpl implements Value {
   }
 
   @Override
-  public Value isLast() throws ResolveTemplateException {
+  public BooleanValue isNotFirst() throws ResolveTemplateException {
+    if (first == null) {
+      throw NotApplicableOperationException.withMessage("Operation 'isNotFirst' is not applicable for this value");
+    }
+    return first.invert();
+  }
+
+  @Override
+  public BooleanValue isLast() throws ResolveTemplateException {
     if (last == null) {
       throw NotApplicableOperationException.withMessage("Operation 'isLast' is not applicable for this value");
     }
     return last;
+  }
+
+  @Override
+  public BooleanValue isNotLast() throws ResolveTemplateException {
+    if (last == null) {
+      throw NotApplicableOperationException.withMessage("Operation 'isNotLast' is not applicable for this value");
+    }
+    return last.invert();
   }
 
   @Override
@@ -100,8 +116,18 @@ class ItemValueImpl implements Value {
   }
 
   @Override
+  public BooleanValue isNotEmpty() throws ResolveTemplateException {
+    return element.isNotEmpty();
+  }
+
+  @Override
   public BooleanValue isBlank() throws ResolveTemplateException {
     return element.isBlank();
+  }
+
+  @Override
+  public BooleanValue isNotBlank() throws ResolveTemplateException {
+    return element.isNotBlank();
   }
 
   @Override
@@ -115,8 +141,8 @@ class ItemValueImpl implements Value {
   }
 
   @Override
-  public Value fetch(Value key) throws ResolveTemplateException {
-    return element.fetch(key);
+  public Value get(Value key) throws ResolveTemplateException {
+    return element.get(key);
   }
 
   @Override

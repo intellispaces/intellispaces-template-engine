@@ -1,11 +1,11 @@
 package tech.intellispacesframework.templateengine.template.expression.value;
 
-import tech.intellispacesframework.templateengine.exception.IrregularValueTypeException;
-import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
-import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import tech.intellispacesframework.templateengine.exception.IrregularValueTypeException;
+import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
+import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -163,10 +163,24 @@ public class ListValueTest {
   }
 
   @Test
+  public void testIsNotEmpty() throws Exception {
+    assertThat(ListValueBuilder.empty().isNotEmpty().get()).isFalse();
+    assertThat(ListValueBuilder.get().value(List.of()).build().isNotEmpty().get()).isFalse();
+    assertThat(ListValueBuilder.build(0).isNotEmpty().get()).isTrue();
+  }
+
+  @Test
   public void testIsBlank() {
     assertThatThrownBy(() -> ListValueBuilder.build(1, 2, 3).isBlank())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isBlank' is not applicable for value type list. Expected string");
+  }
+
+  @Test
+  public void testIsNotBlank() {
+    assertThatThrownBy(() -> ListValueBuilder.build(1, 2, 3).isNotBlank())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotBlank' is not applicable for value type list. Expected string");
   }
 
   @Test
@@ -184,28 +198,28 @@ public class ListValueTest {
   }
 
   @Test
-  public void testFetch() throws Exception {
-    assertThatThrownBy(() -> ListValueBuilder.build(1, 2, 3).fetch(BooleanValueBuilder.build(true)))
+  public void testGet() throws Exception {
+    assertThatThrownBy(() -> ListValueBuilder.build(1, 2, 3).get(BooleanValueBuilder.build(true)))
         .isExactlyInstanceOf(IrregularValueTypeException.class)
-        .hasMessage("Invalid index type: boolean. Expected integer");
+        .hasMessage("Invalid index type: boolean. Expected integer value");
 
     ListValue listValue = ListValueBuilder.build("a", "b", "c");
 
-    Value element0 = listValue.fetch(IntegerValueBuilder.build(0));
+    Value element0 = listValue.get(IntegerValueBuilder.build(0));
     assertThat(element0.type()).isEqualTo(ValueTypes.String);
     assertThat(ValueFunctions.valueToObject(element0)).isEqualTo("a");
     assertThat(element0.index().asInteger().get()).isEqualTo(0);
     assertThat(element0.isFirst().asBoolean().get()).isTrue();
     assertThat(element0.isLast().asBoolean().get()).isFalse();
 
-    Value element2 = listValue.fetch(IntegerValueBuilder.build(2));
+    Value element2 = listValue.get(IntegerValueBuilder.build(2));
     assertThat(element2.type()).isEqualTo(ValueTypes.String);
     assertThat(ValueFunctions.valueToObject(element2)).isEqualTo("c");
     assertThat(element2.index().asInteger().get()).isEqualTo(2);
     assertThat(element2.isFirst().asBoolean().get()).isFalse();
     assertThat(element2.isLast().asBoolean().get()).isTrue();
 
-    Value negativeElement = listValue.fetch(IntegerValueBuilder.build(-1));
+    Value negativeElement = listValue.get(IntegerValueBuilder.build(-1));
     assertThat(negativeElement.type()).isEqualTo(ValueTypes.Void);
     assertThat(negativeElement.index().asInteger().get()).isEqualTo(-1);
     assertThatThrownBy(negativeElement::isFirst)
@@ -215,7 +229,7 @@ public class ListValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value element3 = listValue.fetch(IntegerValueBuilder.build(3));
+    Value element3 = listValue.get(IntegerValueBuilder.build(3));
     assertThat(element3.type()).isEqualTo(ValueTypes.Void);
     assertThat(element3.index().asInteger().get()).isEqualTo(3);
     assertThatThrownBy(element3::isFirst)
@@ -331,9 +345,23 @@ public class ListValueTest {
   }
 
   @Test
+  public void testIsNotFirst() {
+    assertThatThrownBy(() -> ListValueBuilder.build("a", "b", "c").isNotFirst())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotFirst' is not applicable for this value");
+  }
+
+  @Test
   public void testIsLast() {
     assertThatThrownBy(() -> ListValueBuilder.build("a", "b", "c").isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
+  }
+
+  @Test
+  public void testIsNotLast() {
+    assertThatThrownBy(() -> ListValueBuilder.build("a", "b", "c").isNotLast())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }
 }

@@ -3,7 +3,6 @@ package tech.intellispacesframework.templateengine.template.expression;
 import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 import tech.intellispacesframework.commons.string.CharFunctions;
 import tech.intellispacesframework.templateengine.exception.ParseTemplateException;
-import tech.intellispacesframework.templateengine.template.source.SourceFunctions;
 import tech.intellispacesframework.templateengine.template.expression.compilation.CompileFunctions;
 import tech.intellispacesframework.templateengine.template.expression.value.BooleanValueBuilder;
 import tech.intellispacesframework.templateengine.template.expression.value.IntegerValueBuilder;
@@ -13,6 +12,7 @@ import tech.intellispacesframework.templateengine.template.expression.value.Real
 import tech.intellispacesframework.templateengine.template.expression.value.StringValueBuilder;
 import tech.intellispacesframework.templateengine.template.expression.value.Value;
 import tech.intellispacesframework.templateengine.template.expression.value.VoidValues;
+import tech.intellispacesframework.templateengine.template.source.SourceFunctions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -89,10 +89,10 @@ public final class ParseExpressionFunctions {
           appendLiteral(preparedStatement, valueAndWording.wording(), operands, operandWord2IndexMap, valueAndWording.value());
           ind += valueAndWording.wording().length();
         } else {
-          // Replace to <fetch> operation
+          // Replace to <get> operation
           String subStatement = readFetchOperand(chars, ind);
           String preparedSubExpression = prepareStatement(subStatement, operands, operandWord2IndexMap);
-          preparedStatement.append(".fetch(");
+          preparedStatement.append(".get(");
           preparedStatement.append(preparedSubExpression);
           preparedStatement.append(")");
           ind += subStatement.length() + 2;

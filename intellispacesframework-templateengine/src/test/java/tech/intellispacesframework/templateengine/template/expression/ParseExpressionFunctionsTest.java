@@ -1,7 +1,7 @@
 package tech.intellispacesframework.templateengine.template.expression;
 
-import tech.intellispacesframework.templateengine.template.expression.value.ValueTypes;
 import org.junit.jupiter.api.Test;
+import tech.intellispacesframework.templateengine.template.expression.value.ValueTypes;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

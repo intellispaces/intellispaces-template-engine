@@ -18,12 +18,22 @@ Test message
 3.4) 123
 3.5) 123.456
 
------------------------------------------ 4. Text operations --------------------------------------
+--------------------------------------- 4. String operations --------------------------------------
 4.1) true
 4.2) false
-4.3) true
-4.4) Abc
-4.5) 123
+4.3) false
+4.4) true
+
+4.5) true
+4.6) false
+4.7) false
+4.8) true
+
+4.9) true
+
+4.10) Abc
+
+4.11) 123
 
 ----------------------------------------- 5. Number operations ------------------------------------
 5.1) true
@@ -47,9 +57,9 @@ Test message
 7.2)
 item1 item2 item3 |
 7.3)
-  0: item1 - true/false
-  1: item2 - false/false
-  2: item3 - false/true
+  0: item1 - isFirst: true, isNotFirst: false, isLast: false, isNotLast: true
+  1: item2 - isFirst: false, isNotFirst: true, isLast: false, isNotLast: true
+  2: item3 - isFirst: false, isNotFirst: true, isLast: true, isNotLast: false
 
 ----------------------------------------- 8. Fetch statement --------------------------------------
 8.1)

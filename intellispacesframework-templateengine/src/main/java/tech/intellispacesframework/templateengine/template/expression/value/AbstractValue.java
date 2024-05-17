@@ -47,12 +47,22 @@ abstract class AbstractValue implements Value {
 
   @Override
   public BooleanValue isEmpty() throws ResolveTemplateException {
-    throw NotApplicableOperationException.withMessage("Operation 'isEmpty' is not applicable for value type {}. Expected string, List or map", typename().get());
+    throw NotApplicableOperationException.withMessage("Operation 'isEmpty' is not applicable for value type {}. Expected string, list or map", typename().get());
+  }
+
+  @Override
+  public BooleanValue isNotEmpty() throws ResolveTemplateException {
+    throw NotApplicableOperationException.withMessage("Operation 'isNotEmpty' is not applicable for value type {}. Expected string, list or map", typename().get());
   }
 
   @Override
   public BooleanValue isBlank() throws ResolveTemplateException {
     throw NotApplicableOperationException.withMessage("Operation 'isBlank' is not applicable for value type {}. Expected string", typename().get());
+  }
+
+  @Override
+  public BooleanValue isNotBlank() throws ResolveTemplateException {
+    throw NotApplicableOperationException.withMessage("Operation 'isNotBlank' is not applicable for value type {}. Expected string", typename().get());
   }
 
   @Override
@@ -66,8 +76,8 @@ abstract class AbstractValue implements Value {
   }
 
   @Override
-  public Value fetch(Value key) throws ResolveTemplateException {
-    throw NotApplicableOperationException.withMessage("Operation 'fetch' is not applicable for value type {}. Expected map, list or string", typename().get());
+  public Value get(Value key) throws ResolveTemplateException {
+    throw NotApplicableOperationException.withMessage("Operation 'get' is not applicable for value type {}. Expected map, list or string", typename().get());
   }
 
   @Override
@@ -76,17 +86,27 @@ abstract class AbstractValue implements Value {
   }
 
   @Override
-  public Value index() throws ResolveTemplateException {
+  public IntegerValue index() throws ResolveTemplateException {
     throw NotApplicableOperationException.withMessage("Operation 'index' is not applicable for this value");
   }
 
   @Override
-  public Value isFirst() throws ResolveTemplateException {
+  public BooleanValue isFirst() throws ResolveTemplateException {
     throw NotApplicableOperationException.withMessage("Operation 'isFirst' is not applicable for this value");
   }
 
   @Override
-  public Value isLast() throws ResolveTemplateException {
+  public BooleanValue isNotFirst() throws ResolveTemplateException {
+    throw NotApplicableOperationException.withMessage("Operation 'isNotFirst' is not applicable for this value");
+  }
+
+  @Override
+  public BooleanValue isLast() throws ResolveTemplateException {
     throw NotApplicableOperationException.withMessage("Operation 'isLast' is not applicable for this value");
+  }
+
+  @Override
+  public BooleanValue isNotLast() throws ResolveTemplateException {
+    throw NotApplicableOperationException.withMessage("Operation 'isNotLast' is not applicable for this value");
   }
 }

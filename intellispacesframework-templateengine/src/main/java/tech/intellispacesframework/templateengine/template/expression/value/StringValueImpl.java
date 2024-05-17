@@ -46,8 +46,18 @@ class StringValueImpl extends AbstractValue implements StringValue {
   }
 
   @Override
+  public BooleanValue isNotEmpty() throws ResolveTemplateException {
+    return BooleanValueBuilder.build(get() != null && !get().isEmpty());
+  }
+
+  @Override
   public BooleanValue isBlank() {
     return BooleanValueBuilder.build(get() == null || get().isBlank());
+  }
+
+  @Override
+  public BooleanValue isNotBlank() throws ResolveTemplateException {
+    return BooleanValueBuilder.build(get() != null && !get().isBlank());
   }
 
   @Override
@@ -76,20 +86,20 @@ class StringValueImpl extends AbstractValue implements StringValue {
   }
 
   @Override
-  public Value fetch(Value key) throws ResolveTemplateException {
+  public Value get(Value key) throws ResolveTemplateException {
     if (key.type() != ValueTypes.Integer) {
-      throw IrregularValueTypeException.withMessage("Invalid index type: {}. Expected integer", key.typename().get());
+      throw IrregularValueTypeException.withMessage("Invalid index type: {}. Expected integer value", key.typename().get());
     }
     int index = ((IntegerValue) key).get();
     if (index < 0 || index >= get().length()) {
       return ItemValueBuilder.get()
           .value(VoidValues.get())
-          .index(key)
+          .index((IntegerValue) key)
           .build();
     }
     return ItemValueBuilder.get()
         .value("" + get().charAt(index))
-        .index(key)
+        .index((IntegerValue) key)
         .first(index == 0)
         .last(index == get().length() - 1)
         .build();

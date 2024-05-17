@@ -1,17 +1,17 @@
 package tech.intellispacesframework.templateengine.template;
 
-import tech.intellispacesframework.templateengine.template.expression.value.ValueTypes;
-import tech.intellispacesframework.templateengine.template.source.position.Position;
-import tech.intellispacesframework.templateengine.template.source.position.PositionBuilder;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+import tech.intellispacesframework.templateengine.template.element.MarkerFormatTypes;
+import tech.intellispacesframework.templateengine.template.element.MarkerPrint;
 import tech.intellispacesframework.templateengine.template.element.StatementForeach;
 import tech.intellispacesframework.templateengine.template.element.StatementFormat;
 import tech.intellispacesframework.templateengine.template.element.StatementWhen;
-import tech.intellispacesframework.templateengine.template.element.MarkerFormatTypes;
 import tech.intellispacesframework.templateengine.template.element.TemplateElementTypes;
+import tech.intellispacesframework.templateengine.template.expression.value.ValueTypes;
 import tech.intellispacesframework.templateengine.template.source.block.SourceBlock;
-import tech.intellispacesframework.templateengine.template.element.MarkerPrint;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import tech.intellispacesframework.templateengine.template.source.position.Position;
+import tech.intellispacesframework.templateengine.template.source.position.PositionBuilder;
 
 import java.util.List;
 

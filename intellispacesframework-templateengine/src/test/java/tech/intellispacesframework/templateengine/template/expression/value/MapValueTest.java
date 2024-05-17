@@ -1,10 +1,10 @@
 package tech.intellispacesframework.templateengine.template.expression.value;
 
-import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
-import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
+import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -147,10 +147,24 @@ public class MapValueTest {
   }
 
   @Test
+  public void testIsNotEmpty() throws Exception {
+    assertThat(MapValueBuilder.empty().isNotEmpty().get()).isFalse();
+    assertThat(MapValueBuilder.get().value(new LinkedHashMap<>()).build().isNotEmpty().get()).isFalse();
+    assertThat(MapValueBuilder.build(0, 0).isNotEmpty().get()).isTrue();
+  }
+
+  @Test
   public void testIsBlank() {
     assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isBlank())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isBlank' is not applicable for value type map. Expected string");
+  }
+
+  @Test
+  public void testIsNotBlank() {
+    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isNotBlank())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotBlank' is not applicable for value type map. Expected string");
   }
 
   @Test
@@ -168,10 +182,10 @@ public class MapValueTest {
   }
 
   @Test
-  public void testFetch() throws Exception {
+  public void testGet() throws Exception {
     MapValue mapValue = MapValueBuilder.build(1, "a", 2, "b", 3, "c");
 
-    Value value1 = mapValue.fetch(IntegerValueBuilder.build(2));
+    Value value1 = mapValue.get(IntegerValueBuilder.build(2));
     assertThat(value1.isVoid().get()).isFalse();
     assertThat(value1.type()).isEqualTo(ValueTypes.String);
     assertThat(ValueFunctions.valueToObject(value1)).isEqualTo("b");
@@ -185,7 +199,7 @@ public class MapValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value value2 = mapValue.fetch(IntegerValueBuilder.build(5));
+    Value value2 = mapValue.get(IntegerValueBuilder.build(5));
     assertThat(value2.isVoid().get()).isTrue();
   }
 
@@ -211,9 +225,23 @@ public class MapValueTest {
   }
 
   @Test
+  public void testIsNotFirst() {
+    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isNotFirst())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotFirst' is not applicable for this value");
+  }
+
+  @Test
   public void testIsLast() {
     assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
+  }
+
+  @Test
+  public void testIsNotLast() {
+    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isNotLast())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }
 }

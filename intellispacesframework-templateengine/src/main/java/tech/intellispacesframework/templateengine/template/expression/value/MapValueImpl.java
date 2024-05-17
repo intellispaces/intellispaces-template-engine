@@ -46,7 +46,12 @@ class MapValueImpl extends AbstractValue implements MapValue {
   }
 
   @Override
-  public Value fetch(Value key) throws ResolveTemplateException {
+  public BooleanValue isNotEmpty() {
+    return BooleanValueBuilder.build(!get().isEmpty());
+  }
+
+  @Override
+  public Value get(Value key) throws ResolveTemplateException {
     Value value = get().get(key);
     if (value == null) {
       return VoidValues.get();

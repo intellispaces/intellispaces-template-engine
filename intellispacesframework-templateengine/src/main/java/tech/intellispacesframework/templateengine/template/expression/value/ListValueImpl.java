@@ -48,6 +48,11 @@ class ListValueImpl extends AbstractValue implements ListValue {
   }
 
   @Override
+  public BooleanValue isNotEmpty() {
+    return BooleanValueBuilder.build(!get().isEmpty());
+  }
+
+  @Override
   public Value find(Value element) {
     final List<Value> subList;
     if (element.type() == ValueTypes.List) {
@@ -68,22 +73,22 @@ class ListValueImpl extends AbstractValue implements ListValue {
   }
 
   @Override
-  public Value fetch(Value key) throws ResolveTemplateException {
+  public Value get(Value key) throws ResolveTemplateException {
     if (key.type() != ValueTypes.Integer) {
-      throw IrregularValueTypeException.withMessage("Invalid index type: {}. Expected integer", key.typename().get());
+      throw IrregularValueTypeException.withMessage("Invalid index type: {}. Expected integer value", key.typename().get());
     }
     int index = ((IntegerValue) key).get();
     if (index < 0 || index >= get().size()) {
       return ItemValueBuilder.get()
           .value(VoidValues.get())
-          .index(key)
+          .index((IntegerValue) key)
           .build();
     }
 
     Value element = get().get(index);
     return ItemValueBuilder.get()
         .value(element)
-        .index(key)
+        .index((IntegerValue) key)
         .first(index == 0)
         .last(index == get().size() - 1)
         .build();

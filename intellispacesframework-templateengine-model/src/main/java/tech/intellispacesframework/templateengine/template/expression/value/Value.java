@@ -2,12 +2,12 @@ package tech.intellispacesframework.templateengine.template.expression.value;
 
 import tech.intellispacesframework.commons.exception.UnexpectedViolationException;
 import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
-import tech.intellispacesframework.templateengine.template.expression.value.user.UserValue;
+import tech.intellispacesframework.templateengine.template.expression.value.formal.FormalValue;
 
 /**
  * Expression value.
  */
-public interface Value extends UserValue {
+public interface Value extends FormalValue {
 
   /**
    * Value type.
@@ -41,7 +41,7 @@ public interface Value extends UserValue {
   MapValue asMap() throws ResolveTemplateException;
 
   @Override
-  default BooleanValue eq(UserValue other) throws ResolveTemplateException {
+  default BooleanValue eq(FormalValue other) throws ResolveTemplateException {
     if (other instanceof Value) {
       return eq((Value) other);
     }
@@ -54,7 +54,13 @@ public interface Value extends UserValue {
   BooleanValue isEmpty() throws ResolveTemplateException;
 
   @Override
+  BooleanValue isNotEmpty() throws ResolveTemplateException;
+
+  @Override
   BooleanValue isBlank() throws ResolveTemplateException;
+
+  @Override
+  BooleanValue isNotBlank() throws ResolveTemplateException;
 
   @Override
   StringValue capitalizeFirstLetter() throws ResolveTemplateException;
@@ -63,17 +69,17 @@ public interface Value extends UserValue {
   Value invert() throws ResolveTemplateException;
 
   @Override
-  default Value fetch(UserValue key) throws ResolveTemplateException {
+  default Value get(FormalValue key) throws ResolveTemplateException {
     if (key instanceof Value) {
-      return fetch((Value) key);
+      return get((Value) key);
     }
     throw UnexpectedViolationException.withMessage("Expected instance of the {} class", Value.class.getSimpleName());
   }
 
-  Value fetch(Value key) throws ResolveTemplateException;
+  Value get(Value key) throws ResolveTemplateException;
 
   @Override
-  default Value find(UserValue element) throws ResolveTemplateException {
+  default Value find(FormalValue element) throws ResolveTemplateException {
     if (element instanceof Value) {
       return find((Value) element);
     }
@@ -92,11 +98,17 @@ public interface Value extends UserValue {
   Value find(Value element) throws ResolveTemplateException;
 
   @Override
-  Value index() throws ResolveTemplateException;
+  IntegerValue index() throws ResolveTemplateException;
 
   @Override
-  Value isFirst() throws ResolveTemplateException;
+  BooleanValue isFirst() throws ResolveTemplateException;
 
   @Override
-  Value isLast() throws ResolveTemplateException;
+  BooleanValue isNotFirst() throws ResolveTemplateException;
+
+  @Override
+  BooleanValue isLast() throws ResolveTemplateException;
+
+  @Override
+  BooleanValue isNotLast() throws ResolveTemplateException;
 }

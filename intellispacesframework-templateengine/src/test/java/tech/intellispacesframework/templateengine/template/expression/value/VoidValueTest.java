@@ -1,10 +1,10 @@
 package tech.intellispacesframework.templateengine.template.expression.value;
 
-import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
-import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
+import tech.intellispacesframework.templateengine.exception.NotApplicableOperationException;
+import tech.intellispacesframework.templateengine.exception.ResolveTemplateException;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -99,7 +99,14 @@ public class VoidValueTest {
   public void testIsEmpty() {
     assertThatThrownBy(VoidValues.get()::isEmpty)
         .isExactlyInstanceOf(NotApplicableOperationException.class)
-        .hasMessage("Operation 'isEmpty' is not applicable for value type void. Expected string, List or map");
+        .hasMessage("Operation 'isEmpty' is not applicable for value type void. Expected string, list or map");
+  }
+
+  @Test
+  public void testIsNotEmpty() {
+    assertThatThrownBy(VoidValues.get()::isNotEmpty)
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotEmpty' is not applicable for value type void. Expected string, list or map");
   }
 
   @Test
@@ -107,6 +114,13 @@ public class VoidValueTest {
     assertThatThrownBy(VoidValues.get()::isBlank)
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isBlank' is not applicable for value type void. Expected string");
+  }
+
+  @Test
+  public void testIsNotBlank() {
+    assertThatThrownBy(VoidValues.get()::isNotBlank)
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotBlank' is not applicable for value type void. Expected string");
   }
 
   @Test
@@ -124,10 +138,10 @@ public class VoidValueTest {
   }
 
   @Test
-  public void testFetch() {
-    assertThatThrownBy(() -> VoidValues.get().fetch(IntegerValueBuilder.build(0)))
+  public void testGet() {
+    assertThatThrownBy(() -> VoidValues.get().get(IntegerValueBuilder.build(0)))
         .isExactlyInstanceOf(NotApplicableOperationException.class)
-        .hasMessage("Operation 'fetch' is not applicable for value type void. Expected map, list or string");
+        .hasMessage("Operation 'get' is not applicable for value type void. Expected map, list or string");
   }
 
   @Test
@@ -152,9 +166,23 @@ public class VoidValueTest {
   }
 
   @Test
+  public void testIsNotFirst() {
+    assertThatThrownBy(() -> VoidValues.get().isNotFirst())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotFirst' is not applicable for this value");
+  }
+
+  @Test
   public void testIsLast() {
     assertThatThrownBy(() -> VoidValues.get().isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
+  }
+
+  @Test
+  public void testIsNotLast() {
+    assertThatThrownBy(() -> VoidValues.get().isNotLast())
+        .isExactlyInstanceOf(NotApplicableOperationException.class)
+        .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }
 }
