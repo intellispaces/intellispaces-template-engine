@@ -1,13 +1,13 @@
 package tech.intellispaces.framework.templateengine.template.expression;
 
-import tech.intellispaces.framework.templateengine.template.expression.value.ListValue;
-import tech.intellispaces.framework.templateengine.template.expression.value.ValueFunctions;
-import tech.intellispaces.framework.templateengine.template.expression.value.ValueTypes;
 import tech.intellispaces.framework.commons.exception.UnexpectedViolationException;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
+import tech.intellispaces.framework.templateengine.template.expression.value.ListValue;
 import tech.intellispaces.framework.templateengine.template.expression.value.MapValue;
 import tech.intellispaces.framework.templateengine.template.expression.value.StringValue;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
+import tech.intellispaces.framework.templateengine.template.expression.value.ValueFunctions;
+import tech.intellispaces.framework.templateengine.template.expression.value.ValueTypes;
 
 import java.util.List;
 import java.util.Map;

@@ -1,9 +1,11 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
+import tech.intellispaces.framework.commons.string.StringFunctions;
+import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.framework.templateengine.template.expression.ResolveExpressionFunctions;
 import tech.intellispaces.framework.templateengine.template.expression.value.ItemValueBuilder;
-import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
+import tech.intellispaces.framework.templateengine.template.source.SourceFunctions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +21,32 @@ public interface ElementFunctions {
   }
 
   static String resolve(MarkerPrint marker, Map<String, Value> variables) throws ResolveTemplateException {
-    return ResolveExpressionFunctions.resolveExpressionToString(marker.outputExpression(), variables);
+    String value = ResolveExpressionFunctions.resolveExpressionToString(marker.outputExpression(), variables);
+
+    int elementIndex = marker.context().elementIndex();
+    if (elementIndex > 0) {
+      TemplateElement prevElement = marker.context().templateElements().get(elementIndex - 1);
+      if (prevElement.type() == TemplateElementTypes.Text) {
+        String tail = SourceFunctions.getTailBeforeLinebreak(((TextElement) prevElement).text());
+        if (!tail.isEmpty()) {
+          String gap = StringFunctions.createBlankString(tail.length());
+          String[] rows = value.split("\n");
+
+          var sb = new StringBuilder();
+          for (int ind = 0; ind < rows.length; ind++) {
+            if (ind != 0) {
+              sb.append(gap);
+            }
+            sb.append(rows[ind]);
+            if (ind != rows.length - 1) {
+              sb.append("\n");
+            }
+          }
+          return sb.toString();
+        }
+      }
+    }
+    return value;
   }
 
   static String resolve(MarkerSet marker, Map<String, Value> variables) throws ResolveTemplateException {

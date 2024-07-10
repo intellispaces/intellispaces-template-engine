@@ -2,15 +2,15 @@ package tech.intellispaces.framework.templateengine.template;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import tech.intellispaces.framework.templateengine.template.element.MarkerFormatTypes;
 import tech.intellispaces.framework.templateengine.template.element.MarkerPrint;
 import tech.intellispaces.framework.templateengine.template.element.StatementForeach;
 import tech.intellispaces.framework.templateengine.template.element.StatementFormat;
 import tech.intellispaces.framework.templateengine.template.element.StatementWhen;
-import tech.intellispaces.framework.templateengine.template.source.block.SourceBlock;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
-import tech.intellispaces.framework.templateengine.template.element.MarkerFormatTypes;
 import tech.intellispaces.framework.templateengine.template.element.TemplateElementTypes;
 import tech.intellispaces.framework.templateengine.template.expression.value.ValueTypes;
+import tech.intellispaces.framework.templateengine.template.source.block.SourceBlock;
+import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.template.source.position.PositionBuilder;
 
 import java.util.List;
@@ -201,7 +201,7 @@ public class TemplateFunctionsTest {
     String source = "Simple text";
 
     // When
-    List<SourceBlock> blocks = TemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = TemplateFunctions.split(source);
 
     // Then
     assertThat(blocks).hasSize(1);
@@ -220,7 +220,7 @@ public class TemplateFunctionsTest {
     String source = "{{MARKER}}Simple text";
 
     // When
-    List<SourceBlock> blocks = TemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = TemplateFunctions.split(source);
 
     // Then
     assertThat(blocks).hasSize(2);
@@ -247,7 +247,7 @@ public class TemplateFunctionsTest {
     String source = "Simple {{MARKER}} text";
 
     // When
-    List<SourceBlock> blocks = TemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = TemplateFunctions.split(source);
 
     // Then
     assertThat(blocks).hasSize(3);
@@ -282,7 +282,7 @@ public class TemplateFunctionsTest {
     String source = "Simple text{{MARKER}}";
 
     // When
-    List<SourceBlock> blocks = TemplateFunctions.splitByMarkers(source);
+    List<SourceBlock> blocks = TemplateFunctions.split(source);
 
     // Then
     assertThat(blocks).hasSize(2);

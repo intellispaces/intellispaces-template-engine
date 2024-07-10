@@ -1,6 +1,5 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
@@ -11,8 +10,8 @@ class StatementWhenImpl extends AbstractElement implements StatementWhen {
   private final List<StatementWhenBranch> branches;
   private final StatementWhenBranch defaultBranch;
 
-  StatementWhenImpl(Position position, List<StatementWhenBranch> branches, StatementWhenBranch defaultBranch) {
-    super(position);
+  StatementWhenImpl(TemplateElementContext context, List<StatementWhenBranch> branches, StatementWhenBranch defaultBranch) {
+    super(context);
     this.branches = branches;
     this.defaultBranch = defaultBranch;
   }

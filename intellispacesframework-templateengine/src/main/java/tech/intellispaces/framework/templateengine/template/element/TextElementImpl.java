@@ -1,6 +1,5 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
 import java.util.Map;
@@ -8,8 +7,8 @@ import java.util.Map;
 class TextElementImpl extends AbstractElement implements TextElement {
   private final String text;
 
-  TextElementImpl(Position position, String text) {
-    super(position);
+  TextElementImpl(TemplateElementContext context, String text) {
+    super(context);
     this.text = text;
   }
 

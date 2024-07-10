@@ -1,8 +1,7 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
+import tech.intellispaces.framework.templateengine.template.expression.Expression;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
 import java.util.Map;
@@ -11,8 +10,8 @@ class MarkerSetImpl extends AbstractElement implements MarkerSet {
   private final String valueName;
   private final Expression valueExpression;
 
-  MarkerSetImpl(Position position, String valueName, Expression valueExpression) {
-    super(position);
+  MarkerSetImpl(TemplateElementContext context, String valueName, Expression valueExpression) {
+    super(context);
     this.valueName = valueName;
     this.valueExpression = valueExpression;
   }

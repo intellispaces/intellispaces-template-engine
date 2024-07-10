@@ -1,12 +1,11 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
 import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 
 import java.util.Objects;
 
 public final class MarkerForeachBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private Expression collectionExpression;
   private String itemName;
 
@@ -14,8 +13,8 @@ public final class MarkerForeachBuilder {
     return new MarkerForeachBuilder();
   }
 
-  public MarkerForeachBuilder position(Position position) {
-    this.position = position;
+  public MarkerForeachBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -31,11 +30,11 @@ public final class MarkerForeachBuilder {
 
   public MarkerForeach build() {
     validate();
-    return new MarkerForeachImpl(position, collectionExpression, itemName);
+    return new MarkerForeachImpl(context, collectionExpression, itemName);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
     Objects.requireNonNull(collectionExpression);
     Objects.requireNonNull(itemName);
   }

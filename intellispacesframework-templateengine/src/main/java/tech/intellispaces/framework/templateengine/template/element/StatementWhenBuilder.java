@@ -1,12 +1,10 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
-
 import java.util.List;
 import java.util.Objects;
 
 public final class StatementWhenBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private List<StatementWhenBranch> branches;
   private StatementWhenBranch defaultBranch;
 
@@ -14,8 +12,8 @@ public final class StatementWhenBuilder {
     return new StatementWhenBuilder();
   }
 
-  public StatementWhenBuilder position(Position position) {
-    this.position = position;
+  public StatementWhenBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -31,11 +29,11 @@ public final class StatementWhenBuilder {
 
   public StatementWhen build() {
     validate();
-    return new StatementWhenImpl(position, branches, defaultBranch);
+    return new StatementWhenImpl(context, branches, defaultBranch);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
     Objects.requireNonNull(branches);
   }
 

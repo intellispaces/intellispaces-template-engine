@@ -1,16 +1,14 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
-
 abstract class AbstractElement implements TemplateElement {
-  private final Position position;
+  private final TemplateElementContext context;
 
-  AbstractElement(Position position) {
-    this.position = position;
+  AbstractElement(TemplateElementContext context) {
+    this.context = context;
   }
 
   @Override
-  public Position position() {
-    return position;
+  public TemplateElementContext context() {
+    return context;
   }
 }

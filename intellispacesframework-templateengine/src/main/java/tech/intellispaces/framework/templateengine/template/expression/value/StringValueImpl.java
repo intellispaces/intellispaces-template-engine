@@ -1,7 +1,7 @@
 package tech.intellispaces.framework.templateengine.template.expression.value;
 
-import tech.intellispaces.framework.templateengine.exception.IrregularValueTypeException;
 import tech.intellispaces.framework.commons.string.StringFunctions;
+import tech.intellispaces.framework.templateengine.exception.IrregularValueTypeException;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
 
 import java.util.Objects;

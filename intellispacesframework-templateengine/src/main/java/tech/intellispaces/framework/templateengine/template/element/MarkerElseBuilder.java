@@ -1,20 +1,19 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
 import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 
 import java.util.Objects;
 
 public final class MarkerElseBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private Expression condition;
 
   public static MarkerElseBuilder get() {
     return new MarkerElseBuilder();
   }
 
-  public MarkerElseBuilder position(Position position) {
-    this.position = position;
+  public MarkerElseBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -25,11 +24,11 @@ public final class MarkerElseBuilder {
 
   public MarkerElse build() {
     validate();
-    return new MarkerElseImpl(position, condition);
+    return new MarkerElseImpl(context, condition);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
   }
 
   private MarkerElseBuilder() {}

@@ -14,7 +14,7 @@ public interface SourceFunctions {
     return isLetter(ch) || isDigit(ch) || (ch == '_');
   }
 
-  static boolean isBeginWithLineBreakIgnoreBlanks(String string) {
+  static boolean isBeginWithLinebreakIgnoreBlanks(String string) {
     char[] chars = string.toCharArray();
     int length = chars.length;
     if (length > 0) {
@@ -29,7 +29,7 @@ public interface SourceFunctions {
     return false;
   }
 
-  static boolean isEndWithLineBreakIgnoreBlanks(String string) {
+  static boolean isEndWithLinebreakIgnoreBlanks(String string) {
     char[] chars = string.toCharArray();
     int length = chars.length;
     if (length > 0) {
@@ -61,7 +61,7 @@ public interface SourceFunctions {
     return string;
   }
 
-  static String removeFirstBlanksAndLineBreak(String string) {
+  static String removeFirstBlanksAndLinebreak(String string) {
     char[] chars = string.toCharArray();
     int length = chars.length;
     if (length > 0) {
@@ -76,5 +76,20 @@ public interface SourceFunctions {
       }
     }
     return string;
+  }
+
+  static String getTailBeforeLinebreak(String string) {
+    char[] chars = string.toCharArray();
+    int length = chars.length;
+    if (length > 0) {
+      int index = chars.length - 1;
+      while (index >= 0 && (chars[index] != '\n' && chars[index] != '\r')) {
+        index--;
+      }
+      if (index >= 0 && index != chars.length - 1) {
+        return string.substring(index + 1);
+      }
+    }
+    return "";
   }
 }

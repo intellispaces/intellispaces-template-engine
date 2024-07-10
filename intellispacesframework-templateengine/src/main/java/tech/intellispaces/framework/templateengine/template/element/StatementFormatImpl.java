@@ -1,6 +1,5 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
@@ -11,8 +10,8 @@ class StatementFormatImpl extends AbstractElement implements StatementFormat {
   private final List<MarkerFormatType> types;
   private final List<TemplateElement> subElements;
 
-  StatementFormatImpl(Position position, List<MarkerFormatType> types, List<TemplateElement> subElements) {
-    super(position);
+  StatementFormatImpl(TemplateElementContext context, List<MarkerFormatType> types, List<TemplateElement> subElements) {
+    super(context);
     this.types = types;
     this.subElements = subElements;
   }

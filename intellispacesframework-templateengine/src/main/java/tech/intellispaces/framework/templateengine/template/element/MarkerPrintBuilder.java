@@ -1,20 +1,19 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
 import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 
 import java.util.Objects;
 
 public final class MarkerPrintBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private Expression outputExpression;
 
   public static MarkerPrintBuilder get() {
     return new MarkerPrintBuilder();
   }
 
-  public MarkerPrintBuilder position(Position position) {
-    this.position = position;
+  public MarkerPrintBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -25,11 +24,11 @@ public final class MarkerPrintBuilder {
 
   public MarkerPrint build() {
     validate();
-    return new MarkerPrintImpl(position, outputExpression);
+    return new MarkerPrintImpl(context, outputExpression);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
     Objects.requireNonNull(outputExpression);
   }
 

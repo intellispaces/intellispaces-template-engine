@@ -1,12 +1,10 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
-
 import java.util.List;
 import java.util.Objects;
 
 public final class StatementFormatBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private List<MarkerFormatType> types;
   private List<TemplateElement> subElements;
 
@@ -14,8 +12,8 @@ public final class StatementFormatBuilder {
     return new StatementFormatBuilder();
   }
 
-  public StatementFormatBuilder position(Position position) {
-    this.position = position;
+  public StatementFormatBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -31,11 +29,11 @@ public final class StatementFormatBuilder {
 
   public StatementFormat build() {
     validate();
-    return new StatementFormatImpl(position, types, subElements);
+    return new StatementFormatImpl(context, types, subElements);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
     Objects.requireNonNull(types);
     Objects.requireNonNull(subElements);
   }

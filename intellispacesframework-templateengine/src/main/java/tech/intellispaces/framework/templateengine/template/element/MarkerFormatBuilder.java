@@ -1,20 +1,18 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
-
 import java.util.List;
 import java.util.Objects;
 
 public final class MarkerFormatBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private List<MarkerFormatType> types;
 
   public static MarkerFormatBuilder get() {
     return new MarkerFormatBuilder();
   }
 
-  public MarkerFormatBuilder position(Position position) {
-    this.position = position;
+  public MarkerFormatBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -25,11 +23,11 @@ public final class MarkerFormatBuilder {
 
   public MarkerFormat build() {
     validate();
-    return new MarkerFormatImpl(position, types);
+    return new MarkerFormatImpl(context, types);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
     Objects.requireNonNull(types);
   }
 

@@ -1,19 +1,17 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
-
 import java.util.Objects;
 
 public final class TextElementBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private String text;
 
   public static TextElementBuilder get() {
     return new TextElementBuilder();
   }
 
-  public TextElementBuilder position(Position position) {
-    this.position = position;
+  public TextElementBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -24,11 +22,11 @@ public final class TextElementBuilder {
 
   public TextElement build() {
     validate();
-    return new TextElementImpl(position, text);
+    return new TextElementImpl(context, text);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
     Objects.requireNonNull(text);
   }
 

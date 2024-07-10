@@ -1,12 +1,11 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
 import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 
 import java.util.Objects;
 
 public final class MarkerSetBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private String valueName;
   private Expression valueExpression;
 
@@ -14,8 +13,8 @@ public final class MarkerSetBuilder {
     return new MarkerSetBuilder();
   }
 
-  public MarkerSetBuilder position(Position position) {
-    this.position = position;
+  public MarkerSetBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -31,11 +30,11 @@ public final class MarkerSetBuilder {
 
   public MarkerSet build() {
     validate();
-    return new MarkerSetImpl(position, valueName, valueExpression);
+    return new MarkerSetImpl(context, valueName, valueExpression);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
     Objects.requireNonNull(valueName);
     Objects.requireNonNull(valueExpression);
   }

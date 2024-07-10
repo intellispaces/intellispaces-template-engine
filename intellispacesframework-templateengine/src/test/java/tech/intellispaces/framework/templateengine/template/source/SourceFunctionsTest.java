@@ -51,51 +51,51 @@ public class SourceFunctionsTest {
   }
 
   @Test
-  public void testIsBeginWithLineBreakIgnoreBlanks() {
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\n")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\r\n")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\nA")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\r\nA")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\n\r")).isTrue();
+  public void testIsBeginWithLinebreakIgnoreBlanks() {
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\n")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\r\n")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\nA")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\r\nA")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\n\r")).isTrue();
 
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks(" \n")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks(" \r\n")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks(" \nA")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks(" \r\nA")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks(" \n\r")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks(" \n")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks(" \r\n")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks(" \nA")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks(" \r\nA")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks(" \n\r")).isTrue();
 
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\t\n")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\t\r\n")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\t\nA")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\t\r\nA")).isTrue();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\t\n\r")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\t\n")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\t\r\n")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\t\nA")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\t\r\nA")).isTrue();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\t\n\r")).isTrue();
 
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("")).isFalse();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\r")).isFalse();
-    assertThat(SourceFunctions.isBeginWithLineBreakIgnoreBlanks("\r")).isFalse();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("")).isFalse();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\r")).isFalse();
+    assertThat(SourceFunctions.isBeginWithLinebreakIgnoreBlanks("\r")).isFalse();
   }
 
   @Test
-  public void testIsEndWithLineBreakIgnoreBlanks() {
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\n")).isTrue();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\r\n")).isTrue();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\n\r")).isTrue();
+  public void testIsEndWithLinebreakIgnoreBlanks() {
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\n")).isTrue();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\r\n")).isTrue();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\n\r")).isTrue();
 
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\n ")).isTrue();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\r\n ")).isTrue();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\n\r ")).isTrue();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\n ")).isTrue();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\r\n ")).isTrue();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\n\r ")).isTrue();
 
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\n\t")).isTrue();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\r\n\t")).isTrue();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\n\r\t")).isTrue();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\n\t")).isTrue();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\r\n\t")).isTrue();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\n\r\t")).isTrue();
 
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\nA")).isFalse();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\r\nA")).isFalse();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\n\rA")).isFalse();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\nA")).isFalse();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\r\nA")).isFalse();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\n\rA")).isFalse();
 
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("")).isFalse();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\r")).isFalse();
-    assertThat(SourceFunctions.isEndWithLineBreakIgnoreBlanks("\r")).isFalse();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("")).isFalse();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\r")).isFalse();
+    assertThat(SourceFunctions.isEndWithLinebreakIgnoreBlanks("\r")).isFalse();
   }
 
   @Test
@@ -119,28 +119,45 @@ public class SourceFunctionsTest {
     assertThat(SourceFunctions.removeLastGaps("\nA")).isEqualTo("\nA");
     assertThat(SourceFunctions.removeLastGaps("\r\nA")).isEqualTo("\r\nA");
 
-    assertThat(SourceFunctions.removeLastGaps("  ")).isEqualTo("");
+    assertThat(SourceFunctions.removeLastGaps("  ")).isEmpty();
 
-    assertThat(SourceFunctions.removeLastGaps("")).isEqualTo("");
+    assertThat(SourceFunctions.removeLastGaps("")).isEmpty();
     assertThat(SourceFunctions.removeLastGaps("\r")).isEqualTo("\r");
   }
 
   @Test
-  public void testRemoveFirstBlanksAndLineBreak() {
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("\n")).isEqualTo("");
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("\r\n")).isEqualTo("");
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("\n\r")).isEqualTo("");
+  public void testRemoveFirstBlanksAndLinebreak() {
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("\n")).isEmpty();
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("\r\n")).isEmpty();
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("\n\r")).isEmpty();
 
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak(" \n")).isEqualTo("");
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak(" \r\n")).isEqualTo("");
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak(" \n\r")).isEqualTo("");
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak(" \n")).isEmpty();
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak(" \r\n")).isEmpty();
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak(" \n\r")).isEmpty();
 
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("\t\n")).isEqualTo("");
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("\t\r\n")).isEqualTo("");
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("\t\n\r")).isEqualTo("");
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("\t\n")).isEmpty();
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("\t\r\n")).isEmpty();
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("\t\n\r")).isEmpty();
 
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("A\n")).isEqualTo("A\n");
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("A\r\n")).isEqualTo("A\r\n");
-    assertThat(SourceFunctions.removeFirstBlanksAndLineBreak("A\n\r")).isEqualTo("A\n\r");
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("A\n")).isEqualTo("A\n");
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("A\r\n")).isEqualTo("A\r\n");
+    assertThat(SourceFunctions.removeFirstBlanksAndLinebreak("A\n\r")).isEqualTo("A\n\r");
+  }
+
+  @Test
+  public void testGetTailBeforeLinebreak() {
+    assertThat(SourceFunctions.getTailBeforeLinebreak("")).isEmpty();
+    assertThat(SourceFunctions.getTailBeforeLinebreak(" ")).isEmpty();
+    assertThat(SourceFunctions.getTailBeforeLinebreak("abc")).isEmpty();
+
+    assertThat(SourceFunctions.getTailBeforeLinebreak("\n")).isEmpty();
+    assertThat(SourceFunctions.getTailBeforeLinebreak("\n ")).isEqualTo(" ");
+    assertThat(SourceFunctions.getTailBeforeLinebreak("\nabc ")).isEqualTo("abc ");
+
+    assertThat(SourceFunctions.getTailBeforeLinebreak(" \n")).isEmpty();
+    assertThat(SourceFunctions.getTailBeforeLinebreak(" \n ")).isEqualTo(" ");
+    assertThat(SourceFunctions.getTailBeforeLinebreak(" \n\r ")).isEqualTo(" ");
+    assertThat(SourceFunctions.getTailBeforeLinebreak("abc\n\rcde")).isEqualTo("cde");
+
   }
 }

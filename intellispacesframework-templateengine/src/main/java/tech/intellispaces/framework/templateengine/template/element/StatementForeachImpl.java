@@ -1,8 +1,7 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
+import tech.intellispaces.framework.templateengine.template.expression.Expression;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
 import java.util.List;
@@ -13,8 +12,8 @@ class StatementForeachImpl extends AbstractElement implements StatementForeach {
   private final String itemName;
   private final List<TemplateElement> subElements;
 
-  StatementForeachImpl(Position position, Expression collectionExpression, String itemName, List<TemplateElement> subElements) {
-    super(position);
+  StatementForeachImpl(TemplateElementContext context, Expression collectionExpression, String itemName, List<TemplateElement> subElements) {
+    super(context);
     this.collectionExpression = collectionExpression;
     this.itemName = itemName;
     this.subElements = subElements;

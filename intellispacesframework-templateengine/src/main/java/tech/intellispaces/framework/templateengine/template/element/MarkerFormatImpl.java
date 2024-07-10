@@ -1,6 +1,5 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
 import java.util.List;
@@ -9,8 +8,8 @@ import java.util.Map;
 class MarkerFormatImpl extends AbstractElement implements MarkerFormat {
   private final List<MarkerFormatType> types;
 
-  MarkerFormatImpl(Position position, List<MarkerFormatType> types) {
-    super(position);
+  MarkerFormatImpl(TemplateElementContext context, List<MarkerFormatType> types) {
+    super(context);
     this.types = types;
   }
 

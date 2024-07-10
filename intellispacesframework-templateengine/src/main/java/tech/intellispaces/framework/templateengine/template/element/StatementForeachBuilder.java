@@ -1,13 +1,12 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
 import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 
 import java.util.List;
 import java.util.Objects;
 
 public final class StatementForeachBuilder {
-  private Position position;
+  private TemplateElementContext context;
   private Expression collectionExpression;
   private String itemName;
   private List<TemplateElement> subElements;
@@ -16,8 +15,8 @@ public final class StatementForeachBuilder {
     return new StatementForeachBuilder();
   }
 
-  public StatementForeachBuilder position(Position position) {
-    this.position = position;
+  public StatementForeachBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
@@ -38,11 +37,11 @@ public final class StatementForeachBuilder {
 
   public StatementForeach build() {
     validate();
-    return new StatementForeachImpl(position, collectionExpression, itemName, subElements);
+    return new StatementForeachImpl(context, collectionExpression, itemName, subElements);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
     Objects.requireNonNull(collectionExpression);
     Objects.requireNonNull(itemName);
     Objects.requireNonNull(subElements);

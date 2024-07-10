@@ -1,7 +1,6 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
 import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
 import java.util.Map;
@@ -9,8 +8,8 @@ import java.util.Map;
 class MarkerElseImpl extends AbstractElement implements MarkerElse {
   private final Expression condition;
 
-  MarkerElseImpl(Position position, Expression condition) {
-    super(position);
+  MarkerElseImpl(TemplateElementContext context, Expression condition) {
+    super(context);
     this.condition = condition;
   }
 

@@ -1,28 +1,26 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
-
 import java.util.Objects;
 
 public final class MarkerEndBuilder {
-  private Position position;
+  private TemplateElementContext context;
 
   public static MarkerEndBuilder get() {
     return new MarkerEndBuilder();
   }
 
-  public MarkerEndBuilder position(Position position) {
-    this.position = position;
+  public MarkerEndBuilder context(TemplateElementContext context) {
+    this.context = context;
     return this;
   }
 
   public MarkerEnd build() {
     validate();
-    return new MarkerEndImpl(position);
+    return new MarkerEndImpl(context);
   }
 
   private void validate() {
-    Objects.requireNonNull(position);
+    Objects.requireNonNull(context);
   }
 
   private MarkerEndBuilder() {}

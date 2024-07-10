@@ -1,8 +1,7 @@
 package tech.intellispaces.framework.templateengine.template.element;
 
-import tech.intellispaces.framework.templateengine.template.expression.Expression;
-import tech.intellispaces.framework.templateengine.template.source.position.Position;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
+import tech.intellispaces.framework.templateengine.template.expression.Expression;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
 import java.util.Map;
@@ -10,8 +9,8 @@ import java.util.Map;
 class MarkerPrintImpl extends AbstractElement implements MarkerPrint {
   private final Expression outputExpression;
 
-  MarkerPrintImpl(Position position, Expression outputExpression) {
-    super(position);
+  MarkerPrintImpl(TemplateElementContext context, Expression outputExpression) {
+    super(context);
     this.outputExpression = outputExpression;
   }
 
