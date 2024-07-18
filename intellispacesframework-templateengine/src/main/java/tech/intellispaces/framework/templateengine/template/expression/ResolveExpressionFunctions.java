@@ -14,22 +14,30 @@ import java.util.Map;
 
 public interface ResolveExpressionFunctions {
 
-  static String resolveExpressionToString(Expression expression, Map<String, Value> variables) throws ResolveTemplateException {
+  static String resolveExpressionToString(
+      Expression expression, Map<String, Value> variables
+  ) throws ResolveTemplateException {
     Value value = resolveExpression(expression, variables);
     return convertToString(value);
   }
 
-  static boolean resolveExpressionToBoolean(Expression expression, Map<String, Value> variables) throws ResolveTemplateException {
+  static boolean resolveExpressionToBoolean(
+      Expression expression, Map<String, Value> variables
+  ) throws ResolveTemplateException {
     Value value = resolveExpression(expression, variables);
     return ValueFunctions.castToBoolean(value);
   }
 
-  static List<Value> resolveExpressionToList(Expression expression, Map<String, Value> variables) throws ResolveTemplateException {
+  static List<Value> resolveExpressionToList(
+      Expression expression, Map<String, Value> variables
+  ) throws ResolveTemplateException {
     Value value = resolveExpression(expression, variables);
     return ValueFunctions.castToList(value);
   }
 
-  static Value resolveExpression(Expression expression, Map<String, Value> variables) throws ResolveTemplateException {
+  static Value resolveExpression(
+      Expression expression, Map<String, Value> variables
+  ) throws ResolveTemplateException {
     Value[] values = makeVariables(expression.operands(), variables);
     try {
       return expression.compiledExpression().resolve(values);
@@ -38,7 +46,9 @@ public interface ResolveExpressionFunctions {
     }
   }
 
-  private static Value[] makeVariables(List<Operand> operands, Map<String, Value> variables) throws ResolveTemplateException {
+  private static Value[] makeVariables(
+      List<Operand> operands, Map<String, Value> variables
+  ) throws ResolveTemplateException {
     var values = new Value[operands.size()];
     int index = 0;
     for (Operand operand : operands) {
@@ -63,7 +73,9 @@ public interface ResolveExpressionFunctions {
   private static String convertToString(Value value, boolean isNested) throws ResolveTemplateException {
     if (value.type() == ValueTypes.Void) {
       return "void";
-    } else if (value.type() == ValueTypes.Boolean || value.type() == ValueTypes.Integer || value.type() == ValueTypes.Real) {
+    } else if (
+        value.type() == ValueTypes.Boolean || value.type() == ValueTypes.Integer || value.type() == ValueTypes.Real
+    ) {
       return ValueFunctions.castToString(value.origin());
     } else if (value.type() == ValueTypes.String) {
       String string = ((StringValue) value.origin()).get();

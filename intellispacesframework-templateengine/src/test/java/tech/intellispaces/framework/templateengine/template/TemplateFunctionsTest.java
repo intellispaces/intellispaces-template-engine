@@ -9,9 +9,9 @@ import tech.intellispaces.framework.templateengine.template.element.StatementFor
 import tech.intellispaces.framework.templateengine.template.element.StatementWhen;
 import tech.intellispaces.framework.templateengine.template.element.TemplateElementTypes;
 import tech.intellispaces.framework.templateengine.template.expression.value.ValueTypes;
-import tech.intellispaces.framework.templateengine.template.source.block.SourceBlock;
+import tech.intellispaces.framework.templateengine.template.source.block.Block;
 import tech.intellispaces.framework.templateengine.template.source.position.Position;
-import tech.intellispaces.framework.templateengine.template.source.position.PositionBuilder;
+import tech.intellispaces.framework.templateengine.template.source.position.Positions;
 
 import java.util.List;
 
@@ -26,10 +26,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenEmptySource() {
     // Given
     char[] source = "".toCharArray();
-    Position position = PositionBuilder.build(0, 1, 1);
+    Position position = Positions.get(0, 1, 1);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -46,10 +46,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceHasNotMarkers_andPositionOnSourceBegin() {
     // Given
     char[] source = "Simple text".toCharArray();
-    Position position = PositionBuilder.build(0, 1, 1);
+    Position position = Positions.get(0, 1, 1);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -66,10 +66,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceHasNotMarkers_andPositionOnSourceEnd() {
     // Given
     char[] source = "Simple text".toCharArray();
-    Position position = PositionBuilder.build(11, 1, 12);
+    Position position = Positions.get(11, 1, 12);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -86,10 +86,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenPositionMoreThanSourceLength() {
     // Given
     char[] source = "Simple text".toCharArray();
-    Position position = PositionBuilder.build(12, 1, 13);
+    Position position = Positions.get(12, 1, 13);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNull();
@@ -99,10 +99,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceStartWithMarker_andPositionOnSourceBegin() {
     // Given
     char[] source = "{{MARKER}} Simple text".toCharArray();
-    Position position = PositionBuilder.build(0, 1, 1);
+    Position position = Positions.get(0, 1, 1);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -119,10 +119,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceStartWithMarker_andPositionAfterMarker() {
     // Given
     char[] source = "{{MARKER}} Simple text".toCharArray();
-    Position position = PositionBuilder.build(10, 1, 11);
+    Position position = Positions.get(10, 1, 11);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -139,10 +139,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenMarkerPlacedInCenter_andPositionOnSourceBegin() {
     // Given
     char[] source = "Simple {{MARKER}} text".toCharArray();
-    Position position = PositionBuilder.build(0, 1, 1);
+    Position position = Positions.get(0, 1, 1);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -159,10 +159,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenMarkerPlacedInCenter_andPositionOnMarkerBegin() {
     // Given
     char[] source = "Simple {{MARKER}} text".toCharArray();
-    Position position = PositionBuilder.build(7, 1, 8);
+    Position position = Positions.get(7, 1, 8);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -179,10 +179,10 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceStartWithDoubleCurlyBraces() {
     // Given
     char[] source = "{{Simple text".toCharArray();
-    Position position = PositionBuilder.build(0, 1, 1);
+    Position position = Positions.get(0, 1, 1);
 
     // When
-    SourceBlock block = TemplateFunctions.readBlock(source, position);
+    Block block = TemplateFunctions.readBlock(source, position);
 
     // Then
     assertThat(block).isNotNull();
@@ -201,7 +201,7 @@ public class TemplateFunctionsTest {
     String source = "Simple text";
 
     // When
-    List<SourceBlock> blocks = TemplateFunctions.split(source);
+    List<Block> blocks = TemplateFunctions.split(source);
 
     // Then
     assertThat(blocks).hasSize(1);
@@ -220,7 +220,7 @@ public class TemplateFunctionsTest {
     String source = "{{MARKER}}Simple text";
 
     // When
-    List<SourceBlock> blocks = TemplateFunctions.split(source);
+    List<Block> blocks = TemplateFunctions.split(source);
 
     // Then
     assertThat(blocks).hasSize(2);
@@ -247,7 +247,7 @@ public class TemplateFunctionsTest {
     String source = "Simple {{MARKER}} text";
 
     // When
-    List<SourceBlock> blocks = TemplateFunctions.split(source);
+    List<Block> blocks = TemplateFunctions.split(source);
 
     // Then
     assertThat(blocks).hasSize(3);
@@ -282,7 +282,7 @@ public class TemplateFunctionsTest {
     String source = "Simple text{{MARKER}}";
 
     // When
-    List<SourceBlock> blocks = TemplateFunctions.split(source);
+    List<Block> blocks = TemplateFunctions.split(source);
 
     // Then
     assertThat(blocks).hasSize(2);

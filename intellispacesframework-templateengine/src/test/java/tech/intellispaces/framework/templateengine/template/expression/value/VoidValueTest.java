@@ -85,10 +85,10 @@ public class VoidValueTest {
   public void testEq() throws ResolveTemplateException {
     assertThat(VoidValues.get().eq(VoidValues.get()).get()).isTrue();
 
-    assertThat(VoidValues.get().eq(BooleanValueBuilder.build(false)).get()).isFalse();
-    assertThat(VoidValues.get().eq(StringValueBuilder.build("0")).get()).isFalse();
-    assertThat(VoidValues.get().eq(ListValueBuilder.build(0)).get()).isFalse();
-    assertThat(VoidValues.get().eq(MapValueBuilder.build(0, 0)).get()).isFalse();
+    assertThat(VoidValues.get().eq(BooleanValues.get(false)).get()).isFalse();
+    assertThat(VoidValues.get().eq(StringValues.get("0")).get()).isFalse();
+    assertThat(VoidValues.get().eq(ListValues.get(0)).get()).isFalse();
+    assertThat(VoidValues.get().eq(MapValues.get(0, 0)).get()).isFalse();
   }
 
   @Test
@@ -140,14 +140,14 @@ public class VoidValueTest {
 
   @Test
   public void testGet() {
-    assertThatThrownBy(() -> VoidValues.get().get(IntegerValueBuilder.build(0)))
+    assertThatThrownBy(() -> VoidValues.get().get(IntegerValues.get(0)))
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'get' is not applicable for value type void. Expected map, list or string");
   }
 
   @Test
   public void testFind() {
-    assertThatThrownBy(() -> VoidValues.get().find(IntegerValueBuilder.build(1)))
+    assertThatThrownBy(() -> VoidValues.get().find(IntegerValues.get(1)))
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'find' is not applicable for value type void. Expected string or list");
   }

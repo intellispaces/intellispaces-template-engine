@@ -1,0 +1,31 @@
+package tech.intellispaces.framework.templateengine.template.element;
+
+import tech.intellispaces.framework.templateengine.template.expression.Expression;
+
+import java.util.Objects;
+
+public final class ElseMarkerBuilder {
+  private TemplateElementContext context;
+  private Expression condition;
+
+  ElseMarkerBuilder() {}
+
+  public ElseMarkerBuilder context(TemplateElementContext context) {
+    this.context = context;
+    return this;
+  }
+
+  public ElseMarkerBuilder condition(Expression condition) {
+    this.condition = condition;
+    return this;
+  }
+
+  public MarkerElse get() {
+    validate();
+    return new ElseMarkerImpl(context, condition);
+  }
+
+  private void validate() {
+    Objects.requireNonNull(context);
+  }
+}

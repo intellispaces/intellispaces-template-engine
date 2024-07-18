@@ -16,19 +16,19 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.same;
 
 /**
- * Tests for {@link StringValueBuilder}.
+ * Tests for {@link StringValues}.
  */
 public class StringValueTest {
 
   @Test
   public void testTypename() {
-    assertThat(StringValueBuilder.build("abc").typename().get()).isEqualTo(ValueTypes.String.typename());
+    assertThat(StringValues.get("abc").typename().get()).isEqualTo(ValueTypes.String.typename());
   }
 
   @Test
   public void testAsBoolean() throws Exception {
     // Given
-    StringValue stringValue = StringValueBuilder.build("true");
+    StringValue stringValue = StringValues.get("true");
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       boolean expectedValue = true;
       castFunctions.when(() -> ValueFunctions.castToBoolean(stringValue)).thenReturn(expectedValue);
@@ -45,7 +45,7 @@ public class StringValueTest {
   @Test
   public void testAsInteger() throws Exception {
     // Given
-    StringValue stringValue = StringValueBuilder.build("123");
+    StringValue stringValue = StringValues.get("123");
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       int expectedValue = 123;
       castFunctions.when(() -> ValueFunctions.castToInteger(stringValue)).thenReturn(expectedValue);
@@ -62,7 +62,7 @@ public class StringValueTest {
   @Test
   public void testAsReal() throws Exception {
     // Given
-    StringValue stringValue = StringValueBuilder.build("3.14");
+    StringValue stringValue = StringValues.get("3.14");
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       double expectedValue = 3.14;
       castFunctions.when(() -> ValueFunctions.castToReal(stringValue)).thenReturn(expectedValue);
@@ -78,14 +78,14 @@ public class StringValueTest {
 
   @Test
   public void testAString() throws ResolveTemplateException {
-    StringValue stringValue = StringValueBuilder.build("abc");
+    StringValue stringValue = StringValues.get("abc");
     assertThat(stringValue.asString()).isSameAs(stringValue);
   }
 
   @Test
   public void testAsList() throws Exception {
     // Given
-    StringValue stringValue = StringValueBuilder.build("abc");
+    StringValue stringValue = StringValues.get("abc");
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       List<?> expectedValue = List.of();
       castFunctions.when(() -> ValueFunctions.castToList(stringValue)).thenReturn(expectedValue);
@@ -102,7 +102,7 @@ public class StringValueTest {
   @Test
   public void testAsMap() throws Exception {
     // Given
-    StringValue stringValue = StringValueBuilder.build("abc");
+    StringValue stringValue = StringValues.get("abc");
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       var expectedValue = new LinkedHashMap<>();
       castFunctions.when(() -> ValueFunctions.castToMap(stringValue)).thenReturn(expectedValue);
@@ -118,92 +118,92 @@ public class StringValueTest {
 
   @Test
   public void testEq() throws ResolveTemplateException {
-    assertThat(StringValueBuilder.build("abc").eq(StringValueBuilder.build("abc")).get()).isTrue();
-    assertThat(StringValueBuilder.build("abc").eq(StringValueBuilder.build("abcd")).get()).isFalse();
-    assertThat(StringValueBuilder.build("").eq(StringValueBuilder.build("")).get()).isTrue();
+    assertThat(StringValues.get("abc").eq(StringValues.get("abc")).get()).isTrue();
+    assertThat(StringValues.get("abc").eq(StringValues.get("abcd")).get()).isFalse();
+    assertThat(StringValues.get("").eq(StringValues.get("")).get()).isTrue();
 
-    assertThat(StringValueBuilder.build("true").eq(BooleanValueBuilder.build(true)).get()).isFalse();
-    assertThat(StringValueBuilder.build("1").eq(IntegerValueBuilder.build(1)).get()).isFalse();
-    assertThat(StringValueBuilder.build("1").eq(RealValueBuilder.build(1.0)).get()).isFalse();
-    assertThat(StringValueBuilder.build("[1]").eq(ListValueBuilder.build(1)).get()).isFalse();
-    assertThat(StringValueBuilder.build("[1:2]").eq(MapValueBuilder.build(1, 2)).get()).isFalse();
+    assertThat(StringValues.get("true").eq(BooleanValues.get(true)).get()).isFalse();
+    assertThat(StringValues.get("1").eq(IntegerValues.get(1)).get()).isFalse();
+    assertThat(StringValues.get("1").eq(RealValues.get(1.0)).get()).isFalse();
+    assertThat(StringValues.get("[1]").eq(ListValues.get(1)).get()).isFalse();
+    assertThat(StringValues.get("[1:2]").eq(MapValues.get(1, 2)).get()).isFalse();
 
-    assertThat(StringValueBuilder.build("abc").eq(VoidValues.get()).get()).isFalse();
-    assertThat(StringValueBuilder.build("").eq(VoidValues.get()).get()).isFalse();
+    assertThat(StringValues.get("abc").eq(VoidValues.get()).get()).isFalse();
+    assertThat(StringValues.get("").eq(VoidValues.get()).get()).isFalse();
   }
 
   @Test
   public void testIsVoid() {
-    assertThat(StringValueBuilder.build("abc").isVoid().get()).isFalse();
-    assertThat(StringValueBuilder.build("void").isVoid().get()).isFalse();
-    assertThat(StringValueBuilder.build("").isVoid().get()).isFalse();
+    assertThat(StringValues.get("abc").isVoid().get()).isFalse();
+    assertThat(StringValues.get("void").isVoid().get()).isFalse();
+    assertThat(StringValues.get("").isVoid().get()).isFalse();
   }
 
   @Test
   public void testIsEmpty() throws ResolveTemplateException {
-    assertThat(StringValueBuilder.build("abc").isEmpty().get()).isFalse();
-    assertThat(StringValueBuilder.build("").isEmpty().get()).isTrue();
+    assertThat(StringValues.get("abc").isEmpty().get()).isFalse();
+    assertThat(StringValues.get("").isEmpty().get()).isTrue();
   }
 
   @Test
   public void testIsNotEmpty() throws ResolveTemplateException {
-    assertThat(StringValueBuilder.build("abc").isNotEmpty().get()).isTrue();
-    assertThat(StringValueBuilder.build("").isNotEmpty().get()).isFalse();
+    assertThat(StringValues.get("abc").isNotEmpty().get()).isTrue();
+    assertThat(StringValues.get("").isNotEmpty().get()).isFalse();
   }
 
   @Test
   public void testIsBlank() throws ResolveTemplateException {
-    assertThat(StringValueBuilder.build("abc").isBlank().get()).isFalse();
-    assertThat(StringValueBuilder.build("").isBlank().get()).isTrue();
-    assertThat(StringValueBuilder.build(" ").isBlank().get()).isTrue();
-    assertThat(StringValueBuilder.build("\t\r\n").isBlank().get()).isTrue();
+    assertThat(StringValues.get("abc").isBlank().get()).isFalse();
+    assertThat(StringValues.get("").isBlank().get()).isTrue();
+    assertThat(StringValues.get(" ").isBlank().get()).isTrue();
+    assertThat(StringValues.get("\t\r\n").isBlank().get()).isTrue();
   }
 
   @Test
   public void testIsNotBlank() throws ResolveTemplateException {
-    assertThat(StringValueBuilder.build("abc").isNotBlank().get()).isTrue();
-    assertThat(StringValueBuilder.build("").isNotBlank().get()).isFalse();
-    assertThat(StringValueBuilder.build(" ").isNotBlank().get()).isFalse();
-    assertThat(StringValueBuilder.build("\t\r\n").isNotBlank().get()).isFalse();
+    assertThat(StringValues.get("abc").isNotBlank().get()).isTrue();
+    assertThat(StringValues.get("").isNotBlank().get()).isFalse();
+    assertThat(StringValues.get(" ").isNotBlank().get()).isFalse();
+    assertThat(StringValues.get("\t\r\n").isNotBlank().get()).isFalse();
   }
 
   @Test
   public void testCapitalizeFirstLetter() throws ResolveTemplateException {
-    assertThat(StringValueBuilder.build("abc").capitalizeFirstLetter().get()).isEqualTo("Abc");
-    assertThat(StringValueBuilder.build("").capitalizeFirstLetter().get()).isEqualTo("");
-    assertThat(StringValueBuilder.build(" \t\r\n").capitalizeFirstLetter().get()).isEqualTo(" \t\r\n");
+    assertThat(StringValues.get("abc").capitalizeFirstLetter().get()).isEqualTo("Abc");
+    assertThat(StringValues.get("").capitalizeFirstLetter().get()).isEqualTo("");
+    assertThat(StringValues.get(" \t\r\n").capitalizeFirstLetter().get()).isEqualTo(" \t\r\n");
   }
 
   @Test
   public void testInvert() {
-    assertThatThrownBy(() -> StringValueBuilder.build("abc").invert())
+    assertThatThrownBy(() -> StringValues.get("abc").invert())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'invert' is not applicable for value type string. Expected boolean, integer or real");
   }
 
   @Test
   public void testGet() throws Exception {
-    assertThatThrownBy(() -> StringValueBuilder.build("abc").get(BooleanValueBuilder.build(true)))
+    assertThatThrownBy(() -> StringValues.get("abc").get(BooleanValues.get(true)))
         .isExactlyInstanceOf(IrregularValueTypeException.class)
         .hasMessage("Invalid index type: boolean. Expected integer value");
 
-    Value stringValue = StringValueBuilder.build("abc");
+    Value stringValue = StringValues.get("abc");
 
-    Value element0 = stringValue.get(IntegerValueBuilder.build(0));
+    Value element0 = stringValue.get(IntegerValues.get(0));
     assertThat(element0.type()).isEqualTo(ValueTypes.String);
     assertThat(ValueFunctions.valueToObject(element0)).isEqualTo("a");
     assertThat(element0.index().asInteger().get()).isEqualTo(0);
     assertThat(element0.isFirst().asBoolean().get()).isTrue();
     assertThat(element0.isLast().asBoolean().get()).isFalse();
 
-    Value element2 = stringValue.get(IntegerValueBuilder.build(2));
+    Value element2 = stringValue.get(IntegerValues.get(2));
     assertThat(element2.type()).isEqualTo(ValueTypes.String);
     assertThat(ValueFunctions.valueToObject(element2)).isEqualTo("c");
     assertThat(element2.index().asInteger().get()).isEqualTo(2);
     assertThat(element2.isFirst().asBoolean().get()).isFalse();
     assertThat(element2.isLast().asBoolean().get()).isTrue();
 
-    Value negativeElement = stringValue.get(IntegerValueBuilder.build(-1));
+    Value negativeElement = stringValue.get(IntegerValues.get(-1));
     assertThat(negativeElement.type()).isEqualTo(ValueTypes.Void);
     assertThat(negativeElement.index().asInteger().get()).isEqualTo(-1);
     assertThatThrownBy(negativeElement::isFirst)
@@ -213,7 +213,7 @@ public class StringValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value element3 = stringValue.get(IntegerValueBuilder.build(3));
+    Value element3 = stringValue.get(IntegerValues.get(3));
     assertThat(element3.type()).isEqualTo(ValueTypes.Void);
     assertThat(element3.index().asInteger().get()).isEqualTo(3);
     assertThatThrownBy(element3::isFirst)
@@ -226,9 +226,9 @@ public class StringValueTest {
 
   @Test
   public void testFind_whenLetters() throws Exception {
-    StringValue string = StringValueBuilder.build("abc");
+    StringValue string = StringValues.get("abc");
 
-    Value substringA = string.find(StringValueBuilder.build("a"));
+    Value substringA = string.find(StringValues.get("a"));
     assertThat(substringA.isVoid().get()).isFalse();
     assertThat(ValueFunctions.valueToObject(substringA)).isEqualTo("a");
     assertThat(substringA.index().asInteger().get()).isEqualTo(0);
@@ -239,7 +239,7 @@ public class StringValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value substringC = string.find(StringValueBuilder.build("c"));
+    Value substringC = string.find(StringValues.get("c"));
     assertThat(substringC.isVoid().get()).isFalse();
     assertThat(ValueFunctions.valueToObject(substringC)).isEqualTo("c");
     assertThat(substringC.index().asInteger().get()).isEqualTo(2);
@@ -250,7 +250,7 @@ public class StringValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value substringAbc = string.find(StringValueBuilder.build("abc"));
+    Value substringAbc = string.find(StringValues.get("abc"));
     assertThat(substringAbc.isVoid().get()).isFalse();
     assertThat(ValueFunctions.valueToObject(substringAbc)).isEqualTo("abc");
     assertThat(substringAbc.index().asInteger().get()).isEqualTo(0);
@@ -261,10 +261,10 @@ public class StringValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value substringD = string.find(StringValueBuilder.build("d"));
+    Value substringD = string.find(StringValues.get("d"));
     assertThat(substringD.isVoid().get()).isTrue();
 
-    Value emptySubstring = string.find(StringValueBuilder.build(""));
+    Value emptySubstring = string.find(StringValues.get(""));
     assertThat(emptySubstring.isVoid().get()).isFalse();
     assertThat(ValueFunctions.valueToObject(emptySubstring)).isEqualTo("");
     assertThat(emptySubstring.index().asInteger().get()).isEqualTo(0);
@@ -278,9 +278,9 @@ public class StringValueTest {
 
   @Test
   public void testFind_whenLettersAndInteger() throws Exception {
-    StringValue string = StringValueBuilder.build("a1c");
+    StringValue string = StringValues.get("a1c");
 
-    Value substring1 = string.find(IntegerValueBuilder.build(1));
+    Value substring1 = string.find(IntegerValues.get(1));
     assertThat(substring1.isVoid().get()).isFalse();
     assertThat(ValueFunctions.valueToObject(substring1)).isEqualTo("1");
     assertThat(substring1.index().asInteger().get()).isEqualTo(1);
@@ -291,15 +291,15 @@ public class StringValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value substring2 = string.find(IntegerValueBuilder.build(2));
+    Value substring2 = string.find(IntegerValues.get(2));
     assertThat(substring2.isVoid().get()).isTrue();
   }
 
   @Test
   public void testFind_whenLettersAndReal() throws Exception {
-    StringValue string1 = StringValueBuilder.build("a3.14c");
+    StringValue string1 = StringValues.get("a3.14c");
 
-    Value substring3p14 = string1.find(RealValueBuilder.build(3.14));
+    Value substring3p14 = string1.find(RealValues.get(3.14));
     assertThat(substring3p14.isVoid().get()).isFalse();
     assertThat(ValueFunctions.valueToObject(substring3p14)).isEqualTo("3.14");
     assertThat(substring3p14.index().asInteger().get()).isEqualTo(1);
@@ -310,7 +310,7 @@ public class StringValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value substring3 = string1.find(IntegerValueBuilder.build(3));
+    Value substring3 = string1.find(IntegerValues.get(3));
     assertThat(substring3.isVoid().get()).isFalse();
     assertThat(ValueFunctions.valueToObject(substring3)).isEqualTo("3");
     assertThat(substring3.index().asInteger().get()).isEqualTo(1);
@@ -321,14 +321,14 @@ public class StringValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value substring3p0 = string1.find(RealValueBuilder.build(3));
+    Value substring3p0 = string1.find(RealValues.get(3));
     assertThat(substring3p0.isVoid().get()).isTrue();
 
-    Value substring3p16 = string1.find(RealValueBuilder.build(3.16));
+    Value substring3p16 = string1.find(RealValues.get(3.16));
     assertThat(substring3p16.isVoid().get()).isTrue();
 
-    StringValue string2 = StringValueBuilder.build("a3.0c");
-    substring3p0 = string2.find(RealValueBuilder.build(3));
+    StringValue string2 = StringValues.get("a3.0c");
+    substring3p0 = string2.find(RealValues.get(3));
     assertThat(substring3p0.isVoid().get()).isFalse();
     assertThat(ValueFunctions.valueToObject(substring3p0)).isEqualTo("3.0");
     assertThat(substring3p0.index().asInteger().get()).isEqualTo(1);
@@ -342,35 +342,35 @@ public class StringValueTest {
 
   @Test
   public void testIndex() {
-    assertThatThrownBy(() -> StringValueBuilder.build("abc").index())
+    assertThatThrownBy(() -> StringValues.get("abc").index())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'index' is not applicable for this value");
   }
 
   @Test
   public void testIsFirst() {
-    assertThatThrownBy(() -> StringValueBuilder.build("abc").isFirst())
+    assertThatThrownBy(() -> StringValues.get("abc").isFirst())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isFirst' is not applicable for this value");
   }
 
   @Test
   public void testIsNotFirst() {
-    assertThatThrownBy(() -> StringValueBuilder.build("abc").isNotFirst())
+    assertThatThrownBy(() -> StringValues.get("abc").isNotFirst())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotFirst' is not applicable for this value");
   }
 
   @Test
   public void testIsLast() {
-    assertThatThrownBy(() -> StringValueBuilder.build("abc").isLast())
+    assertThatThrownBy(() -> StringValues.get("abc").isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
   }
 
   @Test
   public void testIsNotLast() {
-    assertThatThrownBy(() -> StringValueBuilder.build("abc").isNotLast())
+    assertThatThrownBy(() -> StringValues.get("abc").isNotLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }

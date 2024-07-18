@@ -22,7 +22,10 @@ public interface SourceFunctions {
       while (index < length && CharFunctions.isGapChar(chars[index])) {
         index++;
       }
-      if ((index < length && chars[index] == '\n') || (index + 1 < length && chars[index] == '\r' && chars[index + 1] == '\n')) {
+      if (
+          (index < length && chars[index] == '\n') ||
+              (index + 1 < length && chars[index] == '\r' && chars[index + 1] == '\n')
+      ) {
         return true;
       }
     }
@@ -69,7 +72,10 @@ public interface SourceFunctions {
       while (index < length && CharFunctions.isGapChar(chars[index])) {
         index++;
       }
-      if (index + 1 < length && ((chars[index] == '\r' && chars[index + 1] == '\n') || (chars[index] == '\n' && chars[index + 1] == '\r'))) {
+      if (
+          index + 1 < length &&
+              ((chars[index] == '\r' && chars[index + 1] == '\n') || (chars[index] == '\n' && chars[index + 1] == '\r'))
+      ) {
         return string.substring(index + 2);
       } else if (index < length && chars[index] == '\n') {
         return string.substring(index + 1);

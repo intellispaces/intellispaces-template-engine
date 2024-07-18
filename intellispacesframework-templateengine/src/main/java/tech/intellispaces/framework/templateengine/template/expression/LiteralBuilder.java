@@ -7,16 +7,14 @@ import java.util.Objects;
 public final class LiteralBuilder {
   private Value value;
 
-  public static LiteralBuilder get() {
-    return new LiteralBuilder();
-  }
+  LiteralBuilder() {}
 
   public LiteralBuilder value(Value value) {
     this.value = value;
     return this;
   }
 
-  public Literal build() {
+  public Literal get() {
     validate();
     return new LiteralImpl(value);
   }
@@ -24,6 +22,4 @@ public final class LiteralBuilder {
   private void validate() {
     Objects.requireNonNull(value);
   }
-
-  private LiteralBuilder() {}
 }

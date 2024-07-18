@@ -9,9 +9,7 @@ public final class ItemValueBuilder {
   private BooleanValue first;
   private BooleanValue last;
 
-  public static ItemValueBuilder get() {
-    return new ItemValueBuilder();
-  }
+  ItemValueBuilder() {}
 
   public ItemValueBuilder value(Value value) {
     this.value = value;
@@ -19,22 +17,22 @@ public final class ItemValueBuilder {
   }
 
   public ItemValueBuilder value(boolean value) {
-    this.value = BooleanValueBuilder.build(value);
+    this.value = BooleanValues.get(value);
     return this;
   }
 
   public ItemValueBuilder value(int value) {
-    this.value = IntegerValueBuilder.build(value);
+    this.value = IntegerValues.get(value);
     return this;
   }
 
   public ItemValueBuilder value(double value) {
-    this.value = RealValueBuilder.build(value);
+    this.value = RealValues.get(value);
     return this;
   }
 
   public ItemValueBuilder value(String value) {
-    this.value = StringValueBuilder.build(value);
+    this.value = StringValues.get(value);
     return this;
   }
 
@@ -49,7 +47,7 @@ public final class ItemValueBuilder {
   }
 
   public ItemValueBuilder index(int index) {
-    this.index = IntegerValueBuilder.build(index);
+    this.index = IntegerValues.get(index);
     return this;
   }
 
@@ -59,7 +57,7 @@ public final class ItemValueBuilder {
   }
 
   public ItemValueBuilder first(boolean first) {
-    this.first = BooleanValueBuilder.build(first);
+    this.first = BooleanValues.get(first);
     return this;
   }
 
@@ -69,11 +67,11 @@ public final class ItemValueBuilder {
   }
 
   public ItemValueBuilder last(boolean last) {
-    this.last = BooleanValueBuilder.build(last);
+    this.last = BooleanValues.get(last);
     return this;
   }
 
-  public Value build() {
+  public Value get() {
     validate();
     return new ItemValueImpl(value, index, first, last);
   }
@@ -82,6 +80,4 @@ public final class ItemValueBuilder {
     Objects.requireNonNull(value);
     Objects.requireNonNull(index);
   }
-
-  private ItemValueBuilder() {}
 }

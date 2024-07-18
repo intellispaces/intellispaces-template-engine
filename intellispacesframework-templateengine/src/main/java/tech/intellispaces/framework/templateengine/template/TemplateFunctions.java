@@ -2,45 +2,45 @@ package tech.intellispaces.framework.templateengine.template;
 
 import tech.intellispaces.framework.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
+import tech.intellispaces.framework.templateengine.template.element.ElementContexts;
+import tech.intellispaces.framework.templateengine.template.element.ElseMarkers;
+import tech.intellispaces.framework.templateengine.template.element.EndMarkers;
+import tech.intellispaces.framework.templateengine.template.element.ForeachMarkers;
+import tech.intellispaces.framework.templateengine.template.element.ForeachStatements;
+import tech.intellispaces.framework.templateengine.template.element.FormatMarkers;
+import tech.intellispaces.framework.templateengine.template.element.FormatStatements;
 import tech.intellispaces.framework.templateengine.template.element.MarkerElse;
-import tech.intellispaces.framework.templateengine.template.element.MarkerElseBuilder;
 import tech.intellispaces.framework.templateengine.template.element.MarkerEnd;
-import tech.intellispaces.framework.templateengine.template.element.MarkerEndBuilder;
 import tech.intellispaces.framework.templateengine.template.element.MarkerForeach;
-import tech.intellispaces.framework.templateengine.template.element.MarkerForeachBuilder;
 import tech.intellispaces.framework.templateengine.template.element.MarkerFormat;
-import tech.intellispaces.framework.templateengine.template.element.MarkerFormatBuilder;
 import tech.intellispaces.framework.templateengine.template.element.MarkerFormatType;
 import tech.intellispaces.framework.templateengine.template.element.MarkerFormatTypes;
 import tech.intellispaces.framework.templateengine.template.element.MarkerPrint;
-import tech.intellispaces.framework.templateengine.template.element.MarkerPrintBuilder;
 import tech.intellispaces.framework.templateengine.template.element.MarkerSet;
-import tech.intellispaces.framework.templateengine.template.element.MarkerSetBuilder;
 import tech.intellispaces.framework.templateengine.template.element.MarkerWhen;
-import tech.intellispaces.framework.templateengine.template.element.MarkerWhenBuilder;
+import tech.intellispaces.framework.templateengine.template.element.PrintMarkers;
+import tech.intellispaces.framework.templateengine.template.element.SetMarkers;
 import tech.intellispaces.framework.templateengine.template.element.StatementForeach;
-import tech.intellispaces.framework.templateengine.template.element.StatementForeachBuilder;
 import tech.intellispaces.framework.templateengine.template.element.StatementFormat;
-import tech.intellispaces.framework.templateengine.template.element.StatementFormatBuilder;
 import tech.intellispaces.framework.templateengine.template.element.StatementWhen;
 import tech.intellispaces.framework.templateengine.template.element.StatementWhenBranch;
-import tech.intellispaces.framework.templateengine.template.element.StatementWhenBranchBuilder;
-import tech.intellispaces.framework.templateengine.template.element.StatementWhenBuilder;
 import tech.intellispaces.framework.templateengine.template.element.TemplateElement;
-import tech.intellispaces.framework.templateengine.template.element.TemplateElementContextBuilder;
 import tech.intellispaces.framework.templateengine.template.element.TemplateElementType;
 import tech.intellispaces.framework.templateengine.template.element.TemplateElementTypes;
 import tech.intellispaces.framework.templateengine.template.element.TextElement;
-import tech.intellispaces.framework.templateengine.template.element.TextElementBuilder;
+import tech.intellispaces.framework.templateengine.template.element.TextElements;
+import tech.intellispaces.framework.templateengine.template.element.WhenBranchStatements;
+import tech.intellispaces.framework.templateengine.template.element.WhenMarkers;
+import tech.intellispaces.framework.templateengine.template.element.WhenStatements;
 import tech.intellispaces.framework.templateengine.template.expression.ParseExpressionFunctions;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 import tech.intellispaces.framework.templateengine.template.expression.value.ValueFunctions;
 import tech.intellispaces.framework.templateengine.template.source.SourceFunctions;
-import tech.intellispaces.framework.templateengine.template.source.block.SourceBlock;
-import tech.intellispaces.framework.templateengine.template.source.block.SourceBlockBuilder;
+import tech.intellispaces.framework.templateengine.template.source.block.Block;
+import tech.intellispaces.framework.templateengine.template.source.block.Blocks;
 import tech.intellispaces.framework.templateengine.template.source.position.MutablePosition;
 import tech.intellispaces.framework.templateengine.template.source.position.Position;
-import tech.intellispaces.framework.templateengine.template.source.position.PositionBuilder;
+import tech.intellispaces.framework.templateengine.template.source.position.Positions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,7 +52,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Template functions (parsing and resolvind).
+ * Template functions.
  */
 public final class TemplateFunctions {
 
@@ -64,7 +64,7 @@ public final class TemplateFunctions {
    * @throws ParseTemplateException throws when template can't be parsed.
    */
   public static Template parseTemplate(String source) throws ParseTemplateException {
-    return TemplateBuilder.build(
+    return Templates.build(
         analyzeStatements(
             glueElements(
                 analyzeElements(
@@ -100,11 +100,11 @@ public final class TemplateFunctions {
    * @param source template source.
    * @return list of text blocks.
    */
-  public static List<SourceBlock> split(String source) {
-    List<SourceBlock> blocks = new ArrayList<>();
+  public static List<Block> split(String source) {
+    List<Block> blocks = new ArrayList<>();
     char[] chars = source.toCharArray();
-    MutablePosition curPosition = PositionBuilder.buildMutable(0, 1, 1);
-    SourceBlock block = readBlock(chars, curPosition);
+    MutablePosition curPosition = Positions.getMutable(0, 1, 1);
+    Block block = readBlock(chars, curPosition);
     while (block != null && block.length() > 0) {
       movePosition(curPosition, block, chars);
       blocks.add(block);
@@ -120,7 +120,7 @@ public final class TemplateFunctions {
    * @param position read position.
    * @return text block or <code>null</code>.
    */
-  public static SourceBlock readBlock(char[] source, Position position) {
+  public static Block readBlock(char[] source, Position position) {
     if (position.offset() > source.length) {
       return null;
     }
@@ -144,11 +144,11 @@ public final class TemplateFunctions {
         curOffset++;
       }
     }
-    return SourceBlockBuilder.get()
-        .position(PositionBuilder.build(position))
+    return Blocks.build()
+        .position(Positions.copy(position))
         .marker(marker)
         .value(readElementValue(marker, source, position.offset(), curOffset - position.offset()))
-        .build();
+        .get();
   }
 
   private static boolean isOpenDoubleCurlyBraces(char[] source, int offset) {
@@ -172,7 +172,7 @@ public final class TemplateFunctions {
     return new String(source, position, numChars);
   }
 
-  private static void movePosition(MutablePosition position, SourceBlock block, char[] source) {
+  private static void movePosition(MutablePosition position, Block block, char[] source) {
     int row = position.row();
     int column = position.column();
     for (int i = 0; i < block.length(); i++) {
@@ -195,23 +195,23 @@ public final class TemplateFunctions {
    * @throws ParseTemplateException throws when template can't be parsed.
    */
   private static List<TemplateElement> analyzeElements(
-      List<SourceBlock> blocks
+      List<Block> blocks
   ) throws ParseTemplateException {
     List<TemplateElement> elements = new ArrayList<>(blocks.size());
     int elementIndex = 0;
-    for (SourceBlock block : blocks) {
+    for (Block block : blocks) {
       if (block.isMarker()) {
         TemplateElement marker = analyzeMarker(block, elements, elementIndex);
         elements.add(marker);
       } else {
-        elements.add(TextElementBuilder.get()
-            .context(TemplateElementContextBuilder.get()
+        elements.add(TextElements.build()
+            .context(ElementContexts.build()
                 .position(block.position())
                 .templateElements(elements)
                 .elementIndex(elementIndex)
-                .build())
+                .get())
             .text(block.wording())
-            .build());
+            .get());
       }
       elementIndex++;
     }
@@ -219,7 +219,7 @@ public final class TemplateFunctions {
   }
 
   private static TemplateElement analyzeMarker(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   ) throws ParseTemplateException {
     // Marker <print>
     MarkerPrint markerPrint = asMarkerPrint(block, elements, elementIndex);
@@ -274,144 +274,144 @@ public final class TemplateFunctions {
   }
 
   private static MarkerPrint asMarkerPrint(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   ) throws ParseTemplateException {
     Matcher matcher = MARKER_PRINT_PATTERN.matcher(block.value());
     if (matcher.matches()) {
-      return MarkerPrintBuilder.get()
-          .context(TemplateElementContextBuilder.get()
+      return PrintMarkers.build()
+          .context(ElementContexts.build()
               .position(block.position())
               .templateElements(elements)
               .elementIndex(elementIndex)
-              .build())
+              .get())
           .outputExpression(ParseExpressionFunctions.parseExpression(matcher.group(1).trim()))
-          .build();
+          .get();
     }
     return null;
   }
 
   private static MarkerPrint asShortMarkerPrint(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   ) throws ParseTemplateException {
     Matcher matcher = MARKER_PRINT_SHORT_PATTERN.matcher(block.value());
     if (matcher.matches()) {
-      return MarkerPrintBuilder.get()
-          .context(TemplateElementContextBuilder.get()
+      return PrintMarkers.build()
+          .context(ElementContexts.build()
               .position(block.position())
               .templateElements(elements)
               .elementIndex(elementIndex)
-              .build())
+              .get())
           .outputExpression(ParseExpressionFunctions.parseExpression(matcher.group(1).trim()))
-          .build();
+          .get();
     }
     return null;
   }
 
   private static MarkerSet asMarkerSet(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   ) throws ParseTemplateException {
     Matcher matcher = MARKER_SET_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
-      return MarkerSetBuilder.get()
-          .context(TemplateElementContextBuilder.get()
+      return SetMarkers.build()
+          .context(ElementContexts.build()
               .position(block.position())
               .templateElements(elements)
               .elementIndex(elementIndex)
-              .build())
+              .get())
           .valueName(matcher.group(1).trim())
           .valueExpression(ParseExpressionFunctions.parseExpression(matcher.group(2).trim()))
-          .build();
+          .get();
     }
     return null;
   }
 
   private static MarkerFormat asMarkerFormat(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   )  {
     Matcher matcher = MARKER_FORMAT_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
-      return MarkerFormatBuilder.get()
-          .context(TemplateElementContextBuilder.get()
+      return FormatMarkers.build()
+          .context(ElementContexts.build()
               .position(block.position())
               .templateElements(elements)
               .elementIndex(elementIndex)
-              .build())
+              .get())
           .types(Arrays.stream(matcher.group(1).split(","))
               .map(String::trim)
               .filter(s -> !s.isEmpty())
               .map(MarkerFormatTypes::valueOf)
               .map(t -> (MarkerFormatType) t)
               .toList())
-          .build();
+          .get();
     }
     return null;
   }
 
   private static MarkerForeach asMarkerForeach(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   ) throws ParseTemplateException {
     Matcher matcher = MARKER_FOREACH_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
-      return MarkerForeachBuilder.get()
-          .context(TemplateElementContextBuilder.get()
+      return ForeachMarkers.build()
+          .context(ElementContexts.build()
               .position(block.position())
               .templateElements(elements)
               .elementIndex(elementIndex)
-              .build())
+              .get())
           .itemName(matcher.group(1))
           .collectionExpression(ParseExpressionFunctions.parseExpression(matcher.group(2).trim()))
-          .build();
+          .get();
     }
     return null;
   }
 
   private static MarkerWhen asMarkerWhen(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   ) throws ParseTemplateException {
     Matcher matcher = MARKER_WHEN_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
-      return MarkerWhenBuilder.get()
-          .context(TemplateElementContextBuilder.get()
+      return WhenMarkers.build()
+          .context(ElementContexts.build()
               .position(block.position())
               .templateElements(elements)
               .elementIndex(elementIndex)
-              .build())
+              .get())
           .condition(ParseExpressionFunctions.parseExpression(matcher.group(1).trim()))
-          .build();
+          .get();
     }
     return null;
   }
 
   private static MarkerElse asMarkerElse(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   ) throws ParseTemplateException {
     Matcher matcher = MARKER_ELSE_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
       String condition = matcher.group(2);
-      return MarkerElseBuilder.get()
-          .context(TemplateElementContextBuilder.get()
+      return ElseMarkers.build()
+          .context(ElementContexts.build()
               .position(block.position())
               .templateElements(elements)
               .elementIndex(elementIndex)
-              .build())
+              .get())
           .condition(condition != null ? ParseExpressionFunctions.parseExpression(condition.trim()) : null)
-          .build();
+          .get();
     }
     return null;
   }
 
   private static MarkerEnd asMarkerEnd(
-      SourceBlock block, List<TemplateElement> elements, int elementIndex
+      Block block, List<TemplateElement> elements, int elementIndex
   ) {
     Matcher matcher = MARKER_END_PATTERN.matcher(block.wording());
     if (matcher.matches()) {
-      return MarkerEndBuilder.get()
-          .context(TemplateElementContextBuilder.get()
+      return EndMarkers.build()
+          .context(ElementContexts.build()
               .position(block.position())
               .templateElements(elements)
               .elementIndex(elementIndex)
-              .build())
-          .build();
+              .get())
+          .get();
     }
     return null;
   }
@@ -423,25 +423,25 @@ public final class TemplateFunctions {
         if (ind > 0) {
           TemplateElement prevElement = result.get(ind - 1);
           result.set(ind - 1,
-              TextElementBuilder.get()
-                  .context(TemplateElementContextBuilder.get()
+              TextElements.build()
+                  .context(ElementContexts.build()
                       .position(prevElement.context().position())
                       .templateElements(elements)
-                      .build())
+                      .get())
                   .text(SourceFunctions.removeLastGaps(((TextElement) prevElement).text()))
-                  .build()
+                  .get()
           );
         }
         if (ind < elements.size() - 1) {
           TemplateElement nextElement = result.get(ind + 1);
           result.set(ind + 1,
-              TextElementBuilder.get()
-                  .context(TemplateElementContextBuilder.get()
+              TextElements.build()
+                  .context(ElementContexts.build()
                       .position(nextElement.context().position())
                       .templateElements(elements)
-                      .build())
+                      .get())
                   .text(SourceFunctions.removeFirstBlanksAndLinebreak(((TextElement) nextElement).text()))
-                  .build()
+                  .get()
           );
         }
       }
@@ -519,14 +519,14 @@ public final class TemplateFunctions {
   ) throws ParseTemplateException {
     List<TemplateElement> subElements = readUpToMarkerEnd(markerFormat, iterator);
     List<TemplateElement> subStatements = analyzeStatements(subElements);
-    return StatementFormatBuilder.get()
-        .context(TemplateElementContextBuilder.get()
+    return FormatStatements.get()
+        .context(ElementContexts.build()
             .position(markerFormat.context().position())
             .templateElements(elements)
-            .build())
+            .get())
         .types(markerFormat.types())
         .subElements(subStatements)
-        .build();
+        .get();
   }
 
   private static StatementForeach readForeachStatement(
@@ -534,15 +534,15 @@ public final class TemplateFunctions {
   ) throws ParseTemplateException {
     List<TemplateElement> subElements = readUpToMarkerEnd(markerForeach, iterator);
     List<TemplateElement> subStatements = analyzeStatements(subElements);
-    return StatementForeachBuilder.get()
-        .context(TemplateElementContextBuilder.get()
+    return ForeachStatements.build()
+        .context(ElementContexts.build()
             .position(markerForeach.context().position())
             .templateElements(elements)
-            .build())
+            .get())
         .collectionExpression(markerForeach.collectionExpression())
         .itemName(markerForeach.itemName())
         .subElements(subStatements)
-        .build();
+        .get();
   }
 
   private static StatementWhen readWhenStatement(
@@ -553,20 +553,20 @@ public final class TemplateFunctions {
 
     List<TemplateElement> curBranchElements = readWhenBranch(markerWhen, iterator, elements);
     curBranchElements = analyzeStatements(curBranchElements);
-    branches.add(StatementWhenBranchBuilder.get()
+    branches.add(WhenBranchStatements.build()
         .condition(markerWhen.condition())
         .subElements(curBranchElements)
-        .build());
+        .get());
     while (iterator.hasNext()) {
       TemplateElement element = iterator.next();
       if (TemplateElementTypes.MarkerElse == element.type()) {
         MarkerElse markerElse = (MarkerElse) element;
         curBranchElements = readWhenBranch(element, iterator, elements);
         curBranchElements = analyzeStatements(curBranchElements);
-        StatementWhenBranch branch = StatementWhenBranchBuilder.get()
+        StatementWhenBranch branch = WhenBranchStatements.build()
             .condition(markerElse.condition())
             .subElements(curBranchElements)
-            .build();
+            .get();
         if (markerElse.condition() == null) {
           defaultBranch = branch;
         } else {
@@ -575,18 +575,19 @@ public final class TemplateFunctions {
       } else if (TemplateElementTypes.MarkerEnd == element.type()) {
         break;
       } else {
-        throw ParseTemplateException.withMessage("Unexpected element of type {} at position {}:{}. Expected markers {{else}} or {{end}}",
+        throw ParseTemplateException.withMessage("Unexpected element of type {} at position {}:{}. " +
+                "Expected markers {{else}} or {{end}}",
             element.context().position().row(), element.context().position().column());
       }
     }
-    return StatementWhenBuilder.get()
-        .context(TemplateElementContextBuilder.get()
+    return WhenStatements.get()
+        .context(ElementContexts.build()
             .position(markerWhen.context().position())
             .templateElements(elements)
-            .build())
+            .get())
         .branches(branches)
         .defaultBranch(defaultBranch)
-        .build();
+        .get();
   }
 
   private static List<TemplateElement> readWhenBranch(
@@ -642,12 +643,21 @@ public final class TemplateFunctions {
   private static final char CLOSE_CURLY_BRACE = '}';
   private static final String IDENTIFIER_CHARS = "\\w";
   private static final String EXPRESSION_CHARS = " \\t\\w\\.,:\\(\\)\\[\\]\"'";
-  private static final Pattern MARKER_SET_PATTERN = Pattern.compile("\\{\\{set[ \\t]+(\\w+)[ \\t]*=[ \\t]*([\\$" + EXPRESSION_CHARS + "]+)\\}\\}");
-  private static final Pattern MARKER_PRINT_PATTERN = Pattern.compile("print[ \\t]+([\\$" + EXPRESSION_CHARS + "]+)");
-  private static final Pattern MARKER_PRINT_SHORT_PATTERN = Pattern.compile("[ \\t]*(\\$[" + IDENTIFIER_CHARS + "]+[" + EXPRESSION_CHARS + "]*)[ \\t]*");
-  private static final Pattern MARKER_FORMAT_PATTERN = Pattern.compile("\\{\\{format[ \\t]+([\\w, \\t]+)\\}\\}");
-  private static final Pattern MARKER_FOREACH_PATTERN = Pattern.compile("\\{\\{for[ \\t]+([" + IDENTIFIER_CHARS + "]+)[ \\t]*:[ \\t]*([\\$" + EXPRESSION_CHARS + "]+)[ \\t]*\\}\\}");
-  private static final Pattern MARKER_WHEN_PATTERN = Pattern.compile("\\{\\{when[ \\t]+([\\$" + EXPRESSION_CHARS + "]+)\\}\\}");
-  private static final Pattern MARKER_ELSE_PATTERN = Pattern.compile("\\{\\{else[ \\t]*(when[ \\t]+([\\$" + EXPRESSION_CHARS + "]+))?\\}\\}");
-  private static final Pattern MARKER_END_PATTERN = Pattern.compile("\\{\\{end[ \\t\\w]*\\}\\}");
+
+  private static final Pattern MARKER_SET_PATTERN = Pattern.compile(
+      "\\{\\{set[ \\t]+(\\w+)[ \\t]*=[ \\t]*([\\$" + EXPRESSION_CHARS + "]+)\\}\\}");
+  private static final Pattern MARKER_PRINT_PATTERN = Pattern.compile(
+      "print[ \\t]+([\\$" + EXPRESSION_CHARS + "]+)");
+  private static final Pattern MARKER_PRINT_SHORT_PATTERN = Pattern.compile(
+      "[ \\t]*(\\$[" + IDENTIFIER_CHARS + "]+[" + EXPRESSION_CHARS + "]*)[ \\t]*");
+  private static final Pattern MARKER_FORMAT_PATTERN = Pattern.compile(
+      "\\{\\{format[ \\t]+([\\w, \\t]+)\\}\\}");
+  private static final Pattern MARKER_FOREACH_PATTERN = Pattern.compile(
+      "\\{\\{for[ \\t]+([" + IDENTIFIER_CHARS + "]+)[ \\t]*:[ \\t]*([\\$" + EXPRESSION_CHARS + "]+)[ \\t]*\\}\\}");
+  private static final Pattern MARKER_WHEN_PATTERN = Pattern.compile(
+      "\\{\\{when[ \\t]+([\\$" + EXPRESSION_CHARS + "]+)\\}\\}");
+  private static final Pattern MARKER_ELSE_PATTERN = Pattern.compile(
+      "\\{\\{else[ \\t]*(when[ \\t]+([\\$" + EXPRESSION_CHARS + "]+))?\\}\\}");
+  private static final Pattern MARKER_END_PATTERN = Pattern.compile(
+      "\\{\\{end[ \\t\\w]*\\}\\}");
 }

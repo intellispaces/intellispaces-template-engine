@@ -35,29 +35,29 @@ class StringValueImpl extends AbstractValue implements StringValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.String) {
-      return BooleanValueBuilder.build(Objects.equals(get(), ((StringValue) other).get()));
+      return BooleanValues.get(Objects.equals(get(), ((StringValue) other).get()));
     }
-    return BooleanValueBuilder.build(false);
+    return BooleanValues.get(false);
   }
 
   @Override
   public BooleanValue isEmpty() {
-    return BooleanValueBuilder.build(get() == null || get().isEmpty());
+    return BooleanValues.get(get() == null || get().isEmpty());
   }
 
   @Override
   public BooleanValue isNotEmpty() throws ResolveTemplateException {
-    return BooleanValueBuilder.build(get() != null && !get().isEmpty());
+    return BooleanValues.get(get() != null && !get().isEmpty());
   }
 
   @Override
   public BooleanValue isBlank() {
-    return BooleanValueBuilder.build(get() == null || get().isBlank());
+    return BooleanValues.get(get() == null || get().isBlank());
   }
 
   @Override
   public BooleanValue isNotBlank() throws ResolveTemplateException {
-    return BooleanValueBuilder.build(get() != null && !get().isBlank());
+    return BooleanValues.get(get() != null && !get().isBlank());
   }
 
   @Override
@@ -79,10 +79,10 @@ class StringValueImpl extends AbstractValue implements StringValue {
     if (index < 0) {
       return VoidValues.get();
     }
-    return ItemValueBuilder.get()
+    return ItemValues.build()
         .value(subString)
         .index(index)
-        .build();
+        .get();
   }
 
   @Override
@@ -92,22 +92,22 @@ class StringValueImpl extends AbstractValue implements StringValue {
     }
     int index = ((IntegerValue) key).get();
     if (index < 0 || index >= get().length()) {
-      return ItemValueBuilder.get()
+      return ItemValues.build()
           .value(VoidValues.get())
           .index((IntegerValue) key)
-          .build();
+          .get();
     }
-    return ItemValueBuilder.get()
+    return ItemValues.build()
         .value("" + get().charAt(index))
         .index((IntegerValue) key)
         .first(index == 0)
         .last(index == get().length() - 1)
-        .build();
+        .get();
   }
 
   @Override
   public StringValue capitalizeFirstLetter() {
-    return StringValueBuilder.build(StringFunctions.capitalizeFirstLetter(get()));
+    return StringValues.get(StringFunctions.capitalizeFirstLetter(get()));
   }
 
   @Override

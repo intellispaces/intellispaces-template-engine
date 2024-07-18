@@ -4,12 +4,12 @@ import tech.intellispaces.framework.commons.exception.UnexpectedViolationExcepti
 import tech.intellispaces.framework.commons.string.CharFunctions;
 import tech.intellispaces.framework.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.framework.templateengine.template.expression.compilation.CompileFunctions;
-import tech.intellispaces.framework.templateengine.template.expression.value.BooleanValueBuilder;
-import tech.intellispaces.framework.templateengine.template.expression.value.IntegerValueBuilder;
-import tech.intellispaces.framework.templateengine.template.expression.value.ListValueBuilder;
-import tech.intellispaces.framework.templateengine.template.expression.value.MapValueBuilder;
-import tech.intellispaces.framework.templateengine.template.expression.value.RealValueBuilder;
-import tech.intellispaces.framework.templateengine.template.expression.value.StringValueBuilder;
+import tech.intellispaces.framework.templateengine.template.expression.value.BooleanValues;
+import tech.intellispaces.framework.templateengine.template.expression.value.IntegerValues;
+import tech.intellispaces.framework.templateengine.template.expression.value.ListValues;
+import tech.intellispaces.framework.templateengine.template.expression.value.MapValues;
+import tech.intellispaces.framework.templateengine.template.expression.value.RealValues;
+import tech.intellispaces.framework.templateengine.template.expression.value.StringValues;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 import tech.intellispaces.framework.templateengine.template.expression.value.VoidValues;
 import tech.intellispaces.framework.templateengine.template.source.SourceFunctions;
@@ -41,12 +41,12 @@ public final class ParseExpressionFunctions {
     List<Operand> operands = new ArrayList<>();
     String preparedStatement = prepareStatement(statement, operands);
     CompiledExpression compiledExpression = compileExpression(preparedStatement);
-    return ExpressionBuilder.get()
+    return Expressions.build()
         .statement(statement)
         .preparedStatement(preparedStatement)
         .compiledExpression(compiledExpression)
         .operands(operands)
-        .build();
+        .get();
   }
 
   private static String prepareStatement(String statement, List<Operand> operands) throws ParseTemplateException {
@@ -86,7 +86,9 @@ public final class ParseExpressionFunctions {
       } else if (curChar == '[') {
         if (ind == 0) {
           ValueAndWording valueAndWording = readListOrMap(chars, ind);
-          appendLiteral(preparedStatement, valueAndWording.wording(), operands, operandWord2IndexMap, valueAndWording.value());
+          appendLiteral(
+              preparedStatement, valueAndWording.wording(), operands, operandWord2IndexMap, valueAndWording.value()
+          );
           ind += valueAndWording.wording().length();
         } else {
           // Replace to <get> operation
@@ -117,7 +119,7 @@ public final class ParseExpressionFunctions {
       } else if (curChar == '"') {
         String string = readString(chars, ind);
         ind += string.length() + 2;
-        values.add(StringValueBuilder.build(string));
+        values.add(StringValues.get(string));
       } else if (isDigit(curChar) || ((curChar == '+' || curChar == '-') && isDigit(nextChar))) {
         String number = readNumber(chars, ind);
         ind += number.length();
@@ -143,13 +145,13 @@ public final class ParseExpressionFunctions {
 
     final Value value;
     if (isList) {
-      value = ListValueBuilder.build(values);
+      value = ListValues.get(values);
     } else {
       Map<Value, Value> map = new HashMap<>();
       for (int i = 0; i < values.size(); i += 2) {
         map.put(values.get(i), values.get(i + 1));
       }
-      value = MapValueBuilder.build(map);
+      value = MapValues.get(map);
     }
     return new ValueAndWording(value, new String(chars, beginIndex, ind - beginIndex + 1));
   }
@@ -206,49 +208,69 @@ public final class ParseExpressionFunctions {
         }
       }
     }
-    throw ParseTemplateException.withMessage("Invalid expression at column {}. Expected closed square bracket", beginIndex);
+    throw ParseTemplateException.withMessage("Invalid expression at column {}. Expected closed square bracket",
+        beginIndex);
   }
 
   private static Optional<Literal> parseKeyword(String word) {
     if (Keywords.True.word().equals(word)) {
-      return Optional.of(LiteralBuilder.get().value(BooleanValueBuilder.build(true)).build());
+      return Optional.of(Literals.build().value(BooleanValues.get(true)).get());
     } else if (Keywords.False.word().equals(word)) {
-      return Optional.of(LiteralBuilder.get().value(BooleanValueBuilder.build(false)).build());
+      return Optional.of(Literals.build().value(BooleanValues.get(false)).get());
     } else if (Keywords.Void.word().equals(word)) {
-      return Optional.of(LiteralBuilder.get().value(VoidValues.get()).build());
+      return Optional.of(Literals.build().value(VoidValues.get()).get());
     }
     return Optional.empty();
   }
 
   private static void appendStringLiteral(
-      StringBuilder preparedStatement, String string, List<Operand> operands, Map<String, Integer> operandWord2IndexMap
+      StringBuilder preparedStatement,
+      String string,
+      List<Operand> operands,
+      Map<String, Integer> operandWord2IndexMap
   ) {
-    appendLiteral(preparedStatement, "\"" + string + "\"", operands, operandWord2IndexMap, StringValueBuilder.build(string));
+    appendLiteral(
+        preparedStatement, "\"" + string + "\"", operands, operandWord2IndexMap, StringValues.get(string)
+    );
   }
 
   private static void appendNumberLiteral(
-      StringBuilder preparedStatement, String number, List<Operand> operands, Map<String, Integer> operandWord2IndexMap
+      StringBuilder preparedStatement,
+      String number,
+      List<Operand> operands,
+      Map<String, Integer> operandWord2IndexMap
   ) {
     Value value = parseNumber(number);
     appendLiteral(preparedStatement, number, operands, operandWord2IndexMap, value);
   }
 
   private static void appendLiteral(
-      StringBuilder preparedStatement, String word, List<Operand> operands, Map<String, Integer> operandWord2IndexMap, Value value
+      StringBuilder preparedStatement,
+      String word,
+      List<Operand> operands,
+      Map<String, Integer> operandWord2IndexMap,
+      Value value
   ) {
-    Literal literal = LiteralBuilder.get().value(value).build();
+    Literal literal = Literals.build().value(value).get();
     appendOperand(preparedStatement, word, literal, operands, operandWord2IndexMap);
   }
 
   private static void appendVariable(
-      StringBuilder preparedStatement, String variableName, List<Operand> operands, Map<String, Integer> operandWord2IndexMap
+      StringBuilder preparedStatement,
+      String variableName,
+      List<Operand> operands,
+      Map<String, Integer> operandWord2IndexMap
   ) {
-    Variable variable = VariableBuilder.get().name(variableName).build();
+    Variable variable = Variables.build().name(variableName).get();
     appendOperand(preparedStatement, "$" + variableName, variable, operands, operandWord2IndexMap);
   }
 
   private static void appendOperand(
-      StringBuilder preparedStatement, String word, Operand operand, List<Operand> operands, Map<String, Integer> operandWord2IndexMap
+      StringBuilder preparedStatement,
+      String word,
+      Operand operand,
+      List<Operand> operands,
+      Map<String, Integer> operandWord2IndexMap
   ) {
     int operandIndex = operandWord2IndexMap.computeIfAbsent(word, k -> {
       operands.add(operand);
@@ -262,14 +284,18 @@ public final class ParseExpressionFunctions {
   }
 
   private static Value parseNumber(String number) {
-    return isRealNumber(number) ? RealValueBuilder.build(Double.parseDouble(number)) : IntegerValueBuilder.build(Integer.parseInt(number));
+    return isRealNumber(number)
+        ? RealValues.get(Double.parseDouble(number))
+        : IntegerValues.get(Integer.parseInt(number));
   }
 
   private static boolean isRealNumber(String value) {
     return value.contains(".");
   }
 
-  private static CompiledExpression compileExpression(String preparedStatement) throws ParseTemplateException {
+  private static CompiledExpression compileExpression(
+      String preparedStatement
+  ) throws ParseTemplateException {
     synchronized (STATEMENTS_CACHE) {
       StatementKey key = STATEMENTS_CACHE.keySet().stream()
           .filter(k -> k.statement().equals(preparedStatement))
@@ -286,9 +312,9 @@ public final class ParseExpressionFunctions {
 
   private ParseExpressionFunctions() {}
 
-  private static record ValueAndWording(Value value, String wording) {}
+  private record ValueAndWording(Value value, String wording) {}
 
-  private static record StatementKey(String statement) {}
+  private record StatementKey(String statement) {}
 
   private static final Map<StatementKey, CompiledExpression> STATEMENTS_CACHE = new WeakHashMap<>();
 }

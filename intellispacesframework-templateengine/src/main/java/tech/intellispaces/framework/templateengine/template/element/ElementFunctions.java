@@ -3,7 +3,7 @@ package tech.intellispaces.framework.templateengine.template.element;
 import tech.intellispaces.framework.commons.string.StringFunctions;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.framework.templateengine.template.expression.ResolveExpressionFunctions;
-import tech.intellispaces.framework.templateengine.template.expression.value.ItemValueBuilder;
+import tech.intellispaces.framework.templateengine.template.expression.value.ItemValues;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 import tech.intellispaces.framework.templateengine.template.source.SourceFunctions;
 
@@ -78,12 +78,12 @@ public interface ElementFunctions {
       for (Value value : values) {
         subParams.put(
             statement.itemName(),
-            ItemValueBuilder.get()
+            ItemValues.build()
                 .value(value)
                 .index(index)
                 .first(index == 0)
                 .last(index == values.size() - 1)
-                .build()
+                .get()
         );
         index++;
 

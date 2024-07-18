@@ -96,7 +96,7 @@ public class ValueFunctionsTest {
     // Then
     assertThat(value.type()).isEqualTo(ValueTypes.List);
     Assertions.assertThat(((ListValue) value).get()).isEqualTo(List.of(
-        StringValueBuilder.build("a"), StringValueBuilder.build("b"), StringValueBuilder.build("c")
+        StringValues.get("a"), StringValues.get("b"), StringValues.get("c")
     ));
   }
 
@@ -115,8 +115,8 @@ public class ValueFunctionsTest {
     // Then
     assertThat(value.type()).isEqualTo(ValueTypes.Map);
     assertThat(((MapValue) value).get()).isEqualTo(Map.of(
-        IntegerValueBuilder.build(1), StringValueBuilder.build("a"),
-        IntegerValueBuilder.build(2), StringValueBuilder.build("b")
+        IntegerValues.get(1), StringValues.get("a"),
+        IntegerValues.get(2), StringValues.get("b")
     ));
   }
 
@@ -134,41 +134,41 @@ public class ValueFunctionsTest {
 
   @Test
   public void testValueToObject_whenBoolean() {
-    assertThat(ValueFunctions.valueToObject(BooleanValueBuilder.build(true))).isEqualTo(true);
-    assertThat(ValueFunctions.valueToObject(BooleanValueBuilder.build(false))).isEqualTo(false);
+    assertThat(ValueFunctions.valueToObject(BooleanValues.get(true))).isEqualTo(true);
+    assertThat(ValueFunctions.valueToObject(BooleanValues.get(false))).isEqualTo(false);
   }
 
   @Test
   public void testValueToObject_whenInteger() {
-    assertThat(ValueFunctions.valueToObject(IntegerValueBuilder.build(1))).isEqualTo(1);
-    assertThat(ValueFunctions.valueToObject(IntegerValueBuilder.build(0))).isEqualTo(0);
-    assertThat(ValueFunctions.valueToObject(IntegerValueBuilder.build(-1))).isEqualTo(-1);
+    assertThat(ValueFunctions.valueToObject(IntegerValues.get(1))).isEqualTo(1);
+    assertThat(ValueFunctions.valueToObject(IntegerValues.get(0))).isEqualTo(0);
+    assertThat(ValueFunctions.valueToObject(IntegerValues.get(-1))).isEqualTo(-1);
   }
 
   @Test
   public void testValueToObject_whenReal() {
-    assertThat(ValueFunctions.valueToObject(RealValueBuilder.build(1))).isEqualTo(1.0);
-    assertThat(ValueFunctions.valueToObject(RealValueBuilder.build(0))).isEqualTo(0.0);
-    assertThat(ValueFunctions.valueToObject(RealValueBuilder.build(-1))).isEqualTo(-1.0);
+    assertThat(ValueFunctions.valueToObject(RealValues.get(1))).isEqualTo(1.0);
+    assertThat(ValueFunctions.valueToObject(RealValues.get(0))).isEqualTo(0.0);
+    assertThat(ValueFunctions.valueToObject(RealValues.get(-1))).isEqualTo(-1.0);
   }
 
   @Test
   public void testValueToObject_whenString() {
-    assertThat(ValueFunctions.valueToObject(StringValueBuilder.build(""))).isEqualTo("");
-    assertThat(ValueFunctions.valueToObject(StringValueBuilder.build("abc"))).isEqualTo("abc");
-    assertThat(ValueFunctions.valueToObject(StringValueBuilder.build('a'))).isEqualTo("a");
+    assertThat(ValueFunctions.valueToObject(StringValues.get(""))).isEqualTo("");
+    assertThat(ValueFunctions.valueToObject(StringValues.get("abc"))).isEqualTo("abc");
+    assertThat(ValueFunctions.valueToObject(StringValues.get('a'))).isEqualTo("a");
   }
 
   @Test
   public void testValueToObject_whenList() {
-    assertThat(ValueFunctions.valueToObject(ListValueBuilder.empty())).isEqualTo(List.of());
-    assertThat(ValueFunctions.valueToObject(ListValueBuilder.build("a", "b", "c"))).isEqualTo(List.of("a", "b", "c"));
+    assertThat(ValueFunctions.valueToObject(ListValues.empty())).isEqualTo(List.of());
+    assertThat(ValueFunctions.valueToObject(ListValues.get("a", "b", "c"))).isEqualTo(List.of("a", "b", "c"));
   }
 
   @Test
   public void testValueToObject_whenMap() throws Exception {
-    assertThat(ValueFunctions.valueToObject(MapValueBuilder.empty())).isEqualTo(Map.of());
-    assertThat(ValueFunctions.valueToObject(MapValueBuilder.build(1, "a", 2, "b"))).isEqualTo(Map.of(1, "a", 2, "b"));
+    assertThat(ValueFunctions.valueToObject(MapValues.empty())).isEqualTo(Map.of());
+    assertThat(ValueFunctions.valueToObject(MapValues.get(1, "a", 2, "b"))).isEqualTo(Map.of(1, "a", 2, "b"));
   }
 
   @Test
@@ -179,37 +179,37 @@ public class ValueFunctionsTest {
         .hasMessage("Value of type void can't be casted to boolean primitive");
 
     // When boolean
-    assertThat(ValueFunctions.castToBoolean(BooleanValueBuilder.build(true))).isTrue();
-    assertThat(ValueFunctions.castToBoolean(BooleanValueBuilder.build(false))).isFalse();
+    assertThat(ValueFunctions.castToBoolean(BooleanValues.get(true))).isTrue();
+    assertThat(ValueFunctions.castToBoolean(BooleanValues.get(false))).isFalse();
 
     // When integer
-    assertThat(ValueFunctions.castToBoolean(IntegerValueBuilder.build(0))).isFalse();
-    assertThat(ValueFunctions.castToBoolean(IntegerValueBuilder.build(1))).isTrue();
-    assertThatThrownBy(() -> ValueFunctions.castToBoolean(IntegerValueBuilder.build(2)))
+    assertThat(ValueFunctions.castToBoolean(IntegerValues.get(0))).isFalse();
+    assertThat(ValueFunctions.castToBoolean(IntegerValues.get(1))).isTrue();
+    assertThatThrownBy(() -> ValueFunctions.castToBoolean(IntegerValues.get(2)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Integer value 2 can't be casted to boolean primitive");
 
     // When real
-    assertThat(ValueFunctions.castToBoolean(RealValueBuilder.build(0.0))).isFalse();
-    assertThat(ValueFunctions.castToBoolean(RealValueBuilder.build(1.0))).isTrue();
-    assertThatThrownBy(() -> ValueFunctions.castToBoolean(RealValueBuilder.build(1.1)))
+    assertThat(ValueFunctions.castToBoolean(RealValues.get(0.0))).isFalse();
+    assertThat(ValueFunctions.castToBoolean(RealValues.get(1.0))).isTrue();
+    assertThatThrownBy(() -> ValueFunctions.castToBoolean(RealValues.get(1.1)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Real value 1.1 can't be casted to boolean primitive");
 
     // When string
-    assertThat(ValueFunctions.castToBoolean(StringValueBuilder.build("true"))).isTrue();
-    assertThat(ValueFunctions.castToBoolean(StringValueBuilder.build("false"))).isFalse();
-    assertThatThrownBy(() -> ValueFunctions.castToBoolean(StringValueBuilder.build("abc")))
+    assertThat(ValueFunctions.castToBoolean(StringValues.get("true"))).isTrue();
+    assertThat(ValueFunctions.castToBoolean(StringValues.get("false"))).isFalse();
+    assertThatThrownBy(() -> ValueFunctions.castToBoolean(StringValues.get("abc")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("String value abc can't be casted to boolean primitive");
 
     // When list
-    assertThatThrownBy(() -> ValueFunctions.castToBoolean(ListValueBuilder.build(1, 2, 3)))
+    assertThatThrownBy(() -> ValueFunctions.castToBoolean(ListValues.get(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type list can't be casted to boolean primitive");
 
     // When map
-    assertThatThrownBy(() -> ValueFunctions.castToBoolean(MapValueBuilder.build(1, "a", 2, "b")))
+    assertThatThrownBy(() -> ValueFunctions.castToBoolean(MapValues.get(1, "a", 2, "b")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type map can't be casted to boolean primitive");
   }
@@ -222,34 +222,34 @@ public class ValueFunctionsTest {
         .hasMessage("Value of type void can't be casted to integer");
 
     // When boolean
-    assertThat(ValueFunctions.castToInteger(BooleanValueBuilder.build(true))).isEqualTo(1);
-    assertThat(ValueFunctions.castToInteger(BooleanValueBuilder.build(false))).isEqualTo(0);
+    assertThat(ValueFunctions.castToInteger(BooleanValues.get(true))).isEqualTo(1);
+    assertThat(ValueFunctions.castToInteger(BooleanValues.get(false))).isEqualTo(0);
 
     // When integer
-    assertThat(ValueFunctions.castToInteger(IntegerValueBuilder.build(1))).isEqualTo(1);
-    assertThat(ValueFunctions.castToInteger(IntegerValueBuilder.build(-1))).isEqualTo(-1);
+    assertThat(ValueFunctions.castToInteger(IntegerValues.get(1))).isEqualTo(1);
+    assertThat(ValueFunctions.castToInteger(IntegerValues.get(-1))).isEqualTo(-1);
 
     // When real
-    assertThat(ValueFunctions.castToInteger(RealValueBuilder.build(1.0))).isEqualTo(1);
-    assertThat(ValueFunctions.castToInteger(RealValueBuilder.build(2.0))).isEqualTo(2);
-    assertThat(ValueFunctions.castToInteger(RealValueBuilder.build(-2.0))).isEqualTo(-2);
-    assertThatThrownBy(() -> ValueFunctions.castToInteger(RealValueBuilder.build(1.1)))
+    assertThat(ValueFunctions.castToInteger(RealValues.get(1.0))).isEqualTo(1);
+    assertThat(ValueFunctions.castToInteger(RealValues.get(2.0))).isEqualTo(2);
+    assertThat(ValueFunctions.castToInteger(RealValues.get(-2.0))).isEqualTo(-2);
+    assertThatThrownBy(() -> ValueFunctions.castToInteger(RealValues.get(1.1)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Real 1.1 can't be casted to integer");
 
     // When string
-    assertThat(ValueFunctions.castToInteger(StringValueBuilder.build("123"))).isEqualTo(123);
-    assertThatThrownBy(() -> ValueFunctions.castToInteger(StringValueBuilder.build("1a")))
+    assertThat(ValueFunctions.castToInteger(StringValues.get("123"))).isEqualTo(123);
+    assertThatThrownBy(() -> ValueFunctions.castToInteger(StringValues.get("1a")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("String 1a can't be casted to integer");
 
     // When list
-    assertThatThrownBy(() -> ValueFunctions.castToInteger(ListValueBuilder.build(1, 2, 3)))
+    assertThatThrownBy(() -> ValueFunctions.castToInteger(ListValues.get(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type list can't be casted to integer");
 
     // When map
-    assertThatThrownBy(() -> ValueFunctions.castToInteger(MapValueBuilder.build(1, "a", 2, "b")))
+    assertThatThrownBy(() -> ValueFunctions.castToInteger(MapValues.get(1, "a", 2, "b")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type map can't be casted to integer");
   }
@@ -262,32 +262,32 @@ public class ValueFunctionsTest {
         .hasMessage("Value of type void can't be casted to real");
 
     // When boolean
-    assertThat(ValueFunctions.castToReal(BooleanValueBuilder.build(true))).isEqualTo(1.0);
-    assertThat(ValueFunctions.castToReal(BooleanValueBuilder.build(false))).isEqualTo(0.0);
+    assertThat(ValueFunctions.castToReal(BooleanValues.get(true))).isEqualTo(1.0);
+    assertThat(ValueFunctions.castToReal(BooleanValues.get(false))).isEqualTo(0.0);
 
     // When integer
-    assertThat(ValueFunctions.castToReal(IntegerValueBuilder.build(1))).isEqualTo(1.0);
-    assertThat(ValueFunctions.castToReal(IntegerValueBuilder.build(-1))).isEqualTo(-1.0);
+    assertThat(ValueFunctions.castToReal(IntegerValues.get(1))).isEqualTo(1.0);
+    assertThat(ValueFunctions.castToReal(IntegerValues.get(-1))).isEqualTo(-1.0);
 
     // When real
-    assertThat(ValueFunctions.castToReal(RealValueBuilder.build(1))).isEqualTo(1.0);
-    assertThat(ValueFunctions.castToReal(RealValueBuilder.build(-1))).isEqualTo(-1.0);
+    assertThat(ValueFunctions.castToReal(RealValues.get(1))).isEqualTo(1.0);
+    assertThat(ValueFunctions.castToReal(RealValues.get(-1))).isEqualTo(-1.0);
 
     // When string
-    assertThat(ValueFunctions.castToReal(StringValueBuilder.build("1"))).isEqualTo(1.0);
-    assertThat(ValueFunctions.castToReal(StringValueBuilder.build("2.0"))).isEqualTo(2.0);
-    assertThat(ValueFunctions.castToReal(StringValueBuilder.build("3.14"))).isEqualTo(3.14);
-    assertThatThrownBy(() -> ValueFunctions.castToReal(StringValueBuilder.build("3p14")))
+    assertThat(ValueFunctions.castToReal(StringValues.get("1"))).isEqualTo(1.0);
+    assertThat(ValueFunctions.castToReal(StringValues.get("2.0"))).isEqualTo(2.0);
+    assertThat(ValueFunctions.castToReal(StringValues.get("3.14"))).isEqualTo(3.14);
+    assertThatThrownBy(() -> ValueFunctions.castToReal(StringValues.get("3p14")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("String 3p14 can't be casted to real");
 
     // When list
-    assertThatThrownBy(() -> ValueFunctions.castToReal(ListValueBuilder.build(1, 2, 3)))
+    assertThatThrownBy(() -> ValueFunctions.castToReal(ListValues.get(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type list can't be casted to real");
 
     // When map
-    assertThatThrownBy(() -> ValueFunctions.castToReal(MapValueBuilder.build(1, "a", 2, "b")))
+    assertThatThrownBy(() -> ValueFunctions.castToReal(MapValues.get(1, "a", 2, "b")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type map can't be casted to real");
   }
@@ -300,27 +300,27 @@ public class ValueFunctionsTest {
         .hasMessage("Value of type void can't be casted to string");
 
     // When boolean
-    assertThat(ValueFunctions.castToString(BooleanValueBuilder.build(true))).isEqualTo("true");
-    assertThat(ValueFunctions.castToString(BooleanValueBuilder.build(false))).isEqualTo("false");
+    assertThat(ValueFunctions.castToString(BooleanValues.get(true))).isEqualTo("true");
+    assertThat(ValueFunctions.castToString(BooleanValues.get(false))).isEqualTo("false");
 
     // When integer
-    assertThat(ValueFunctions.castToString(IntegerValueBuilder.build(1))).isEqualTo("1");
-    assertThat(ValueFunctions.castToString(IntegerValueBuilder.build(-1))).isEqualTo("-1");
+    assertThat(ValueFunctions.castToString(IntegerValues.get(1))).isEqualTo("1");
+    assertThat(ValueFunctions.castToString(IntegerValues.get(-1))).isEqualTo("-1");
 
     // When real
-    assertThat(ValueFunctions.castToString(RealValueBuilder.build(1))).isEqualTo("1.0");
-    assertThat(ValueFunctions.castToString(RealValueBuilder.build(-1))).isEqualTo("-1.0");
+    assertThat(ValueFunctions.castToString(RealValues.get(1))).isEqualTo("1.0");
+    assertThat(ValueFunctions.castToString(RealValues.get(-1))).isEqualTo("-1.0");
 
     // When string
-    assertThat(ValueFunctions.castToString(StringValueBuilder.build("abc"))).isEqualTo("abc");
+    assertThat(ValueFunctions.castToString(StringValues.get("abc"))).isEqualTo("abc");
 
     // When list
-    assertThatThrownBy(() -> ValueFunctions.castToString(ListValueBuilder.build(1, 2, 3)))
+    assertThatThrownBy(() -> ValueFunctions.castToString(ListValues.get(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type list can't be casted to string");
 
     // When map
-    assertThatThrownBy(() -> ValueFunctions.castToString(MapValueBuilder.build(1, "a", 2, "b")))
+    assertThatThrownBy(() -> ValueFunctions.castToString(MapValues.get(1, "a", 2, "b")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type map can't be casted to string");
   }
@@ -333,26 +333,26 @@ public class ValueFunctionsTest {
         .hasMessage("Value of type void can't be casted to list");
 
     // When boolean
-    assertThat(ValueFunctions.castToList(BooleanValueBuilder.build(true))).isEqualTo(List.of(BooleanValueBuilder.build(true)));
-    assertThat(ValueFunctions.castToList(BooleanValueBuilder.build(false))).isEqualTo(List.of(BooleanValueBuilder.build(false)));
+    assertThat(ValueFunctions.castToList(BooleanValues.get(true))).isEqualTo(List.of(BooleanValues.get(true)));
+    assertThat(ValueFunctions.castToList(BooleanValues.get(false))).isEqualTo(List.of(BooleanValues.get(false)));
 
     // When integer
-    assertThat(ValueFunctions.castToList(IntegerValueBuilder.build(1))).isEqualTo(List.of(IntegerValueBuilder.build(1)));
-    assertThat(ValueFunctions.castToList(IntegerValueBuilder.build(-1))).isEqualTo(List.of(IntegerValueBuilder.build(-1)));
+    assertThat(ValueFunctions.castToList(IntegerValues.get(1))).isEqualTo(List.of(IntegerValues.get(1)));
+    assertThat(ValueFunctions.castToList(IntegerValues.get(-1))).isEqualTo(List.of(IntegerValues.get(-1)));
 
     // When real
-    assertThat(ValueFunctions.castToList(RealValueBuilder.build(1))).isEqualTo(List.of(RealValueBuilder.build(1)));
-    assertThat(ValueFunctions.castToList(RealValueBuilder.build(-1))).isEqualTo(List.of(RealValueBuilder.build(-1)));
+    assertThat(ValueFunctions.castToList(RealValues.get(1))).isEqualTo(List.of(RealValues.get(1)));
+    assertThat(ValueFunctions.castToList(RealValues.get(-1))).isEqualTo(List.of(RealValues.get(-1)));
 
     // When string
-    assertThat(ValueFunctions.castToList(StringValueBuilder.build("abc"))).isEqualTo(List.of(StringValueBuilder.build("abc")));
+    assertThat(ValueFunctions.castToList(StringValues.get("abc"))).isEqualTo(List.of(StringValues.get("abc")));
 
     // When list
-    assertThat(ValueFunctions.castToList(ListValueBuilder.build(1, 2))).isEqualTo(List.of(IntegerValueBuilder.build(1), IntegerValueBuilder.build(2)));
+    assertThat(ValueFunctions.castToList(ListValues.get(1, 2))).isEqualTo(List.of(IntegerValues.get(1), IntegerValues.get(2)));
 
     // When map
-    assertThat(ValueFunctions.castToList(MapValueBuilder.build(1, "a", 2, "b"))).isEqualTo(List.of(
-        MapValueBuilder.build(1, "a", 2, "b")));
+    assertThat(ValueFunctions.castToList(MapValues.get(1, "a", 2, "b"))).isEqualTo(List.of(
+        MapValues.get(1, "a", 2, "b")));
   }
 
   @Test
@@ -363,33 +363,33 @@ public class ValueFunctionsTest {
         .hasMessage("Value of type void can't be casted to map");
 
     // When boolean
-    assertThatThrownBy(() -> ValueFunctions.castToMap(BooleanValueBuilder.build(true)))
+    assertThatThrownBy(() -> ValueFunctions.castToMap(BooleanValues.get(true)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type boolean can't be casted to map");
 
     // When integer
-    assertThatThrownBy(() -> ValueFunctions.castToMap(IntegerValueBuilder.build(1)))
+    assertThatThrownBy(() -> ValueFunctions.castToMap(IntegerValues.get(1)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type integer can't be casted to map");
 
     // When real
-    assertThatThrownBy(() -> ValueFunctions.castToMap(RealValueBuilder.build(1.0)))
+    assertThatThrownBy(() -> ValueFunctions.castToMap(RealValues.get(1.0)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type real can't be casted to map");
 
     // When string
-    assertThatThrownBy(() -> ValueFunctions.castToMap(StringValueBuilder.build("abc")))
+    assertThatThrownBy(() -> ValueFunctions.castToMap(StringValues.get("abc")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type string can't be casted to map");
 
     // When list
-    assertThatThrownBy(() -> ValueFunctions.castToMap(ListValueBuilder.build(1, 2, 3)))
+    assertThatThrownBy(() -> ValueFunctions.castToMap(ListValues.get(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
         .hasMessage("Value of type list can't be casted to map");
 
     // When map
-    assertThat(ValueFunctions.castToMap(MapValueBuilder.build(1, "a", 2, "b"))).isEqualTo(Map.of(
-        IntegerValueBuilder.build(1), StringValueBuilder.build("a"),
-        IntegerValueBuilder.build(2), StringValueBuilder.build("b")));
+    assertThat(ValueFunctions.castToMap(MapValues.get(1, "a", 2, "b"))).isEqualTo(Map.of(
+        IntegerValues.get(1), StringValues.get("a"),
+        IntegerValues.get(2), StringValues.get("b")));
   }
 }

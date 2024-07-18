@@ -8,10 +8,6 @@ import tech.intellispaces.framework.templateengine.exception.ParseTemplateExcept
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.framework.templateengine.template.Template;
 import tech.intellispaces.framework.templateengine.template.expression.CompiledExpression;
-import tech.intellispaces.framework.templateengine.template.expression.compilation.impl.CompiledFileObject;
-import tech.intellispaces.framework.templateengine.template.expression.compilation.impl.ExpressionClassLoader;
-import tech.intellispaces.framework.templateengine.template.expression.compilation.impl.ExpressionJavaFileManager;
-import tech.intellispaces.framework.templateengine.template.expression.compilation.impl.SourceFileObject;
 import tech.intellispaces.framework.templateengine.template.expression.value.Value;
 
 import javax.tools.Diagnostic;
@@ -59,9 +55,12 @@ public final class CompileFunctions {
     var fileManager = new ExpressionJavaFileManager(COMPILER.getStandardFileManager(null, null, null));
     List<String> compileOptions = makeCompileOptions();
     var diagnosticListener = new CompileDiagnosticListener();
-    JavaCompiler.CompilationTask compilerTask = COMPILER.getTask(null, fileManager, diagnosticListener, compileOptions, null, List.of(sourceFileObject));
+    JavaCompiler.CompilationTask compilerTask = COMPILER.getTask(
+        null, fileManager, diagnosticListener, compileOptions, null, List.of(sourceFileObject)
+    );
     if (!compilerTask.call()) {
-      throw ParseTemplateException.withMessage("Failed to compile expression: {}. Reason(s):\n{}", statement, diagnosticListener.getMessage());
+      throw ParseTemplateException.withMessage("Failed to compile expression: {}. Reason(s):\n{}",
+          statement, diagnosticListener.getMessage());
     }
     return fileManager.getGeneratedOutputFiles();
   }

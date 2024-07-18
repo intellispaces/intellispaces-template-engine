@@ -6,9 +6,7 @@ public final class TextElementBuilder {
   private TemplateElementContext context;
   private String text;
 
-  public static TextElementBuilder get() {
-    return new TextElementBuilder();
-  }
+  TextElementBuilder() {}
 
   public TextElementBuilder context(TemplateElementContext context) {
     this.context = context;
@@ -20,7 +18,7 @@ public final class TextElementBuilder {
     return this;
   }
 
-  public TextElement build() {
+  public TextElement get() {
     validate();
     return new TextElementImpl(context, text);
   }
@@ -29,6 +27,4 @@ public final class TextElementBuilder {
     Objects.requireNonNull(context);
     Objects.requireNonNull(text);
   }
-
-  private TextElementBuilder() {}
 }

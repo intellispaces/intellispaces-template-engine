@@ -22,13 +22,13 @@ public class MapValueTest {
 
   @Test
   public void testTypename() throws Exception {
-    assertThat(MapValueBuilder.build(1, 2).typename().get()).isEqualTo(ValueTypes.Map.typename());
+    assertThat(MapValues.get(1, 2).typename().get()).isEqualTo(ValueTypes.Map.typename());
   }
 
   @Test
   public void testAsBoolean() throws Exception {
     // Given
-    MapValue mapValue = MapValueBuilder.build("true", true);
+    MapValue mapValue = MapValues.get("true", true);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       boolean expectedValue = true;
       castFunctions.when(() -> ValueFunctions.castToBoolean(mapValue)).thenReturn(expectedValue);
@@ -45,7 +45,7 @@ public class MapValueTest {
   @Test
   public void testAsInteger() throws Exception {
     // Given
-    MapValue mapValue = MapValueBuilder.build("123", 123);
+    MapValue mapValue = MapValues.get("123", 123);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       int expectedValue = 123;
       castFunctions.when(() -> ValueFunctions.castToInteger(mapValue)).thenReturn(expectedValue);
@@ -62,7 +62,7 @@ public class MapValueTest {
   @Test
   public void testAsReal() throws Exception {
     // Given
-    MapValue mapValue = MapValueBuilder.build("3.14", 3.14);
+    MapValue mapValue = MapValues.get("3.14", 3.14);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       double expectedValue = 3.14;
       castFunctions.when(() -> ValueFunctions.castToReal(mapValue)).thenReturn(expectedValue);
@@ -79,7 +79,7 @@ public class MapValueTest {
   @Test
   public void testAString() throws Exception {
     // Given
-    MapValue mapValue = MapValueBuilder.build("abc", 1);
+    MapValue mapValue = MapValues.get("abc", 1);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       String expectedValue = "abc";
       castFunctions.when(() -> ValueFunctions.castToString(mapValue)).thenReturn(expectedValue);
@@ -96,7 +96,7 @@ public class MapValueTest {
   @Test
   public void testAsList() throws Exception {
     // Given
-    MapValue mapValue = MapValueBuilder.build("abc", 1);
+    MapValue mapValue = MapValues.get("abc", 1);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       List<?> expectedValue = new ArrayList<>();
       castFunctions.when(() -> ValueFunctions.castToList(mapValue)).thenReturn(expectedValue);
@@ -112,81 +112,81 @@ public class MapValueTest {
 
   @Test
   public void testAsMap() throws Exception {
-    MapValue mapValue = MapValueBuilder.build(1, 2);
+    MapValue mapValue = MapValues.get(1, 2);
     assertThat(mapValue.asMap()).isSameAs(mapValue);
   }
 
   @Test
   public void testEq() throws ResolveTemplateException {
-    assertThat(MapValueBuilder.empty().eq(MapValueBuilder.empty()).get()).isTrue();
+    assertThat(MapValues.empty().eq(MapValues.empty()).get()).isTrue();
 
-    assertThat(MapValueBuilder.build(1, "a").eq(MapValueBuilder.build(1, "a")).get()).isTrue();
-    assertThat(MapValueBuilder.build(1, "a").eq(MapValueBuilder.build(1, "b")).get()).isFalse();
+    assertThat(MapValues.get(1, "a").eq(MapValues.get(1, "a")).get()).isTrue();
+    assertThat(MapValues.get(1, "a").eq(MapValues.get(1, "b")).get()).isFalse();
 
-    assertThat(MapValueBuilder.build(1, "a").eq(BooleanValueBuilder.build(true)).get()).isFalse();
-    assertThat(MapValueBuilder.build(1, "a").eq(IntegerValueBuilder.build(1)).get()).isFalse();
-    assertThat(MapValueBuilder.build(1, "a").eq(RealValueBuilder.build(1.2)).get()).isFalse();
-    assertThat(MapValueBuilder.build(1, "a").eq(StringValueBuilder.build("a")).get()).isFalse();
+    assertThat(MapValues.get(1, "a").eq(BooleanValues.get(true)).get()).isFalse();
+    assertThat(MapValues.get(1, "a").eq(IntegerValues.get(1)).get()).isFalse();
+    assertThat(MapValues.get(1, "a").eq(RealValues.get(1.2)).get()).isFalse();
+    assertThat(MapValues.get(1, "a").eq(StringValues.get("a")).get()).isFalse();
 
-    assertThat(MapValueBuilder.build(BooleanValueBuilder.build(true), IntegerValueBuilder.build(1)).eq(BooleanValueBuilder.build(true)).get()).isFalse();
+    assertThat(MapValues.get(BooleanValues.get(true), IntegerValues.get(1)).eq(BooleanValues.get(true)).get()).isFalse();
 
-    assertThat(MapValueBuilder.build(1, "a").eq(VoidValues.get()).get()).isFalse();
-    assertThat(MapValueBuilder.build("", "").eq(VoidValues.get()).get()).isFalse();
+    assertThat(MapValues.get(1, "a").eq(VoidValues.get()).get()).isFalse();
+    assertThat(MapValues.get("", "").eq(VoidValues.get()).get()).isFalse();
   }
 
   @Test
   public void testIsVoid() throws Exception {
-    assertThat(MapValueBuilder.build(0, 0).isVoid().get()).isFalse();
-    assertThat(MapValueBuilder.build("", "").isVoid().get()).isFalse();
+    assertThat(MapValues.get(0, 0).isVoid().get()).isFalse();
+    assertThat(MapValues.get("", "").isVoid().get()).isFalse();
   }
 
   @Test
   public void testIsEmpty() throws Exception {
-    assertThat(MapValueBuilder.empty().isEmpty().get()).isTrue();
-    assertThat(MapValueBuilder.get().value(new LinkedHashMap<>()).build().isEmpty().get()).isTrue();
-    assertThat(MapValueBuilder.build(0, 0).isEmpty().get()).isFalse();
+    assertThat(MapValues.empty().isEmpty().get()).isTrue();
+    assertThat(MapValues.get().value(new LinkedHashMap<>()).get().isEmpty().get()).isTrue();
+    assertThat(MapValues.get(0, 0).isEmpty().get()).isFalse();
   }
 
   @Test
   public void testIsNotEmpty() throws Exception {
-    assertThat(MapValueBuilder.empty().isNotEmpty().get()).isFalse();
-    assertThat(MapValueBuilder.get().value(new LinkedHashMap<>()).build().isNotEmpty().get()).isFalse();
-    assertThat(MapValueBuilder.build(0, 0).isNotEmpty().get()).isTrue();
+    assertThat(MapValues.empty().isNotEmpty().get()).isFalse();
+    assertThat(MapValues.get().value(new LinkedHashMap<>()).get().isNotEmpty().get()).isFalse();
+    assertThat(MapValues.get(0, 0).isNotEmpty().get()).isTrue();
   }
 
   @Test
   public void testIsBlank() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isBlank())
+    assertThatThrownBy(() -> MapValues.get(1, "a").isBlank())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isBlank' is not applicable for value type map. Expected string");
   }
 
   @Test
   public void testIsNotBlank() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isNotBlank())
+    assertThatThrownBy(() -> MapValues.get(1, "a").isNotBlank())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotBlank' is not applicable for value type map. Expected string");
   }
 
   @Test
   public void testCapitalizeFirstLetter() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").capitalizeFirstLetter())
+    assertThatThrownBy(() -> MapValues.get(1, "a").capitalizeFirstLetter())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'capitalizeFirstLetter' is not applicable for value type map. Expected string");
   }
 
   @Test
   public void testInvert() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").invert())
+    assertThatThrownBy(() -> MapValues.get(1, "a").invert())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'invert' is not applicable for value type map. Expected boolean, integer or real");
   }
 
   @Test
   public void testGet() throws Exception {
-    MapValue mapValue = MapValueBuilder.build(1, "a", 2, "b", 3, "c");
+    MapValue mapValue = MapValues.get(1, "a", 2, "b", 3, "c");
 
-    Value value1 = mapValue.get(IntegerValueBuilder.build(2));
+    Value value1 = mapValue.get(IntegerValues.get(2));
     assertThat(value1.isVoid().get()).isFalse();
     assertThat(value1.type()).isEqualTo(ValueTypes.String);
     assertThat(ValueFunctions.valueToObject(value1)).isEqualTo("b");
@@ -200,48 +200,48 @@ public class MapValueTest {
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
 
-    Value value2 = mapValue.get(IntegerValueBuilder.build(5));
+    Value value2 = mapValue.get(IntegerValues.get(5));
     assertThat(value2.isVoid().get()).isTrue();
   }
 
   @Test
   public void testFind() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").find(IntegerValueBuilder.build(0)))
+    assertThatThrownBy(() -> MapValues.get(1, "a").find(IntegerValues.get(0)))
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'find' is not applicable for value type map. Expected string or list");
   }
 
   @Test
   public void testIndex() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").index())
+    assertThatThrownBy(() -> MapValues.get(1, "a").index())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'index' is not applicable for this value");
   }
 
   @Test
   public void testIsFirst() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isFirst())
+    assertThatThrownBy(() -> MapValues.get(1, "a").isFirst())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isFirst' is not applicable for this value");
   }
 
   @Test
   public void testIsNotFirst() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isNotFirst())
+    assertThatThrownBy(() -> MapValues.get(1, "a").isNotFirst())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotFirst' is not applicable for this value");
   }
 
   @Test
   public void testIsLast() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isLast())
+    assertThatThrownBy(() -> MapValues.get(1, "a").isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
   }
 
   @Test
   public void testIsNotLast() {
-    assertThatThrownBy(() -> MapValueBuilder.build(1, "a").isNotLast())
+    assertThatThrownBy(() -> MapValues.get(1, "a").isNotLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }

@@ -37,19 +37,19 @@ class ListValueImpl extends AbstractValue implements ListValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.List) {
-      return BooleanValueBuilder.build(Objects.equals(get(), ((ListValue) other).get()));
+      return BooleanValues.get(Objects.equals(get(), ((ListValue) other).get()));
     }
-    return BooleanValueBuilder.build(false);
+    return BooleanValues.get(false);
   }
 
   @Override
   public BooleanValue isEmpty() {
-    return BooleanValueBuilder.build(get().isEmpty());
+    return BooleanValues.get(get().isEmpty());
   }
 
   @Override
   public BooleanValue isNotEmpty() {
-    return BooleanValueBuilder.build(!get().isEmpty());
+    return BooleanValues.get(!get().isEmpty());
   }
 
   @Override
@@ -66,10 +66,10 @@ class ListValueImpl extends AbstractValue implements ListValue {
     if (index < 0) {
       return VoidValues.get();
     }
-    return ItemValueBuilder.get()
+    return ItemValues.build()
         .value(get().subList(index, index + subList.size()))
         .index(index)
-        .build();
+        .get();
   }
 
   @Override
@@ -79,19 +79,19 @@ class ListValueImpl extends AbstractValue implements ListValue {
     }
     int index = ((IntegerValue) key).get();
     if (index < 0 || index >= get().size()) {
-      return ItemValueBuilder.get()
+      return ItemValues.build()
           .value(VoidValues.get())
           .index((IntegerValue) key)
-          .build();
+          .get();
     }
 
     Value element = get().get(index);
-    return ItemValueBuilder.get()
+    return ItemValues.build()
         .value(element)
         .index((IntegerValue) key)
         .first(index == 0)
         .last(index == get().size() - 1)
-        .build();
+        .get();
   }
 
   @Override

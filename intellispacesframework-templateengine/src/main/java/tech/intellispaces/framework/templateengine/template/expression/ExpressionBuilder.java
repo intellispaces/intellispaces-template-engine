@@ -9,9 +9,7 @@ public final class ExpressionBuilder {
   private CompiledExpression compiledExpression;
   private List<Operand> operands;
 
-  public static ExpressionBuilder get() {
-    return new ExpressionBuilder();
-  }
+  ExpressionBuilder() {}
 
   public ExpressionBuilder statement(String statement) {
     this.statement = statement;
@@ -33,7 +31,7 @@ public final class ExpressionBuilder {
     return this;
   }
 
-  public Expression build() {
+  public Expression get() {
     validate();
     return new ExpressionImpl(statement, preparedStatement, compiledExpression, List.copyOf(operands));
   }
@@ -44,6 +42,4 @@ public final class ExpressionBuilder {
     Objects.requireNonNull(compiledExpression);
     Objects.requireNonNull(operands);
   }
-
-  private ExpressionBuilder() {}
 }

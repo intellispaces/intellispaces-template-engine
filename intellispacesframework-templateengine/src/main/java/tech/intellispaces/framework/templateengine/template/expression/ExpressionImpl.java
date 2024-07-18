@@ -8,7 +8,9 @@ class ExpressionImpl implements Expression {
   private final CompiledExpression compiledExpression;
   private final List<Operand> operand;
 
-  ExpressionImpl(String statement, String preparedStatement, CompiledExpression compiledExpression, List<Operand> operand) {
+  ExpressionImpl(
+      String statement, String preparedStatement, CompiledExpression compiledExpression, List<Operand> operand
+  ) {
     this.statement = statement;
     this.preparedStatement = preparedStatement;
     this.compiledExpression = compiledExpression;
