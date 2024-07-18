@@ -17,22 +17,22 @@ public final class ItemValueBuilder {
   }
 
   public ItemValueBuilder value(boolean value) {
-    this.value = BooleanValues.get(value);
+    this.value = BooleanValues.of(value);
     return this;
   }
 
   public ItemValueBuilder value(int value) {
-    this.value = IntegerValues.get(value);
+    this.value = IntegerValues.of(value);
     return this;
   }
 
   public ItemValueBuilder value(double value) {
-    this.value = RealValues.get(value);
+    this.value = RealValues.of(value);
     return this;
   }
 
   public ItemValueBuilder value(String value) {
-    this.value = StringValues.get(value);
+    this.value = StringValues.of(value);
     return this;
   }
 
@@ -47,7 +47,7 @@ public final class ItemValueBuilder {
   }
 
   public ItemValueBuilder index(int index) {
-    this.index = IntegerValues.get(index);
+    this.index = IntegerValues.of(index);
     return this;
   }
 
@@ -57,7 +57,7 @@ public final class ItemValueBuilder {
   }
 
   public ItemValueBuilder first(boolean first) {
-    this.first = BooleanValues.get(first);
+    this.first = BooleanValues.of(first);
     return this;
   }
 
@@ -67,7 +67,7 @@ public final class ItemValueBuilder {
   }
 
   public ItemValueBuilder last(boolean last) {
-    this.last = BooleanValues.get(last);
+    this.last = BooleanValues.of(last);
     return this;
   }
 

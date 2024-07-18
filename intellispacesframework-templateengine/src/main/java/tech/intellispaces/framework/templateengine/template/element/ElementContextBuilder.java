@@ -15,12 +15,12 @@ public final class ElementContextBuilder {
   ElementContextBuilder() {}
 
   public ElementContextBuilder position(Position position) {
-    this.position = Positions.copy(position);
+    this.position = Positions.of(position);
     return this;
   }
 
   public ElementContextBuilder position(int offset, int row, int column) {
-    this.position = Positions.get(offset, row, column);
+    this.position = Positions.of(offset, row, column);
     return this;
   }
 

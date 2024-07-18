@@ -37,19 +37,19 @@ class ListValueImpl extends AbstractValue implements ListValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.List) {
-      return BooleanValues.get(Objects.equals(get(), ((ListValue) other).get()));
+      return BooleanValues.of(Objects.equals(get(), ((ListValue) other).get()));
     }
-    return BooleanValues.get(false);
+    return BooleanValues.of(false);
   }
 
   @Override
   public BooleanValue isEmpty() {
-    return BooleanValues.get(get().isEmpty());
+    return BooleanValues.of(get().isEmpty());
   }
 
   @Override
   public BooleanValue isNotEmpty() {
-    return BooleanValues.get(!get().isEmpty());
+    return BooleanValues.of(!get().isEmpty());
   }
 
   @Override

@@ -119,7 +119,7 @@ public final class ParseExpressionFunctions {
       } else if (curChar == '"') {
         String string = readString(chars, ind);
         ind += string.length() + 2;
-        values.add(StringValues.get(string));
+        values.add(StringValues.of(string));
       } else if (isDigit(curChar) || ((curChar == '+' || curChar == '-') && isDigit(nextChar))) {
         String number = readNumber(chars, ind);
         ind += number.length();
@@ -145,13 +145,13 @@ public final class ParseExpressionFunctions {
 
     final Value value;
     if (isList) {
-      value = ListValues.get(values);
+      value = ListValues.of(values);
     } else {
       Map<Value, Value> map = new HashMap<>();
       for (int i = 0; i < values.size(); i += 2) {
         map.put(values.get(i), values.get(i + 1));
       }
-      value = MapValues.get(map);
+      value = MapValues.of(map);
     }
     return new ValueAndWording(value, new String(chars, beginIndex, ind - beginIndex + 1));
   }
@@ -214,9 +214,9 @@ public final class ParseExpressionFunctions {
 
   private static Optional<Literal> parseKeyword(String word) {
     if (Keywords.True.word().equals(word)) {
-      return Optional.of(Literals.build().value(BooleanValues.get(true)).get());
+      return Optional.of(Literals.build().value(BooleanValues.of(true)).get());
     } else if (Keywords.False.word().equals(word)) {
-      return Optional.of(Literals.build().value(BooleanValues.get(false)).get());
+      return Optional.of(Literals.build().value(BooleanValues.of(false)).get());
     } else if (Keywords.Void.word().equals(word)) {
       return Optional.of(Literals.build().value(VoidValues.get()).get());
     }
@@ -230,7 +230,7 @@ public final class ParseExpressionFunctions {
       Map<String, Integer> operandWord2IndexMap
   ) {
     appendLiteral(
-        preparedStatement, "\"" + string + "\"", operands, operandWord2IndexMap, StringValues.get(string)
+        preparedStatement, "\"" + string + "\"", operands, operandWord2IndexMap, StringValues.of(string)
     );
   }
 
@@ -285,8 +285,8 @@ public final class ParseExpressionFunctions {
 
   private static Value parseNumber(String number) {
     return isRealNumber(number)
-        ? RealValues.get(Double.parseDouble(number))
-        : IntegerValues.get(Integer.parseInt(number));
+        ? RealValues.of(Double.parseDouble(number))
+        : IntegerValues.of(Integer.parseInt(number));
   }
 
   private static boolean isRealNumber(String value) {

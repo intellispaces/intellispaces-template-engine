@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public interface StringValues {
 
-  static StringValue get(char ch) {
+  static StringValue of(char ch) {
     return new StringValueImpl("" + ch);
   }
 
-  static StringValue get(String string) {
+  static StringValue of(String string) {
     Objects.requireNonNull(string);
     return new StringValueImpl(string);
   }

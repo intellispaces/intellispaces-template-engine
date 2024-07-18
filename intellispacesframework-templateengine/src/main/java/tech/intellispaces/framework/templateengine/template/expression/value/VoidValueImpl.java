@@ -12,8 +12,8 @@ class VoidValueImpl extends AbstractValue implements VoidValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.Void) {
-      return BooleanValues.get(true);
+      return BooleanValues.of(true);
     }
-    return BooleanValues.get(false);
+    return BooleanValues.of(false);
   }
 }

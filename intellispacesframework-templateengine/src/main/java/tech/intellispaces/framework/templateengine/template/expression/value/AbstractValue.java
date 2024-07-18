@@ -7,27 +7,27 @@ abstract class AbstractValue implements Value {
 
   @Override
   public StringValue typename() {
-    return StringValues.get(type().typename());
+    return StringValues.of(type().typename());
   }
 
   @Override
   public BooleanValue asBoolean() throws ResolveTemplateException {
-    return BooleanValues.get(ValueFunctions.castToBoolean(this));
+    return BooleanValues.of(ValueFunctions.castToBoolean(this));
   }
 
   @Override
   public IntegerValue asInteger() throws ResolveTemplateException {
-    return IntegerValues.get(ValueFunctions.castToInteger(this));
+    return IntegerValues.of(ValueFunctions.castToInteger(this));
   }
 
   @Override
   public RealValue asReal() throws ResolveTemplateException {
-    return RealValues.get(ValueFunctions.castToReal(this));
+    return RealValues.of(ValueFunctions.castToReal(this));
   }
 
   @Override
   public StringValue asString() throws ResolveTemplateException {
-    return StringValues.get(ValueFunctions.castToString(this));
+    return StringValues.of(ValueFunctions.castToString(this));
   }
 
   @Override
@@ -37,12 +37,12 @@ abstract class AbstractValue implements Value {
 
   @Override
   public MapValue asMap() throws ResolveTemplateException {
-    return MapValues.get(ValueFunctions.castToMap(this));
+    return MapValues.of(ValueFunctions.castToMap(this));
   }
 
   @Override
   public BooleanValue isVoid() {
-    return BooleanValues.get(ValueTypes.Void == this.type());
+    return BooleanValues.of(ValueTypes.Void == this.type());
   }
 
   @Override

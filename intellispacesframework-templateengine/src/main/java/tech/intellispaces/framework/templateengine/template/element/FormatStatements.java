@@ -2,7 +2,7 @@ package tech.intellispaces.framework.templateengine.template.element;
 
 public interface FormatStatements {
 
-  static FormatStatementBuilder get() {
+  static FormatStatementBuilder build() {
     return new FormatStatementBuilder();
   }
 }

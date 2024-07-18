@@ -34,16 +34,16 @@ class IntegerValueImpl extends AbstractValue implements IntegerValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.Integer) {
-      return BooleanValues.get(get() == ((IntegerValue) other).get());
+      return BooleanValues.of(get() == ((IntegerValue) other).get());
     } else if (other.type() == ValueTypes.Real) {
-      return BooleanValues.get(get() == ((RealValue) other).get());
+      return BooleanValues.of(get() == ((RealValue) other).get());
     }
-    return BooleanValues.get(false);
+    return BooleanValues.of(false);
   }
 
   @Override
   public IntegerValue invert() throws ResolveTemplateException {
-    return IntegerValues.get(-get());
+    return IntegerValues.of(-get());
   }
 
   @Override

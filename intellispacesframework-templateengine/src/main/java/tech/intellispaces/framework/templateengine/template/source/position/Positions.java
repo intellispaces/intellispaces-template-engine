@@ -2,19 +2,19 @@ package tech.intellispaces.framework.templateengine.template.source.position;
 
 public interface Positions {
 
-  static Position get(int offset, int row, int column) {
+  static Position of(int offset, int row, int column) {
     return new PositionImpl(offset, row, column);
   }
 
-  static Position copy(Position other) {
-    return get(other.offset(), other.row(), other.column());
+  static Position of(Position other) {
+    return of(other.offset(), other.row(), other.column());
   }
 
-  static MutablePosition getMutable() {
+  static MutablePosition mutable() {
     return new PositionImpl();
   }
 
-  static MutablePosition getMutable(int offset, int row, int column) {
+  static MutablePosition mutable(int offset, int row, int column) {
     return new PositionImpl(offset, row, column);
   }
 }

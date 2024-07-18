@@ -2,7 +2,7 @@ package tech.intellispaces.framework.templateengine.template.expression.value;
 
 public interface RealValues {
 
-  static RealValue get(double value) {
+  static RealValue of(double value) {
     return new RealValueImpl(value);
   }
 }

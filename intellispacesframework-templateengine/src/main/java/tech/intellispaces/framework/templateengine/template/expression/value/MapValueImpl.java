@@ -35,19 +35,19 @@ class MapValueImpl extends AbstractValue implements MapValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.Map) {
-      return BooleanValues.get(Objects.equals(get(), ((MapValue) other).get()));
+      return BooleanValues.of(Objects.equals(get(), ((MapValue) other).get()));
     }
-    return BooleanValues.get(false);
+    return BooleanValues.of(false);
   }
 
   @Override
   public BooleanValue isEmpty() {
-    return BooleanValues.get(get().isEmpty());
+    return BooleanValues.of(get().isEmpty());
   }
 
   @Override
   public BooleanValue isNotEmpty() {
-    return BooleanValues.get(!get().isEmpty());
+    return BooleanValues.of(!get().isEmpty());
   }
 
   @Override

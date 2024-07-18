@@ -33,16 +33,16 @@ class RealValueImpl extends AbstractValue implements RealValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.Real) {
-      return BooleanValues.get(get() == ((RealValue) other).get());
+      return BooleanValues.of(get() == ((RealValue) other).get());
     } else if (other.type() == ValueTypes.Integer) {
-      return BooleanValues.get(get() == ((IntegerValue) other).get());
+      return BooleanValues.of(get() == ((IntegerValue) other).get());
     }
-    return BooleanValues.get(false);
+    return BooleanValues.of(false);
   }
 
   @Override
   public RealValue invert() throws ResolveTemplateException {
-    return RealValues.get(-get());
+    return RealValues.of(-get());
   }
 
   @Override

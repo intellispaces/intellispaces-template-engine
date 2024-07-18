@@ -35,29 +35,29 @@ class StringValueImpl extends AbstractValue implements StringValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.String) {
-      return BooleanValues.get(Objects.equals(get(), ((StringValue) other).get()));
+      return BooleanValues.of(Objects.equals(get(), ((StringValue) other).get()));
     }
-    return BooleanValues.get(false);
+    return BooleanValues.of(false);
   }
 
   @Override
   public BooleanValue isEmpty() {
-    return BooleanValues.get(get() == null || get().isEmpty());
+    return BooleanValues.of(get() == null || get().isEmpty());
   }
 
   @Override
   public BooleanValue isNotEmpty() throws ResolveTemplateException {
-    return BooleanValues.get(get() != null && !get().isEmpty());
+    return BooleanValues.of(get() != null && !get().isEmpty());
   }
 
   @Override
   public BooleanValue isBlank() {
-    return BooleanValues.get(get() == null || get().isBlank());
+    return BooleanValues.of(get() == null || get().isBlank());
   }
 
   @Override
   public BooleanValue isNotBlank() throws ResolveTemplateException {
-    return BooleanValues.get(get() != null && !get().isBlank());
+    return BooleanValues.of(get() != null && !get().isBlank());
   }
 
   @Override
@@ -107,7 +107,7 @@ class StringValueImpl extends AbstractValue implements StringValue {
 
   @Override
   public StringValue capitalizeFirstLetter() {
-    return StringValues.get(StringFunctions.capitalizeFirstLetter(get()));
+    return StringValues.of(StringFunctions.capitalizeFirstLetter(get()));
   }
 
   @Override

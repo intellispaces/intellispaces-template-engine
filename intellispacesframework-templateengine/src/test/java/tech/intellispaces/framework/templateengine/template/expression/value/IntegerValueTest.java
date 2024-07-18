@@ -21,13 +21,13 @@ public class IntegerValueTest {
 
   @Test
   public void testTypename() {
-    assertThat(IntegerValues.get(123).typename().get()).isEqualTo(ValueTypes.Integer.typename());
+    assertThat(IntegerValues.of(123).typename().get()).isEqualTo(ValueTypes.Integer.typename());
   }
 
   @Test
   public void testAsBoolean() throws Exception {
     // Given
-    IntegerValue integerValue = IntegerValues.get(1);
+    IntegerValue integerValue = IntegerValues.of(1);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       boolean expectedValue = true;
       castFunctions.when(() -> ValueFunctions.castToBoolean(integerValue)).thenReturn(expectedValue);
@@ -43,14 +43,14 @@ public class IntegerValueTest {
 
   @Test
   public void testAsInteger() throws ResolveTemplateException {
-    IntegerValue integerValue = IntegerValues.get(123);
+    IntegerValue integerValue = IntegerValues.of(123);
     assertThat(integerValue.asInteger()).isSameAs(integerValue);
   }
 
   @Test
   public void testAsReal() throws Exception {
     // Given
-    IntegerValue integerValue = IntegerValues.get(123);
+    IntegerValue integerValue = IntegerValues.of(123);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       double expectedValue = 123.0;
       castFunctions.when(() -> ValueFunctions.castToReal(integerValue)).thenReturn(expectedValue);
@@ -67,7 +67,7 @@ public class IntegerValueTest {
   @Test
   public void testAString() throws Exception {
     // Given
-    IntegerValue integerValue = IntegerValues.get(123);
+    IntegerValue integerValue = IntegerValues.of(123);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       String expectedValue = "123";
       castFunctions.when(() -> ValueFunctions.castToString(integerValue)).thenReturn(expectedValue);
@@ -84,7 +84,7 @@ public class IntegerValueTest {
   @Test
   public void testAsList() throws Exception {
     // Given
-    IntegerValue integerValue = IntegerValues.get(123);
+    IntegerValue integerValue = IntegerValues.of(123);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       List<?> expectedValue = List.of();
       castFunctions.when(() -> ValueFunctions.castToList(integerValue)).thenReturn(expectedValue);
@@ -101,7 +101,7 @@ public class IntegerValueTest {
   @Test
   public void testAsMap() throws Exception {
     // Given
-    IntegerValue integerValue = IntegerValues.get(123);
+    IntegerValue integerValue = IntegerValues.of(123);
     try (MockedStatic<ValueFunctions> castFunctions = Mockito.mockStatic(ValueFunctions.class)) {
       var expectedValue = new LinkedHashMap<>();
       castFunctions.when(() -> ValueFunctions.castToMap(integerValue)).thenReturn(expectedValue);
@@ -117,110 +117,110 @@ public class IntegerValueTest {
 
   @Test
   public void testEq() throws ResolveTemplateException {
-    assertThat(IntegerValues.get(123).eq(IntegerValues.get(123)).get()).isTrue();
-    assertThat(IntegerValues.get(123).eq(IntegerValues.get(125)).get()).isFalse();
+    assertThat(IntegerValues.of(123).eq(IntegerValues.of(123)).get()).isTrue();
+    assertThat(IntegerValues.of(123).eq(IntegerValues.of(125)).get()).isFalse();
 
-    assertThat(IntegerValues.get(123).eq(RealValues.get(123.0)).get()).isTrue();
-    assertThat(IntegerValues.get(123).eq(RealValues.get(123.1)).get()).isFalse();
+    assertThat(IntegerValues.of(123).eq(RealValues.of(123.0)).get()).isTrue();
+    assertThat(IntegerValues.of(123).eq(RealValues.of(123.1)).get()).isFalse();
 
-    assertThat(IntegerValues.get(1).eq(BooleanValues.get(true)).get()).isFalse();
-    assertThat(IntegerValues.get(123).eq(StringValues.get("123")).get()).isFalse();
-    assertThat(IntegerValues.get(123).eq(ListValues.get(123)).get()).isFalse();
-    assertThat(IntegerValues.get(123).eq(MapValues.get(123, 123)).get()).isFalse();
-    assertThat(IntegerValues.get(0).eq(VoidValues.get()).get()).isFalse();
+    assertThat(IntegerValues.of(1).eq(BooleanValues.of(true)).get()).isFalse();
+    assertThat(IntegerValues.of(123).eq(StringValues.of("123")).get()).isFalse();
+    assertThat(IntegerValues.of(123).eq(ListValues.of(123)).get()).isFalse();
+    assertThat(IntegerValues.of(123).eq(MapValues.of(123, 123)).get()).isFalse();
+    assertThat(IntegerValues.of(0).eq(VoidValues.get()).get()).isFalse();
   }
 
   @Test
   public void testIsVoid() {
-    assertThat(IntegerValues.get(123).isVoid().get()).isFalse();
-    assertThat(IntegerValues.get(0).isVoid().get()).isFalse();
+    assertThat(IntegerValues.of(123).isVoid().get()).isFalse();
+    assertThat(IntegerValues.of(0).isVoid().get()).isFalse();
   }
 
   @Test
   public void testIsEmpty() {
-    assertThatThrownBy(() -> IntegerValues.get(123).isEmpty())
+    assertThatThrownBy(() -> IntegerValues.of(123).isEmpty())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isEmpty' is not applicable for value type integer. Expected string, list or map");
   }
 
   @Test
   public void testIsNotEmpty() {
-    assertThatThrownBy(() -> IntegerValues.get(123).isNotEmpty())
+    assertThatThrownBy(() -> IntegerValues.of(123).isNotEmpty())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotEmpty' is not applicable for value type integer. Expected string, list or map");
   }
 
   @Test
   public void testIsBlank() {
-    assertThatThrownBy(() -> IntegerValues.get(123).isBlank())
+    assertThatThrownBy(() -> IntegerValues.of(123).isBlank())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isBlank' is not applicable for value type integer. Expected string");
   }
 
   @Test
   public void testIsNotBlank() {
-    assertThatThrownBy(() -> IntegerValues.get(123).isNotBlank())
+    assertThatThrownBy(() -> IntegerValues.of(123).isNotBlank())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotBlank' is not applicable for value type integer. Expected string");
   }
 
   @Test
   public void testCapitalizeFirstLetter() {
-    assertThatThrownBy(() -> IntegerValues.get(123).capitalizeFirstLetter())
+    assertThatThrownBy(() -> IntegerValues.of(123).capitalizeFirstLetter())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'capitalizeFirstLetter' is not applicable for value type integer. Expected string");
   }
 
   @Test
   public void testInvert() throws ResolveTemplateException {
-    assertThat(IntegerValues.get(123).invert().get()).isEqualTo(-123);
+    assertThat(IntegerValues.of(123).invert().get()).isEqualTo(-123);
   }
 
   @Test
   public void testGet() {
-    assertThatThrownBy(() -> IntegerValues.get(123).get(IntegerValues.get(0)))
+    assertThatThrownBy(() -> IntegerValues.of(123).get(IntegerValues.of(0)))
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'get' is not applicable for value type integer. Expected map, list or string");
   }
 
   @Test
   public void testFind() {
-    assertThatThrownBy(() -> IntegerValues.get(123).find(IntegerValues.get(1)))
+    assertThatThrownBy(() -> IntegerValues.of(123).find(IntegerValues.of(1)))
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'find' is not applicable for value type integer. Expected string or list");
   }
 
   @Test
   public void testIndex() {
-    assertThatThrownBy(() -> IntegerValues.get(123).index())
+    assertThatThrownBy(() -> IntegerValues.of(123).index())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'index' is not applicable for this value");
   }
 
   @Test
   public void testIsFirst() {
-    assertThatThrownBy(() -> IntegerValues.get(123).isFirst())
+    assertThatThrownBy(() -> IntegerValues.of(123).isFirst())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isFirst' is not applicable for this value");
   }
 
   @Test
   public void testIsNotFirst() {
-    assertThatThrownBy(() -> IntegerValues.get(123).isNotFirst())
+    assertThatThrownBy(() -> IntegerValues.of(123).isNotFirst())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotFirst' is not applicable for this value");
   }
 
   @Test
   public void testIsLast() {
-    assertThatThrownBy(() -> IntegerValues.get(123).isLast())
+    assertThatThrownBy(() -> IntegerValues.of(123).isLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isLast' is not applicable for this value");
   }
 
   @Test
   public void testIsNotLast() {
-    assertThatThrownBy(() -> IntegerValues.get(123).isNotLast())
+    assertThatThrownBy(() -> IntegerValues.of(123).isNotLast())
         .isExactlyInstanceOf(NotApplicableOperationException.class)
         .hasMessage("Operation 'isNotLast' is not applicable for this value");
   }

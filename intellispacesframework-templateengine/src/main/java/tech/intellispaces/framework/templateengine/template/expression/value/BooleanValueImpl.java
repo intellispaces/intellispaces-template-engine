@@ -32,13 +32,13 @@ class BooleanValueImpl extends AbstractValue implements BooleanValue {
   @Override
   public BooleanValue eq(Value other) {
     if (other.type() == ValueTypes.Boolean) {
-      return BooleanValues.get(get() == ((BooleanValue) other).get());
+      return BooleanValues.of(get() == ((BooleanValue) other).get());
     }
-    return BooleanValues.get(false);
+    return BooleanValues.of(false);
   }
 
   public BooleanValue invert() {
-    return BooleanValues.get(!value);
+    return BooleanValues.of(!value);
   }
 
   @Override

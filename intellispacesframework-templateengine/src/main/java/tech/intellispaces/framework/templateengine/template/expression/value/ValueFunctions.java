@@ -23,15 +23,15 @@ public interface ValueFunctions {
     if (object == null) {
       return VoidValues.get();
     } else if (object instanceof Boolean) {
-      return BooleanValues.get((boolean) object);
+      return BooleanValues.of((boolean) object);
     } else if (object instanceof Integer) {
-      return IntegerValues.get((int) object);
+      return IntegerValues.of((int) object);
     } else if (object instanceof Double) {
-      return RealValues.get((double) object);
+      return RealValues.of((double) object);
     } else if (object instanceof Character) {
-      return StringValues.get((Character) object);
+      return StringValues.of((Character) object);
     } else if (object instanceof String) {
-      return StringValues.get((String) object);
+      return StringValues.of((String) object);
     } else if (object instanceof List) {
       return listToValue((List<?>) object);
     } else if (object instanceof Map) {
@@ -53,7 +53,7 @@ public interface ValueFunctions {
     uncoverThrowable(ResolveTemplateException.class, () -> map.entrySet().stream()
         .map(coverThrowableFunction(ValueFunctions::entryOfObjectsToValues))
         .forEach(e -> values.put(e.getKey(), e.getValue())));
-    return MapValues.get(values);
+    return MapValues.of(values);
   }
 
   private static Map.Entry<Value, Value> entryOfObjectsToValues(

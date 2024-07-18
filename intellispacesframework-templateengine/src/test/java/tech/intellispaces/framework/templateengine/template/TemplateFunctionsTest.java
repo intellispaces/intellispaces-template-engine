@@ -26,7 +26,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenEmptySource() {
     // Given
     char[] source = "".toCharArray();
-    Position position = Positions.get(0, 1, 1);
+    Position position = Positions.of(0, 1, 1);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);
@@ -46,7 +46,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceHasNotMarkers_andPositionOnSourceBegin() {
     // Given
     char[] source = "Simple text".toCharArray();
-    Position position = Positions.get(0, 1, 1);
+    Position position = Positions.of(0, 1, 1);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);
@@ -66,7 +66,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceHasNotMarkers_andPositionOnSourceEnd() {
     // Given
     char[] source = "Simple text".toCharArray();
-    Position position = Positions.get(11, 1, 12);
+    Position position = Positions.of(11, 1, 12);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);
@@ -86,7 +86,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenPositionMoreThanSourceLength() {
     // Given
     char[] source = "Simple text".toCharArray();
-    Position position = Positions.get(12, 1, 13);
+    Position position = Positions.of(12, 1, 13);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);
@@ -99,7 +99,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceStartWithMarker_andPositionOnSourceBegin() {
     // Given
     char[] source = "{{MARKER}} Simple text".toCharArray();
-    Position position = Positions.get(0, 1, 1);
+    Position position = Positions.of(0, 1, 1);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);
@@ -119,7 +119,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceStartWithMarker_andPositionAfterMarker() {
     // Given
     char[] source = "{{MARKER}} Simple text".toCharArray();
-    Position position = Positions.get(10, 1, 11);
+    Position position = Positions.of(10, 1, 11);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);
@@ -139,7 +139,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenMarkerPlacedInCenter_andPositionOnSourceBegin() {
     // Given
     char[] source = "Simple {{MARKER}} text".toCharArray();
-    Position position = Positions.get(0, 1, 1);
+    Position position = Positions.of(0, 1, 1);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);
@@ -159,7 +159,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenMarkerPlacedInCenter_andPositionOnMarkerBegin() {
     // Given
     char[] source = "Simple {{MARKER}} text".toCharArray();
-    Position position = Positions.get(7, 1, 8);
+    Position position = Positions.of(7, 1, 8);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);
@@ -179,7 +179,7 @@ public class TemplateFunctionsTest {
   public void testReadBlock_whenSourceStartWithDoubleCurlyBraces() {
     // Given
     char[] source = "{{Simple text".toCharArray();
-    Position position = Positions.get(0, 1, 1);
+    Position position = Positions.of(0, 1, 1);
 
     // When
     Block block = TemplateFunctions.readBlock(source, position);

@@ -64,7 +64,7 @@ public final class TemplateFunctions {
    * @throws ParseTemplateException throws when template can't be parsed.
    */
   public static Template parseTemplate(String source) throws ParseTemplateException {
-    return Templates.build(
+    return Templates.get(
         analyzeStatements(
             glueElements(
                 analyzeElements(
@@ -103,7 +103,7 @@ public final class TemplateFunctions {
   public static List<Block> split(String source) {
     List<Block> blocks = new ArrayList<>();
     char[] chars = source.toCharArray();
-    MutablePosition curPosition = Positions.getMutable(0, 1, 1);
+    MutablePosition curPosition = Positions.mutable(0, 1, 1);
     Block block = readBlock(chars, curPosition);
     while (block != null && block.length() > 0) {
       movePosition(curPosition, block, chars);
@@ -145,7 +145,7 @@ public final class TemplateFunctions {
       }
     }
     return Blocks.build()
-        .position(Positions.copy(position))
+        .position(Positions.of(position))
         .marker(marker)
         .value(readElementValue(marker, source, position.offset(), curOffset - position.offset()))
         .get();
@@ -519,7 +519,7 @@ public final class TemplateFunctions {
   ) throws ParseTemplateException {
     List<TemplateElement> subElements = readUpToMarkerEnd(markerFormat, iterator);
     List<TemplateElement> subStatements = analyzeStatements(subElements);
-    return FormatStatements.get()
+    return FormatStatements.build()
         .context(ElementContexts.build()
             .position(markerFormat.context().position())
             .templateElements(elements)
@@ -580,7 +580,7 @@ public final class TemplateFunctions {
             element.context().position().row(), element.context().position().column());
       }
     }
-    return WhenStatements.get()
+    return WhenStatements.build()
         .context(ElementContexts.build()
             .position(markerWhen.context().position())
             .templateElements(elements)

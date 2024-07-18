@@ -15,31 +15,31 @@ public final class ListValues {
     return new ListValueBuilder();
   }
 
-  public static ListValue get(List<Value> list) {
+  public static ListValue of(List<Value> list) {
     return ListValueBuilder.build(list);
   }
 
-  public static ListValue get(Object[] elements) {
+  public static ListValue of(Object[] elements) {
     return ListValueBuilder.build(elements);
   }
 
-  public static ListValue get(boolean... elements) {
+  public static ListValue of(boolean... elements) {
     return ListValueBuilder.build(ArraysFunctions.wrap(elements));
   }
 
-  public static ListValue get(int... elements) {
+  public static ListValue of(int... elements) {
     return ListValueBuilder.build(IntStream.of(elements).boxed().toArray());
   }
 
-  public static ListValue get(double... elements) {
+  public static ListValue of(double... elements) {
     return ListValueBuilder.build(DoubleStream.of(elements).boxed().toArray());
   }
 
-  public static ListValue get(String... elements) {
+  public static ListValue of(String... elements) {
     return ListValueBuilder.build(elements);
   }
 
-  public static ListValue get(Value... elements) {
+  public static ListValue of(Value... elements) {
     if (elements == null) {
       return ListValueBuilder.build(List.of());
     }
