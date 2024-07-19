@@ -2,12 +2,11 @@ package tech.intellispaces.framework.templateengine.template.expression.value;
 
 import tech.intellispaces.framework.commons.collection.ArraysFunctions;
 import tech.intellispaces.framework.commons.exception.UnexpectedViolationException;
+import tech.intellispaces.framework.commons.function.Functions;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import static tech.intellispaces.framework.commons.exception.ExceptionFunctions.coverThrowableFunction;
 
 public final class ListValueBuilder {
   private List<Value> list;
@@ -28,7 +27,7 @@ public final class ListValueBuilder {
 
   private static List<Value> toValueList(Object[] elements) {
     return Arrays.stream(elements)
-        .map(coverThrowableFunction(ValueFunctions::objectToValue))
+        .map(Functions.coveredThrowableFunction(ValueFunctions::objectToValue))
         .toList();
   }
 

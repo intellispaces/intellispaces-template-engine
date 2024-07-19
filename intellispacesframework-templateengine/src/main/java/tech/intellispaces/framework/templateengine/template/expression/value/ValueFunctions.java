@@ -1,14 +1,14 @@
 package tech.intellispaces.framework.templateengine.template.expression.value;
 
 import tech.intellispaces.framework.commons.exception.UnexpectedViolationException;
+import tech.intellispaces.framework.commons.function.FunctionFunctions;
+import tech.intellispaces.framework.commons.function.Functions;
+import tech.intellispaces.framework.commons.function.RunnableFunctions;
 import tech.intellispaces.framework.templateengine.exception.ResolveTemplateException;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static tech.intellispaces.framework.commons.exception.ExceptionFunctions.coverThrowableFunction;
-import static tech.intellispaces.framework.commons.exception.ExceptionFunctions.uncoverThrowable;
 
 public interface ValueFunctions {
 
@@ -42,17 +42,22 @@ public interface ValueFunctions {
   }
 
   private static ListValue listToValue(List<?> list) throws ResolveTemplateException {
-    List<Value> values = uncoverThrowable(ResolveTemplateException.class, list, (l) -> l.stream()
-        .map(coverThrowableFunction(ValueFunctions::objectToValue))
-        .toList());
+    List<Value> values = FunctionFunctions.applyAndUncoverIfCovered(
+        (s) -> s
+          .map(Functions.coveredThrowableFunction(ValueFunctions::objectToValue))
+          .toList(),
+        list.stream(),
+        ResolveTemplateException.class);
     return ListValueBuilder.build(values);
   }
 
   private static MapValue mapToValue(Map<?, ?> map) throws ResolveTemplateException {
     Map<Value, Value> values = new HashMap<>();
-    uncoverThrowable(ResolveTemplateException.class, () -> map.entrySet().stream()
-        .map(coverThrowableFunction(ValueFunctions::entryOfObjectsToValues))
-        .forEach(e -> values.put(e.getKey(), e.getValue())));
+    RunnableFunctions.runAndUncoverIfCovered(
+        () -> map.entrySet().stream()
+          .map(Functions.coveredThrowableFunction(ValueFunctions::entryOfObjectsToValues))
+          .forEach(e -> values.put(e.getKey(), e.getValue())),
+        ResolveTemplateException.class);
     return MapValues.of(values);
   }
 
