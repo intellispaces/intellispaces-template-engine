@@ -1,7 +1,7 @@
 package tech.intellispaces.templates.template;
 
+import tech.intellispaces.templates.element.TemplateElement;
 import tech.intellispaces.templates.exception.ResolveTemplateException;
-import tech.intellispaces.templates.template.element.TemplateElement;
 
 import java.util.List;
 import java.util.Map;
