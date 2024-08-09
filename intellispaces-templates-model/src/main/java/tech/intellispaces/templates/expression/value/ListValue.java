@@ -8,4 +8,6 @@ import java.util.List;
 public interface ListValue extends Value {
 
   List<Value> get();
+
+  IntegerValue size();
 }

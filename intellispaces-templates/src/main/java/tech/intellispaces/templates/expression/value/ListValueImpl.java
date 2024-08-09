@@ -25,6 +25,11 @@ class ListValueImpl extends AbstractValue implements ListValue {
   }
 
   @Override
+  public IntegerValue size() {
+    return IntegerValues.of(list.size());
+  }
+
+  @Override
   public Value origin() {
     return this;
   }
