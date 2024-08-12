@@ -109,4 +109,9 @@ abstract class AbstractValue implements Value {
   public BooleanValue isNotLast() throws ResolveTemplateException {
     throw NotApplicableOperationException.withMessage("Operation 'isNotLast' is not applicable for this value");
   }
+
+  @Override
+  public IntegerValue size() throws ResolveTemplateException {
+    throw NotApplicableOperationException.withMessage("Operation 'size' is not applicable for this value");
+  }
 }

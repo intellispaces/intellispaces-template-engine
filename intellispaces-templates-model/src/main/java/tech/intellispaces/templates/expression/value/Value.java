@@ -111,4 +111,6 @@ public interface Value extends FormalValue {
 
   @Override
   BooleanValue isNotLast() throws ResolveTemplateException;
+
+  IntegerValue size() throws ResolveTemplateException;
 }

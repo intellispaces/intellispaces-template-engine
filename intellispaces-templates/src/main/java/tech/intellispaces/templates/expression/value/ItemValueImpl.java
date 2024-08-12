@@ -151,6 +151,11 @@ class ItemValueImpl implements Value {
   }
 
   @Override
+  public IntegerValue size() throws ResolveTemplateException {
+    return this.element.size();
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;

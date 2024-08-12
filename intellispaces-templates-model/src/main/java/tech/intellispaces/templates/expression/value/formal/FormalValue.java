@@ -85,4 +85,6 @@ public interface FormalValue {
   FormalValue isLast() throws ResolveTemplateException;
 
   FormalValue isNotLast() throws ResolveTemplateException;
+
+  FormalValue size() throws ResolveTemplateException;
 }
