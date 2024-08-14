@@ -31,6 +31,8 @@ public final class CompileFunctions {
   private static final JavaCompiler COMPILER = ToolProvider.getSystemJavaCompiler();
   private static final Logger LOG = LoggerFactory.getLogger(CompileFunctions.class);
 
+  private CompileFunctions() {}
+
   public static CompiledExpression compileExpression(String statement) throws ParseTemplateException {
     String className = "CompiledExpression" + UUID.randomUUID().toString().replace("-", "");
     String classSource = makeCompiledExpressionSource(className, statement);
@@ -133,8 +135,6 @@ public final class CompileFunctions {
   private static String path(URL url) throws URISyntaxException {
     return Paths.get(url.toURI()).normalize().toString();
   }
-
-  private CompileFunctions() {}
 
   private static final class CompileDiagnosticListener implements DiagnosticListener<JavaFileObject> {
     private int index = 1;

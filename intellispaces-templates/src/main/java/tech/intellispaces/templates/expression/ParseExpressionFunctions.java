@@ -28,6 +28,8 @@ import static java.lang.Character.isDigit;
  */
 public final class ParseExpressionFunctions {
 
+  private ParseExpressionFunctions() {}
+
   /**
    * Parses expression.
    *
@@ -309,8 +311,6 @@ public final class ParseExpressionFunctions {
       return compiledExpression;
     }
   }
-
-  private ParseExpressionFunctions() {}
 
   private record ValueAndWording(Value value, String wording) {}
 

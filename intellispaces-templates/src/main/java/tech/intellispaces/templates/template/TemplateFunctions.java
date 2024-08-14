@@ -56,6 +56,8 @@ import java.util.regex.Pattern;
  */
 public final class TemplateFunctions {
 
+  private TemplateFunctions() {}
+
   /**
    * Parse template.
    *
@@ -596,12 +598,18 @@ public final class TemplateFunctions {
     List<TemplateElement> branchElements = new ArrayList<>();
     while (iterator.hasNext()) {
       TemplateElement element = iterator.next();
-      if (TemplateElementTypes.MarkerElse == element.type() || TemplateElementTypes.MarkerEnd == element.type()) {
-        iterator.previous();
-        return branchElements;
+      if (TemplateElementTypes.MarkerForeach == element.type()) {
+        TemplateElement nestedForeach = readForeachStatement((MarkerForeach) element, iterator, elements);
+        branchElements.add(nestedForeach);
+      } else if (TemplateElementTypes.MarkerFormat == element.type()) {
+        TemplateElement nestedFormat = readFormatStatement((MarkerFormat) element, iterator, elements);
+        branchElements.add(nestedFormat);
       } else if (TemplateElementTypes.MarkerWhen == element.type()) {
         TemplateElement nestedWhen = readWhenStatement((MarkerWhen) element, iterator, elements);
         branchElements.add(nestedWhen);
+      } else if (TemplateElementTypes.MarkerElse == element.type() || TemplateElementTypes.MarkerEnd == element.type()) {
+        iterator.previous();
+        return branchElements;
       } else {
         branchElements.add(element);
       }
@@ -636,8 +644,6 @@ public final class TemplateFunctions {
         || TemplateElementTypes.MarkerWhen == element.type()
         || TemplateElementTypes.MarkerForeach == element.type();
   }
-
-  private TemplateFunctions() {}
 
   private static final char OPEN_CURLY_BRACE = '{';
   private static final char CLOSE_CURLY_BRACE = '}';
