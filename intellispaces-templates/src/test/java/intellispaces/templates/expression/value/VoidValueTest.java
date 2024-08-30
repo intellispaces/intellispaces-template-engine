@@ -28,21 +28,21 @@ public class VoidValueTest {
   public void testAsBoolean() {
     assertThatThrownBy(VoidValues.get()::asBoolean)
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to boolean primitive");
+        .hasMessage("Value of type void cannot be casted to boolean primitive");
   }
 
   @Test
   public void testAsInteger() {
     assertThatThrownBy(VoidValues.get()::asInteger)
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to integer");
+        .hasMessage("Value of type void cannot be casted to integer");
   }
 
   @Test
   public void testAsReal() {
     assertThatThrownBy(VoidValues.get()::asReal)
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to real");
+        .hasMessage("Value of type void cannot be casted to real");
   }
 
   @Test

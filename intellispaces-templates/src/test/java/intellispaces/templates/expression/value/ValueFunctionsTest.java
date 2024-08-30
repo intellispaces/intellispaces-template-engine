@@ -48,7 +48,7 @@ public class ValueFunctionsTest {
   public void testObjectToValue_whenLong() {
     assertThatThrownBy(() -> ValueFunctions.objectToValue(1L))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Object of type java.lang.Long can't be casted to value");
+        .hasMessage("Object of type java.lang.Long cannot be casted to value");
   }
 
   @Test
@@ -65,7 +65,7 @@ public class ValueFunctionsTest {
   public void testObjectToValue_whenFloat() {
     assertThatThrownBy(() -> ValueFunctions.objectToValue(1.0f))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Object of type java.lang.Float can't be casted to value");
+        .hasMessage("Object of type java.lang.Float cannot be casted to value");
   }
 
   @Test
@@ -104,7 +104,7 @@ public class ValueFunctionsTest {
   public void testObjectToValue_whenFloatList() {
     assertThatThrownBy(() -> ValueFunctions.objectToValue(List.of(1.0f, 2.0f)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Object of type java.lang.Float can't be casted to value");
+        .hasMessage("Object of type java.lang.Float cannot be casted to value");
   }
 
   @Test
@@ -124,7 +124,7 @@ public class ValueFunctionsTest {
   public void testObjectToValue_whenIntegerToFloatMap() {
     assertThatThrownBy(() -> ValueFunctions.objectToValue(Map.of(1, 1.0f, 2, 2.0f)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Object of type java.lang.Float can't be casted to value");
+        .hasMessage("Object of type java.lang.Float cannot be casted to value");
   }
 
   @Test
@@ -176,7 +176,7 @@ public class ValueFunctionsTest {
     // When void
     assertThatThrownBy(() -> ValueFunctions.castToBoolean(VoidValues.get()))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to boolean primitive");
+        .hasMessage("Value of type void cannot be casted to boolean primitive");
 
     // When boolean
     assertThat(ValueFunctions.castToBoolean(BooleanValues.of(true))).isTrue();
@@ -187,31 +187,31 @@ public class ValueFunctionsTest {
     assertThat(ValueFunctions.castToBoolean(IntegerValues.of(1))).isTrue();
     assertThatThrownBy(() -> ValueFunctions.castToBoolean(IntegerValues.of(2)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Integer value 2 can't be casted to boolean primitive");
+        .hasMessage("Integer value 2 cannot be casted to boolean primitive");
 
     // When real
     assertThat(ValueFunctions.castToBoolean(RealValues.of(0.0))).isFalse();
     assertThat(ValueFunctions.castToBoolean(RealValues.of(1.0))).isTrue();
     assertThatThrownBy(() -> ValueFunctions.castToBoolean(RealValues.of(1.1)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Real value 1,1 can't be casted to boolean primitive");
+        .hasMessage("Real value 1,1 cannot be casted to boolean primitive");
 
     // When string
     assertThat(ValueFunctions.castToBoolean(StringValues.of("true"))).isTrue();
     assertThat(ValueFunctions.castToBoolean(StringValues.of("false"))).isFalse();
     assertThatThrownBy(() -> ValueFunctions.castToBoolean(StringValues.of("abc")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("String value abc can't be casted to boolean primitive");
+        .hasMessage("String value abc cannot be casted to boolean primitive");
 
     // When list
     assertThatThrownBy(() -> ValueFunctions.castToBoolean(ListValues.of(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type list can't be casted to boolean primitive");
+        .hasMessage("Value of type list cannot be casted to boolean primitive");
 
     // When map
     assertThatThrownBy(() -> ValueFunctions.castToBoolean(MapValues.of(1, "a", 2, "b")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type map can't be casted to boolean primitive");
+        .hasMessage("Value of type map cannot be casted to boolean primitive");
   }
 
   @Test
@@ -219,7 +219,7 @@ public class ValueFunctionsTest {
     // When void
     assertThatThrownBy(() -> ValueFunctions.castToInteger(VoidValues.get()))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to integer");
+        .hasMessage("Value of type void cannot be casted to integer");
 
     // When boolean
     assertThat(ValueFunctions.castToInteger(BooleanValues.of(true))).isEqualTo(1);
@@ -235,23 +235,23 @@ public class ValueFunctionsTest {
     assertThat(ValueFunctions.castToInteger(RealValues.of(-2.0))).isEqualTo(-2);
     assertThatThrownBy(() -> ValueFunctions.castToInteger(RealValues.of(1.1)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Real 1,1 can't be casted to integer");
+        .hasMessage("Real 1,1 cannot be casted to integer");
 
     // When string
     assertThat(ValueFunctions.castToInteger(StringValues.of("123"))).isEqualTo(123);
     assertThatThrownBy(() -> ValueFunctions.castToInteger(StringValues.of("1a")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("String 1a can't be casted to integer");
+        .hasMessage("String 1a cannot be casted to integer");
 
     // When list
     assertThatThrownBy(() -> ValueFunctions.castToInteger(ListValues.of(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type list can't be casted to integer");
+        .hasMessage("Value of type list cannot be casted to integer");
 
     // When map
     assertThatThrownBy(() -> ValueFunctions.castToInteger(MapValues.of(1, "a", 2, "b")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type map can't be casted to integer");
+        .hasMessage("Value of type map cannot be casted to integer");
   }
 
   @Test
@@ -259,7 +259,7 @@ public class ValueFunctionsTest {
     // When void
     assertThatThrownBy(() -> ValueFunctions.castToReal(VoidValues.get()))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to real");
+        .hasMessage("Value of type void cannot be casted to real");
 
     // When boolean
     assertThat(ValueFunctions.castToReal(BooleanValues.of(true))).isEqualTo(1.0);
@@ -279,17 +279,17 @@ public class ValueFunctionsTest {
     assertThat(ValueFunctions.castToReal(StringValues.of("3.14"))).isEqualTo(3.14);
     assertThatThrownBy(() -> ValueFunctions.castToReal(StringValues.of("3p14")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("String 3p14 can't be casted to real");
+        .hasMessage("String 3p14 cannot be casted to real");
 
     // When list
     assertThatThrownBy(() -> ValueFunctions.castToReal(ListValues.of(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type list can't be casted to real");
+        .hasMessage("Value of type list cannot be casted to real");
 
     // When map
     assertThatThrownBy(() -> ValueFunctions.castToReal(MapValues.of(1, "a", 2, "b")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type map can't be casted to real");
+        .hasMessage("Value of type map cannot be casted to real");
   }
 
   @Test
@@ -297,7 +297,7 @@ public class ValueFunctionsTest {
     // When void
     assertThatThrownBy(() -> ValueFunctions.castToString(VoidValues.get()))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to string");
+        .hasMessage("Value of type void cannot be casted to string");
 
     // When boolean
     assertThat(ValueFunctions.castToString(BooleanValues.of(true))).isEqualTo("true");
@@ -317,12 +317,12 @@ public class ValueFunctionsTest {
     // When list
     assertThatThrownBy(() -> ValueFunctions.castToString(ListValues.of(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type list can't be casted to string");
+        .hasMessage("Value of type list cannot be casted to string");
 
     // When map
     assertThatThrownBy(() -> ValueFunctions.castToString(MapValues.of(1, "a", 2, "b")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type map can't be casted to string");
+        .hasMessage("Value of type map cannot be casted to string");
   }
 
   @Test
@@ -330,7 +330,7 @@ public class ValueFunctionsTest {
     // When void
     assertThatThrownBy(() -> ValueFunctions.castToList(VoidValues.get()))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to list");
+        .hasMessage("Value of type void cannot be casted to list");
 
     // When boolean
     assertThat(ValueFunctions.castToList(BooleanValues.of(true))).isEqualTo(List.of(BooleanValues.of(true)));
@@ -360,32 +360,32 @@ public class ValueFunctionsTest {
     // When void
     assertThatThrownBy(() -> ValueFunctions.castToMap(VoidValues.get()))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type void can't be casted to map");
+        .hasMessage("Value of type void cannot be casted to map");
 
     // When boolean
     assertThatThrownBy(() -> ValueFunctions.castToMap(BooleanValues.of(true)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type boolean can't be casted to map");
+        .hasMessage("Value of type boolean cannot be casted to map");
 
     // When integer
     assertThatThrownBy(() -> ValueFunctions.castToMap(IntegerValues.of(1)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type integer can't be casted to map");
+        .hasMessage("Value of type integer cannot be casted to map");
 
     // When real
     assertThatThrownBy(() -> ValueFunctions.castToMap(RealValues.of(1.0)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type real can't be casted to map");
+        .hasMessage("Value of type real cannot be casted to map");
 
     // When string
     assertThatThrownBy(() -> ValueFunctions.castToMap(StringValues.of("abc")))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type string can't be casted to map");
+        .hasMessage("Value of type string cannot be casted to map");
 
     // When list
     assertThatThrownBy(() -> ValueFunctions.castToMap(ListValues.of(1, 2, 3)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Value of type list can't be casted to map");
+        .hasMessage("Value of type list cannot be casted to map");
 
     // When map
     assertThat(ValueFunctions.castToMap(MapValues.of(1, "a", 2, "b"))).isEqualTo(Map.of(

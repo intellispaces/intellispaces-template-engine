@@ -37,7 +37,7 @@ public interface ValueFunctions {
     } else if (object instanceof Map) {
       return mapToValue((Map<?, ?>) object);
     }
-    throw ResolveTemplateException.withMessage("Object of type {0} can''t be casted to value",
+    throw ResolveTemplateException.withMessage("Object of type {0} cannot be casted to value",
         object.getClass().getCanonicalName());
   }
 
@@ -116,7 +116,7 @@ public interface ValueFunctions {
       } else if (Boolean.FALSE.toString().equals(stringValue)) {
         return false;
       } else {
-        throw ResolveTemplateException.withMessage("String value {0} can''t be casted to boolean primitive",
+        throw ResolveTemplateException.withMessage("String value {0} cannot be casted to boolean primitive",
             stringValue);
       }
     } else if (value.type() == ValueTypes.Integer) {
@@ -126,7 +126,7 @@ public interface ValueFunctions {
       } else if (integerValue == 1) {
         return true;
       } else {
-        throw ResolveTemplateException.withMessage("Integer value {0} can''t be casted to boolean primitive",
+        throw ResolveTemplateException.withMessage("Integer value {0} cannot be casted to boolean primitive",
             integerValue);
       }
     } else if (value.type() == ValueTypes.Real) {
@@ -136,11 +136,11 @@ public interface ValueFunctions {
       } else if (doubleValue == 1.0) {
         return true;
       } else {
-        throw ResolveTemplateException.withMessage("Real value {0} can''t be casted to boolean primitive",
+        throw ResolveTemplateException.withMessage("Real value {0} cannot be casted to boolean primitive",
             doubleValue);
       }
     }
-    throw ResolveTemplateException.withMessage("Value of type {0} can''t be casted to boolean primitive",
+    throw ResolveTemplateException.withMessage("Value of type {0} cannot be casted to boolean primitive",
         value.type().typename());
   }
 
@@ -158,21 +158,21 @@ public interface ValueFunctions {
       try {
         return Integer.parseInt(((StringValue) value).get());
       } catch (NumberFormatException e) {
-        throw ResolveTemplateException.withMessage("String {0} can''t be casted to integer",
+        throw ResolveTemplateException.withMessage("String {0} cannot be casted to integer",
             ((StringValue) value).get());
       }
     } else if (value.type() == ValueTypes.Real) {
       double doubleValue = ((RealValue) value).get();
       int intValue = (int) doubleValue;
       if (doubleValue != intValue) {
-        throw ResolveTemplateException.withMessage("Real {0} can''t be casted to integer",
+        throw ResolveTemplateException.withMessage("Real {0} cannot be casted to integer",
             ((RealValue) value).get());
       }
       return intValue;
     } else if (value.type() == ValueTypes.Boolean) {
       return ((BooleanValue) value).get() ? 1 : 0;
     }
-    throw ResolveTemplateException.withMessage("Value of type {0} can''t be casted to integer",
+    throw ResolveTemplateException.withMessage("Value of type {0} cannot be casted to integer",
         value.type().typename());
   }
 
@@ -192,13 +192,13 @@ public interface ValueFunctions {
       try {
         return Double.parseDouble(((StringValue) value).get());
       } catch (NumberFormatException e) {
-        throw ResolveTemplateException.withMessage("String {0} can''t be casted to real",
+        throw ResolveTemplateException.withMessage("String {0} cannot be casted to real",
             ((StringValue) value).get());
       }
     } else if (value.type() == ValueTypes.Boolean) {
       return ((BooleanValue) value).get() ? 1.0 : 0.0;
     }
-    throw ResolveTemplateException.withMessage("Value of type {0} can''t be casted to real",
+    throw ResolveTemplateException.withMessage("Value of type {0} cannot be casted to real",
         value.type().typename());
   }
 
@@ -220,7 +220,7 @@ public interface ValueFunctions {
     } else if (value.type() == ValueTypes.Real) {
       return Double.toString(((RealValue) value).get());
     } else {
-      throw ResolveTemplateException.withMessage("Value of type {0} can''t be casted to string",
+      throw ResolveTemplateException.withMessage("Value of type {0} cannot be casted to string",
           value.type().typename());
     }
   }
@@ -248,7 +248,7 @@ public interface ValueFunctions {
     } else if (value.type() == ValueTypes.Map) {
       list = List.of(((MapValue) value));
     } else {
-      throw ResolveTemplateException.withMessage("Value of type {0} can''t be casted to list",
+      throw ResolveTemplateException.withMessage("Value of type {0} cannot be casted to list",
           value.type().typename());
     }
     return (List<Value>) list;
@@ -265,7 +265,7 @@ public interface ValueFunctions {
     if (value.type() == ValueTypes.Map) {
       return ((MapValue) value).get();
     } else {
-      throw ResolveTemplateException.withMessage("Value of type {0} can''t be casted to map",
+      throw ResolveTemplateException.withMessage("Value of type {0} cannot be casted to map",
           value.type().typename());
     }
   }
