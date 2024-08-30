@@ -80,7 +80,7 @@ class ListValueImpl extends AbstractValue implements ListValue {
   @Override
   public Value get(Value key) throws ResolveTemplateException {
     if (key.type() != ValueTypes.Integer) {
-      throw IrregularValueTypeException.withMessage("Invalid index type: {}. Expected integer value", key.typename().get());
+      throw IrregularValueTypeException.withMessage("Invalid index type: {0}. Expected integer value", key.typename().get());
     }
     int index = ((IntegerValue) key).get();
     if (index < 0 || index >= get().size()) {

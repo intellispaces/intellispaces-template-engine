@@ -72,7 +72,8 @@ class StringValueImpl extends AbstractValue implements StringValue {
     } else if (element.type() == ValueTypes.Boolean) {
       subString = (Boolean.toString(((BooleanValue) element).get()));
     } else {
-      throw IrregularValueTypeException.withMessage("Invalid argument value type: {}. Expected string, integer, real or boolean", typename().get());
+      throw IrregularValueTypeException.withMessage("Invalid argument value type: {0}. " +
+          "Expected string, integer, real or boolean", typename().get());
     }
 
     int index = get().indexOf(subString);
@@ -88,7 +89,8 @@ class StringValueImpl extends AbstractValue implements StringValue {
   @Override
   public Value get(Value key) throws ResolveTemplateException {
     if (key.type() != ValueTypes.Integer) {
-      throw IrregularValueTypeException.withMessage("Invalid index type: {}. Expected integer value", key.typename().get());
+      throw IrregularValueTypeException.withMessage("Invalid index type: {0}. " +
+          "Expected integer value", key.typename().get());
     }
     int index = ((IntegerValue) key).get();
     if (index < 0 || index >= get().length()) {

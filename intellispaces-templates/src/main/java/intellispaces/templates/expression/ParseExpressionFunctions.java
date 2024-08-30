@@ -141,7 +141,7 @@ public final class ParseExpressionFunctions {
       } else if (curChar == ']') {
         break;
       } else {
-        throw UnexpectedViolationException.withMessage("Unknown character {}", curChar);
+        throw UnexpectedViolationException.withMessage("Unknown character {0}", curChar);
       }
     }
 
@@ -210,7 +210,7 @@ public final class ParseExpressionFunctions {
         }
       }
     }
-    throw ParseTemplateException.withMessage("Invalid expression at column {}. Expected closed square bracket",
+    throw ParseTemplateException.withMessage("Invalid expression at column {0}. Expected closed square bracket",
         beginIndex);
   }
 

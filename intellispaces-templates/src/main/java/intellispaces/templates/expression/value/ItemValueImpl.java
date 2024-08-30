@@ -31,7 +31,7 @@ class ItemValueImpl implements Value {
   @Override
   public BooleanValue isFirst() throws ResolveTemplateException {
     if (first == null) {
-      throw NotApplicableOperationException.withMessage("Operation 'isFirst' is not applicable for this value");
+      throw NotApplicableOperationException.withMessage("Operation ''isFirst'' is not applicable for this value");
     }
     return first;
   }
@@ -39,7 +39,7 @@ class ItemValueImpl implements Value {
   @Override
   public BooleanValue isNotFirst() throws ResolveTemplateException {
     if (first == null) {
-      throw NotApplicableOperationException.withMessage("Operation 'isNotFirst' is not applicable for this value");
+      throw NotApplicableOperationException.withMessage("Operation ''isNotFirst'' is not applicable for this value");
     }
     return first.invert();
   }
@@ -47,7 +47,7 @@ class ItemValueImpl implements Value {
   @Override
   public BooleanValue isLast() throws ResolveTemplateException {
     if (last == null) {
-      throw NotApplicableOperationException.withMessage("Operation 'isLast' is not applicable for this value");
+      throw NotApplicableOperationException.withMessage("Operation ''isLast'' is not applicable for this value");
     }
     return last;
   }
@@ -55,7 +55,7 @@ class ItemValueImpl implements Value {
   @Override
   public BooleanValue isNotLast() throws ResolveTemplateException {
     if (last == null) {
-      throw NotApplicableOperationException.withMessage("Operation 'isNotLast' is not applicable for this value");
+      throw NotApplicableOperationException.withMessage("Operation ''isNotLast'' is not applicable for this value");
     }
     return last.invert();
   }

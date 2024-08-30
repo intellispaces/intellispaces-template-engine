@@ -42,7 +42,7 @@ public interface ResolveExpressionFunctions {
     try {
       return expression.compiledExpression().resolve(values);
     } catch (Exception e) {
-      throw ResolveTemplateException.withCauseAndMessage(e, "Failed to resolve expression {}", expression.statement());
+      throw ResolveTemplateException.withCauseAndMessage(e, "Failed to resolve expression {0}", expression.statement());
     }
   }
 
@@ -58,7 +58,7 @@ public interface ResolveExpressionFunctions {
         String variableName = operand.asVariable().name();
         Value variableValue = variables.get(variableName);
         if (variableValue == null) {
-          throw ResolveTemplateException.withMessage("Variable by name '{}' is not found", variableName);
+          throw ResolveTemplateException.withMessage("Variable by name '{0}' is not found", variableName);
         }
         values[index++] = variableValue;
       }
@@ -87,7 +87,7 @@ public interface ResolveExpressionFunctions {
       Map<Value, Value> map = ((MapValue) value.origin()).get();
       return convertToString(map);
     } else {
-      throw UnexpectedViolationException.withMessage("Unsupported value type: {}", value.typename().get());
+      throw UnexpectedViolationException.withMessage("Unsupported value type: {0}", value.typename().get());
     }
   }
 

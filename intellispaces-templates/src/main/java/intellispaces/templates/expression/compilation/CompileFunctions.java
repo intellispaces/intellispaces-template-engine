@@ -61,7 +61,7 @@ public final class CompileFunctions {
         null, fileManager, diagnosticListener, compileOptions, null, List.of(sourceFileObject)
     );
     if (!compilerTask.call()) {
-      throw ParseTemplateException.withMessage("Failed to compile expression: {}. Reason(s):\n{}",
+      throw ParseTemplateException.withMessage("Failed to compile expression: {0}. Reason(s):\n{1}",
           statement, diagnosticListener.getMessage());
     }
     return fileManager.getGeneratedOutputFiles();

@@ -45,7 +45,7 @@ public interface Value extends FormalValue {
     if (other instanceof Value) {
       return eq((Value) other);
     }
-    throw UnexpectedViolationException.withMessage("Expected instance of the {} class", Value.class.getSimpleName());
+    throw UnexpectedViolationException.withMessage("Expected instance of the {0} class", Value.class.getSimpleName());
   }
 
   BooleanValue eq(Value other) throws ResolveTemplateException;
@@ -73,7 +73,7 @@ public interface Value extends FormalValue {
     if (key instanceof Value) {
       return get((Value) key);
     }
-    throw UnexpectedViolationException.withMessage("Expected instance of the {} class", Value.class.getSimpleName());
+    throw UnexpectedViolationException.withMessage("Expected instance of the {0} class", Value.class.getSimpleName());
   }
 
   Value get(Value key) throws ResolveTemplateException;
@@ -83,7 +83,7 @@ public interface Value extends FormalValue {
     if (element instanceof Value) {
       return find((Value) element);
     }
-    throw UnexpectedViolationException.withMessage("Expected instance of the {} class", Value.class.getSimpleName());
+    throw UnexpectedViolationException.withMessage("Expected instance of the {0} class", Value.class.getSimpleName());
   }
 
   /**
