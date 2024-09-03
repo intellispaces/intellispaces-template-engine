@@ -2,12 +2,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>intellispaces</groupId>
-        <artifactId>intellispaces-common-templateengine-parent</artifactId>
+        <groupId>intellispaces-commons</groupId>
+        <artifactId>intellispaces-common-templateengine</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-common-templateengine-model</artifactId>
+    <artifactId>intellispaces-templateengine-model</artifactId>
     <packaging>jar</packaging>
 	
     <build>
@@ -25,8 +25,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>intellispaces</groupId>
-            <artifactId>intellispaces-common-utils-model</artifactId>
+            <groupId>intellispaces-commons</groupId>
+            <artifactId>intellispaces-utils-model</artifactId>
         </dependency>
     </dependencies>
 </project>

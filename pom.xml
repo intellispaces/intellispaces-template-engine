@@ -2,34 +2,34 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>intellispaces</groupId>
+        <groupId>intellispaces-commons</groupId>
         <artifactId>intellispaces-parent-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-common-templateengine-parent</artifactId>
+    <artifactId>intellispaces-common-templateengine</artifactId>
     <packaging>pom</packaging>
 	
 	<modules>
-        <module>intellispaces-common-templateengine-model</module>
-	    <module>intellispaces-common-templateengine</module>
+        <module>intellispaces-templateengine-model</module>
+	    <module>intellispaces-templateengine</module>
 	</modules>
 	
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>intellispaces</groupId>
-                <artifactId>intellispaces-common-templateengine-model</artifactId>
+                <groupId>intellispaces-commons</groupId>
+                <artifactId>intellispaces-templateengine-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>intellispaces</groupId>
-                <artifactId>intellispaces-common-utils</artifactId>
+                <groupId>intellispaces-commons</groupId>
+                <artifactId>intellispaces-utils</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>intellispaces</groupId>
-                <artifactId>intellispaces-common-utils-model</artifactId>
+                <groupId>intellispaces-commons</groupId>
+                <artifactId>intellispaces-utils-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>
