@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.exception;
 
-import intellispaces.common.exception.PossibleViolationException;
+import intellispaces.common.base.exception.PossibleViolationException;
 
 public class TemplateEngineException extends PossibleViolationException {
 

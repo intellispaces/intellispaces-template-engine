@@ -5,7 +5,7 @@ import intellispaces.common.templateengine.expression.ResolveExpressionFunctions
 import intellispaces.common.templateengine.expression.value.ItemValues;
 import intellispaces.common.templateengine.expression.value.Value;
 import intellispaces.common.templateengine.source.SourceFunctions;
-import intellispaces.common.text.TextFunctions;
+import intellispaces.common.base.text.TextFunctions;
 
 import java.util.HashMap;
 import java.util.List;

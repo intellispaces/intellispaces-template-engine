@@ -1,9 +1,9 @@
 package intellispaces.common.templateengine.expression.value;
 
-import intellispaces.common.exception.UnexpectedViolationException;
-import intellispaces.common.function.FunctionFunctions;
-import intellispaces.common.function.Functions;
-import intellispaces.common.function.RunnableFunctions;
+import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.function.FunctionFunctions;
+import intellispaces.common.base.function.Functions;
+import intellispaces.common.base.function.RunnableFunctions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
 
 import java.util.HashMap;

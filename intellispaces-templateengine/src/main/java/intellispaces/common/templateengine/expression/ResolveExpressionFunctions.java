@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.expression;
 
-import intellispaces.common.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedViolationException;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
 import intellispaces.common.templateengine.expression.value.ListValue;
 import intellispaces.common.templateengine.expression.value.MapValue;

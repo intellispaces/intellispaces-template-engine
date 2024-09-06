@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.expression;
 
-import intellispaces.common.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedViolationException;
 import intellispaces.common.templateengine.exception.ParseTemplateException;
 import intellispaces.common.templateengine.expression.compilation.CompileFunctions;
 import intellispaces.common.templateengine.expression.value.BooleanValues;
@@ -12,7 +12,7 @@ import intellispaces.common.templateengine.expression.value.StringValues;
 import intellispaces.common.templateengine.expression.value.Value;
 import intellispaces.common.templateengine.expression.value.VoidValues;
 import intellispaces.common.templateengine.source.SourceFunctions;
-import intellispaces.common.text.TextFunctions;
+import intellispaces.common.base.text.TextFunctions;
 
 import java.util.ArrayList;
 import java.util.HashMap;

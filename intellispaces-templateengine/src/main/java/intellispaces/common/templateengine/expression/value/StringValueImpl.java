@@ -2,7 +2,7 @@ package intellispaces.common.templateengine.expression.value;
 
 import intellispaces.common.templateengine.exception.IrregularValueTypeException;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
-import intellispaces.common.text.TextFunctions;
+import intellispaces.common.base.text.TextFunctions;
 
 import java.util.Objects;
 

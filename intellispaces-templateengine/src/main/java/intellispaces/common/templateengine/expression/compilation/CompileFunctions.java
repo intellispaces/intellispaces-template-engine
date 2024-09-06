@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.expression.compilation;
 
-import intellispaces.common.exception.PossibleViolationException;
+import intellispaces.common.base.exception.PossibleViolationException;
 import intellispaces.common.templateengine.exception.ParseTemplateException;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
 import intellispaces.common.templateengine.expression.CompiledExpression;
