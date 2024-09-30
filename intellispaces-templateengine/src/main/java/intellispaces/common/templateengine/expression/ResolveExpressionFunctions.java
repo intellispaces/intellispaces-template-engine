@@ -58,7 +58,7 @@ public interface ResolveExpressionFunctions {
         String variableName = operand.asVariable().name();
         Value variableValue = variables.get(variableName);
         if (variableValue == null) {
-          throw ResolveTemplateException.withMessage("Variable by name '{0}' is not found", variableName);
+          throw ResolveTemplateException.withMessage("Variable by name ''{0}'' is not found", variableName);
         }
         values[index++] = variableValue;
       }
