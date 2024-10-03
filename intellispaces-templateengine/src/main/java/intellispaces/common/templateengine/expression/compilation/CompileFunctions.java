@@ -52,7 +52,7 @@ public final class CompileFunctions {
   private static List<CompiledFileObject> compileExpressionClass(
       String className, String classSource, String statement
   ) throws ParseTemplateException {
-    LOG.debug("Compile expression: " + statement);
+    LOG.trace("Compile expression: {}", statement);
     var sourceFileObject = new SourceFileObject(className, classSource);
     var fileManager = new ExpressionJavaFileManager(COMPILER.getStandardFileManager(null, null, null));
     List<String> compileOptions = makeCompileOptions();
@@ -83,7 +83,7 @@ public final class CompileFunctions {
     String classpath = getClassPaths().stream()
         .filter(p -> p != null && !p.isEmpty())
         .reduce("", (p1, p2) -> p1.endsWith(File.pathSeparator) ? p1 + p2 : p1 + File.pathSeparator + p2);
-    LOG.debug("Template compiler classpath: " + classpath);
+    LOG.trace("Template compiler classpath: {}", classpath);
     return List.of("-classpath", classpath);
   }
 
