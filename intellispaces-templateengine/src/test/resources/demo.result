@@ -48,6 +48,8 @@ Test message
   Condition true
 6.4)
   Condition false
+6.5)
+  Other string value: abc
 
 ----------------------------------------- 7. Foreach statement ------------------------------------
 7.1)

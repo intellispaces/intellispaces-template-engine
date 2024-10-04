@@ -58,6 +58,14 @@ Test message
 {{else}}
   {{print "Condition false"}}
 {{end}}
+6.5)
+{{when $str2.eq("a")}}
+  {{print "String is equal a"}}
+{{else when $str2.eq("b")}}
+  {{print "String is equal to b"}}
+{{else}}
+  {{print "Other string value: "}}{{print $str2}}
+{{end}}
 
 ----------------------------------------- 7. Foreach statement ------------------------------------
 7.1)

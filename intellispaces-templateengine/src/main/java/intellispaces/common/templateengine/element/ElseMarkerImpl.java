@@ -33,7 +33,7 @@ class ElseMarkerImpl extends AbstractElement implements MarkerElse {
     if (condition == null) {
       return "{{else}}";
     } else {
-      return "{{else " + condition.statement() + "}}";
+      return "{{else when " + condition.statement() + "}}";
     }
   }
 }
