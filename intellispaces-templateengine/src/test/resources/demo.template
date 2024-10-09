@@ -30,10 +30,11 @@ Test message
 4.8) {{print "abc".isNotBlank()}}
 
 4.9) {{print "abc".eq($str2)}}
+4.10) {{print $str2.eqAnyOf("bcd", "abc")}}
 
-4.10) {{print "abc".capitalizeFirstLetter()}}
+4.11) {{print "abc".capitalizeFirstLetter()}}
 
-4.11) {{format nobr}}1
+4.12) {{format nobr}}1
 2
 3{{end format}}
 
@@ -41,6 +42,7 @@ Test message
 5.1) {{print 123.eq($int1)}}
 5.2) {{print 123.45.eq($int1)}}
 5.3) {{print 123.45.eq($real1)}}
+5.4) {{print $int1.eqAnyOf(123, 124)}}
 
 ---------------------------------------- 6. When statement ----------------------------------------
 6.1)

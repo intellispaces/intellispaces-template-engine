@@ -24,6 +24,11 @@ class ItemValueImpl implements Value {
   }
 
   @Override
+  public BooleanValue eqAnyOf(Value value1, Value value2) throws ResolveTemplateException {
+    return element.eqAnyOf(value1, value2);
+  }
+
+  @Override
   public IntegerValue index() {
     return index;
   }

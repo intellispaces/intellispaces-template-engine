@@ -41,6 +41,11 @@ abstract class AbstractValue implements Value {
   }
 
   @Override
+  public BooleanValue eqAnyOf(Value value1, Value value2) throws ResolveTemplateException {
+    return BooleanValues.of(eq(value1).get() || eq(value2).get());
+  }
+
+  @Override
   public BooleanValue isVoid() {
     return BooleanValues.of(ValueTypes.Void == this.type());
   }

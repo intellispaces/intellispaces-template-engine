@@ -2,12 +2,12 @@ package intellispaces.common.templateengine.expression.value;
 
 import intellispaces.common.base.exception.UnexpectedViolationException;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
-import intellispaces.common.templateengine.expression.value.formal.FormalValue;
+import intellispaces.common.templateengine.expression.value.common.CommonValue;
 
 /**
  * Expression value.
  */
-public interface Value extends FormalValue {
+public interface Value extends CommonValue {
 
   /**
    * Value type.
@@ -41,7 +41,7 @@ public interface Value extends FormalValue {
   MapValue asMap() throws ResolveTemplateException;
 
   @Override
-  default BooleanValue eq(FormalValue other) throws ResolveTemplateException {
+  default BooleanValue eq(CommonValue other) throws ResolveTemplateException {
     if (other instanceof Value) {
       return eq((Value) other);
     }
@@ -49,6 +49,16 @@ public interface Value extends FormalValue {
   }
 
   BooleanValue eq(Value other) throws ResolveTemplateException;
+
+  @Override
+  default BooleanValue eqAnyOf(CommonValue value1, CommonValue value2) throws ResolveTemplateException {
+    if (value1 instanceof Value && value2 instanceof Value) {
+      return eqAnyOf((Value) value1, (Value) value2);
+    }
+    throw UnexpectedViolationException.withMessage("Expected instance of the {0} class", Value.class.getSimpleName());
+  }
+
+  BooleanValue eqAnyOf(Value value1, Value value2) throws ResolveTemplateException;
 
   @Override
   BooleanValue isEmpty() throws ResolveTemplateException;
@@ -69,7 +79,7 @@ public interface Value extends FormalValue {
   Value invert() throws ResolveTemplateException;
 
   @Override
-  default Value get(FormalValue key) throws ResolveTemplateException {
+  default Value get(CommonValue key) throws ResolveTemplateException {
     if (key instanceof Value) {
       return get((Value) key);
     }
@@ -79,7 +89,7 @@ public interface Value extends FormalValue {
   Value get(Value key) throws ResolveTemplateException;
 
   @Override
-  default Value find(FormalValue element) throws ResolveTemplateException {
+  default Value find(CommonValue element) throws ResolveTemplateException {
     if (element instanceof Value) {
       return find((Value) element);
     }
