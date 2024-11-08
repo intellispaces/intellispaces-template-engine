@@ -1,7 +1,8 @@
 package intellispaces.common.templateengine.expression;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
+import intellispaces.common.templateengine.exception.ResolveTemplateExceptions;
 import intellispaces.common.templateengine.expression.value.ListValue;
 import intellispaces.common.templateengine.expression.value.MapValue;
 import intellispaces.common.templateengine.expression.value.StringValue;
@@ -42,7 +43,7 @@ public interface ResolveExpressionFunctions {
     try {
       return expression.compiledExpression().resolve(values);
     } catch (Exception e) {
-      throw ResolveTemplateException.withCauseAndMessage(e, "Failed to resolve expression {0}", expression.statement());
+      throw ResolveTemplateExceptions.withCauseAndMessage(e, "Failed to resolve expression {0}", expression.statement());
     }
   }
 
@@ -58,7 +59,7 @@ public interface ResolveExpressionFunctions {
         String variableName = operand.asVariable().name();
         Value variableValue = variables.get(variableName);
         if (variableValue == null) {
-          throw ResolveTemplateException.withMessage("Variable by name ''{0}'' is not found", variableName);
+          throw ResolveTemplateExceptions.withMessage("Variable by name '{0}' is not found", variableName);
         }
         values[index++] = variableValue;
       }
@@ -87,7 +88,7 @@ public interface ResolveExpressionFunctions {
       Map<Value, Value> map = ((MapValue) value.origin()).get();
       return convertToString(map);
     } else {
-      throw UnexpectedViolationException.withMessage("Unsupported value type: {0}", value.typename().get());
+      throw UnexpectedExceptions.withMessage("Unsupported value type: {0}", value.typename().get());
     }
   }
 

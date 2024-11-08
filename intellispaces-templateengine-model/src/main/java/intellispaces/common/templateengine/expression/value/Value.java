@@ -1,13 +1,12 @@
 package intellispaces.common.templateengine.expression.value;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
-import intellispaces.common.templateengine.expression.value.common.CommonValue;
+import intellispaces.common.templateengine.expression.value.api.ValueApi;
 
 /**
  * Expression value.
  */
-public interface Value extends CommonValue {
+public interface Value extends ValueApi {
 
   /**
    * Value type.
@@ -41,22 +40,12 @@ public interface Value extends CommonValue {
   MapValue asMap() throws ResolveTemplateException;
 
   @Override
-  default BooleanValue eq(CommonValue other) throws ResolveTemplateException {
-    if (other instanceof Value) {
-      return eq((Value) other);
-    }
-    throw UnexpectedViolationException.withMessage("Expected instance of the {0} class", Value.class.getSimpleName());
-  }
+  BooleanValue eq(ValueApi other) throws ResolveTemplateException;
 
   BooleanValue eq(Value other) throws ResolveTemplateException;
 
   @Override
-  default BooleanValue eqAnyOf(CommonValue value1, CommonValue value2) throws ResolveTemplateException {
-    if (value1 instanceof Value && value2 instanceof Value) {
-      return eqAnyOf((Value) value1, (Value) value2);
-    }
-    throw UnexpectedViolationException.withMessage("Expected instance of the {0} class", Value.class.getSimpleName());
-  }
+  BooleanValue eqAnyOf(ValueApi value1, ValueApi value2) throws ResolveTemplateException;
 
   BooleanValue eqAnyOf(Value value1, Value value2) throws ResolveTemplateException;
 
@@ -79,22 +68,12 @@ public interface Value extends CommonValue {
   Value invert() throws ResolveTemplateException;
 
   @Override
-  default Value get(CommonValue key) throws ResolveTemplateException {
-    if (key instanceof Value) {
-      return get((Value) key);
-    }
-    throw UnexpectedViolationException.withMessage("Expected instance of the {0} class", Value.class.getSimpleName());
-  }
+  Value get(ValueApi key) throws ResolveTemplateException;
 
   Value get(Value key) throws ResolveTemplateException;
 
   @Override
-  default Value find(CommonValue element) throws ResolveTemplateException {
-    if (element instanceof Value) {
-      return find((Value) element);
-    }
-    throw UnexpectedViolationException.withMessage("Expected instance of the {0} class", Value.class.getSimpleName());
-  }
+  Value find(ValueApi element) throws ResolveTemplateException;
 
   /**
    * Search for given element inside current value.

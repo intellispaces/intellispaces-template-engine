@@ -1,7 +1,8 @@
 package intellispaces.common.templateengine.expression.compilation;
 
-import intellispaces.common.base.exception.PossibleViolationException;
+import intellispaces.common.base.exception.AssumptionViolationException;
 import intellispaces.common.templateengine.exception.ParseTemplateException;
+import intellispaces.common.templateengine.exception.ParseTemplateExceptions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
 import intellispaces.common.templateengine.expression.CompiledExpression;
 import intellispaces.common.templateengine.expression.value.Value;
@@ -61,7 +62,7 @@ public final class CompileFunctions {
         null, fileManager, diagnosticListener, compileOptions, null, List.of(sourceFileObject)
     );
     if (!compilerTask.call()) {
-      throw ParseTemplateException.withMessage("Failed to compile expression: {0}. Reason(s):\n{1}",
+      throw ParseTemplateExceptions.withMessage("Failed to compile expression: {0}. Reason(s):\n{1}",
           statement, diagnosticListener.getMessage());
     }
     return fileManager.getGeneratedOutputFiles();
@@ -75,7 +76,7 @@ public final class CompileFunctions {
       Class<?> aClass = classLoader.loadClass(className);
       return (CompiledExpression) aClass.getConstructor().newInstance();
     } catch (Throwable e) {
-      throw ParseTemplateException.withCauseAndMessage(e, "Failed to process template expression");
+      throw ParseTemplateExceptions.withCauseAndMessage(e, "Failed to process template expression");
     }
   }
 
@@ -92,7 +93,7 @@ public final class CompileFunctions {
         System.getProperty("java.class.path"),
         getJarPath(Template.class),
         getJarPath(Templates.class),
-        getJarPath(PossibleViolationException.class)
+        getJarPath(AssumptionViolationException.class)
     );
   }
 

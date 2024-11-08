@@ -1,7 +1,9 @@
 package intellispaces.common.templateengine.expression;
 
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
+import intellispaces.common.base.text.CharFunctions;
 import intellispaces.common.templateengine.exception.ParseTemplateException;
+import intellispaces.common.templateengine.exception.ParseTemplateExceptions;
 import intellispaces.common.templateengine.expression.compilation.CompileFunctions;
 import intellispaces.common.templateengine.expression.value.BooleanValues;
 import intellispaces.common.templateengine.expression.value.IntegerValues;
@@ -12,7 +14,6 @@ import intellispaces.common.templateengine.expression.value.StringValues;
 import intellispaces.common.templateengine.expression.value.Value;
 import intellispaces.common.templateengine.expression.value.VoidValues;
 import intellispaces.common.templateengine.source.SourceFunctions;
-import intellispaces.common.base.text.TextFunctions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,7 +117,7 @@ public final class ParseExpressionFunctions {
     while (ind < chars.length) {
       char curChar = chars[ind];
       char nextChar = ind + 1 < chars.length ? chars[ind + 1] : 0;
-      if (TextFunctions.isGapChar(curChar)) {
+      if (CharFunctions.isGapChar(curChar)) {
         ind++;
       } else if (curChar == '"') {
         String string = readString(chars, ind);
@@ -141,7 +142,7 @@ public final class ParseExpressionFunctions {
       } else if (curChar == ']') {
         break;
       } else {
-        throw UnexpectedViolationException.withMessage("Unknown character {0}", curChar);
+        throw UnexpectedExceptions.withMessage("Unknown character {0}", curChar);
       }
     }
 
@@ -210,7 +211,7 @@ public final class ParseExpressionFunctions {
         }
       }
     }
-    throw ParseTemplateException.withMessage("Invalid expression at column {0}. Expected closed square bracket",
+    throw ParseTemplateExceptions.withMessage("Invalid expression at column {0}. Expected closed square bracket",
         beginIndex);
   }
 

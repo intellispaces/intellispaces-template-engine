@@ -1,11 +1,11 @@
 package intellispaces.common.templateengine.expression.value;
 
-import intellispaces.common.templateengine.exception.NotApplicableOperationException;
+import intellispaces.common.templateengine.exception.NotApplicableOperationExceptions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
 
 import java.util.Objects;
 
-class ItemValueImpl implements Value {
+class ItemValueImpl extends BaseValue implements Value {
   private final Value element;
   private final IntegerValue index;
   private final BooleanValue first;
@@ -36,7 +36,7 @@ class ItemValueImpl implements Value {
   @Override
   public BooleanValue isFirst() throws ResolveTemplateException {
     if (first == null) {
-      throw NotApplicableOperationException.withMessage("Operation ''isFirst'' is not applicable for this value");
+      throw NotApplicableOperationExceptions.withMessage("Operation 'isFirst' is not applicable for this value");
     }
     return first;
   }
@@ -44,7 +44,7 @@ class ItemValueImpl implements Value {
   @Override
   public BooleanValue isNotFirst() throws ResolveTemplateException {
     if (first == null) {
-      throw NotApplicableOperationException.withMessage("Operation ''isNotFirst'' is not applicable for this value");
+      throw NotApplicableOperationExceptions.withMessage("Operation 'isNotFirst' is not applicable for this value");
     }
     return first.invert();
   }
@@ -52,7 +52,7 @@ class ItemValueImpl implements Value {
   @Override
   public BooleanValue isLast() throws ResolveTemplateException {
     if (last == null) {
-      throw NotApplicableOperationException.withMessage("Operation ''isLast'' is not applicable for this value");
+      throw NotApplicableOperationExceptions.withMessage("Operation 'isLast' is not applicable for this value");
     }
     return last;
   }
@@ -60,7 +60,7 @@ class ItemValueImpl implements Value {
   @Override
   public BooleanValue isNotLast() throws ResolveTemplateException {
     if (last == null) {
-      throw NotApplicableOperationException.withMessage("Operation ''isNotLast'' is not applicable for this value");
+      throw NotApplicableOperationExceptions.withMessage("Operation 'sNotLast' is not applicable for this value");
     }
     return last.invert();
   }

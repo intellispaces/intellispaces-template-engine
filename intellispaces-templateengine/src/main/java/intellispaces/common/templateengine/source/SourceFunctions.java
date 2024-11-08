@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.source;
 
-import intellispaces.common.base.text.TextFunctions;
+import intellispaces.common.base.text.CharFunctions;
 
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
@@ -19,7 +19,7 @@ public interface SourceFunctions {
     int length = chars.length;
     if (length > 0) {
       int index = 0;
-      while (index < length && TextFunctions.isGapChar(chars[index])) {
+      while (index < length && CharFunctions.isGapChar(chars[index])) {
         index++;
       }
       if (
@@ -37,7 +37,7 @@ public interface SourceFunctions {
     int length = chars.length;
     if (length > 0) {
       int index = chars.length - 1;
-      while (index >= 0 && TextFunctions.isGapChar(chars[index])) {
+      while (index >= 0 && CharFunctions.isGapChar(chars[index])) {
         index--;
       }
       if (
@@ -56,7 +56,7 @@ public interface SourceFunctions {
     int length = chars.length;
     if (length > 0) {
       int index = chars.length - 1;
-      while (index >= 0 && TextFunctions.isGapChar(chars[index])) {
+      while (index >= 0 && CharFunctions.isGapChar(chars[index])) {
         index--;
       }
       return string.substring(0, index + 1);
@@ -69,7 +69,7 @@ public interface SourceFunctions {
     int length = chars.length;
     if (length > 0) {
       int index = 0;
-      while (index < length && TextFunctions.isGapChar(chars[index])) {
+      while (index < length && CharFunctions.isGapChar(chars[index])) {
         index++;
       }
       if (

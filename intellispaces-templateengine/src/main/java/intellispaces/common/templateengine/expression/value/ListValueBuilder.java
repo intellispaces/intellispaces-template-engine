@@ -1,7 +1,7 @@
 package intellispaces.common.templateengine.expression.value;
 
 import intellispaces.common.base.collection.ArraysFunctions;
-import intellispaces.common.base.exception.UnexpectedViolationException;
+import intellispaces.common.base.exception.UnexpectedExceptions;
 import intellispaces.common.base.function.Functions;
 
 import java.util.Arrays;
@@ -27,7 +27,7 @@ public final class ListValueBuilder {
 
   private static List<Value> toValueList(Object[] elements) {
     return Arrays.stream(elements)
-        .map(Functions.coveredThrowableFunction(ValueFunctions::objectToValue))
+        .map(Functions.wrapThrowingFunction(ValueFunctions::objectToValue))
         .toList();
   }
 
@@ -64,7 +64,7 @@ public final class ListValueBuilder {
   private static void validate(List<? extends Value> list) {
     Objects.requireNonNull(list);
     if (list.stream().anyMatch(v -> v.isVoid().get())) {
-      throw UnexpectedViolationException.withMessage("List cannot be contain void value");
+      throw UnexpectedExceptions.withMessage("List cannot be contain void value");
     }
   }
 }

@@ -1,14 +1,15 @@
 package intellispaces.common.templateengine.exception;
 
-import intellispaces.common.base.exception.PossibleViolationException;
 
-public class TemplateEngineException extends PossibleViolationException {
+import intellispaces.common.base.exception.AssumptionViolationException;
 
-  protected TemplateEngineException(String messageTemplate, Object... arguments) {
-    super(messageTemplate, arguments);
+public class TemplateEngineException extends AssumptionViolationException {
+
+  public TemplateEngineException(String message) {
+    super(message);
   }
 
-  protected TemplateEngineException(Throwable cause, String messageTemplate, Object... arguments) {
-    super(cause, messageTemplate, arguments);
+  public TemplateEngineException(String message, Throwable cause) {
+    super(message, cause);
   }
 }

@@ -1,11 +1,11 @@
 package intellispaces.common.templateengine.element;
 
+import intellispaces.common.base.text.StringFunctions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
 import intellispaces.common.templateengine.expression.ResolveExpressionFunctions;
 import intellispaces.common.templateengine.expression.value.ItemValues;
 import intellispaces.common.templateengine.expression.value.Value;
 import intellispaces.common.templateengine.source.SourceFunctions;
-import intellispaces.common.base.text.TextFunctions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +29,7 @@ public interface ElementFunctions {
       if (prevElement.type() == TemplateElementTypes.Text) {
         String tail = SourceFunctions.getTailBeforeLinebreak(((TextElement) prevElement).text());
         if (!tail.isEmpty()) {
-          String gap = TextFunctions.createBlankString(tail.length());
+          String gap = StringFunctions.createBlankString(tail.length());
           String[] rows = value.split("\n");
 
           var sb = new StringBuilder();

@@ -31,6 +31,7 @@ import intellispaces.common.templateengine.element.WhenBranchStatements;
 import intellispaces.common.templateengine.element.WhenMarkers;
 import intellispaces.common.templateengine.element.WhenStatements;
 import intellispaces.common.templateengine.exception.ParseTemplateException;
+import intellispaces.common.templateengine.exception.ParseTemplateExceptions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
 import intellispaces.common.templateengine.expression.ParseExpressionFunctions;
 import intellispaces.common.templateengine.expression.value.Value;
@@ -271,7 +272,7 @@ public final class TemplateFunctions {
       return markerEnd;
     }
 
-    throw ParseTemplateException.withMessage("Invalid template marker at position {0}:{1}",
+    throw ParseTemplateExceptions.withMessage("Invalid template marker at position {0}:{1}",
         block.position().row(), block.position().column());
   }
 
@@ -577,7 +578,7 @@ public final class TemplateFunctions {
       } else if (TemplateElementTypes.MarkerEnd == element.type()) {
         break;
       } else {
-        throw ParseTemplateException.withMessage("Unexpected element of type {0} at position {1}:{2}. " +
+        throw ParseTemplateExceptions.withMessage("Unexpected element of type {0} at position {1}:{2}. " +
                 "Expected markers {{else}} or {{end}}",
             element.context().position().row(), element.context().position().column());
       }
@@ -614,7 +615,7 @@ public final class TemplateFunctions {
         branchElements.add(element);
       }
     }
-    throw ParseTemplateException.withMessage("End marker missing for statement marker at position {0}:{1}",
+    throw ParseTemplateExceptions.withMessage("End marker missing for statement marker at position {0}:{1}",
         conditionElement.context().position().row(), conditionElement.context().position().column());
   }
 
@@ -635,7 +636,7 @@ public final class TemplateFunctions {
       }
       subElements.add(element);
     }
-    throw ParseTemplateException.withMessage("End marker missing for statement marker at position {0}:{1}",
+    throw ParseTemplateExceptions.withMessage("End marker missing for statement marker at position {0}:{1}",
         startElement.context().position().row(), startElement.context().position().column());
   }
 

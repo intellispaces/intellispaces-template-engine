@@ -194,7 +194,7 @@ public class ValueFunctionsTest {
     assertThat(ValueFunctions.castToBoolean(RealValues.of(1.0))).isTrue();
     assertThatThrownBy(() -> ValueFunctions.castToBoolean(RealValues.of(1.1)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Real value 1,1 cannot be casted to boolean primitive");
+        .hasMessage("Real value 1.1 cannot be casted to boolean primitive");
 
     // When string
     assertThat(ValueFunctions.castToBoolean(StringValues.of("true"))).isTrue();
@@ -235,7 +235,7 @@ public class ValueFunctionsTest {
     assertThat(ValueFunctions.castToInteger(RealValues.of(-2.0))).isEqualTo(-2);
     assertThatThrownBy(() -> ValueFunctions.castToInteger(RealValues.of(1.1)))
         .isExactlyInstanceOf(ResolveTemplateException.class)
-        .hasMessage("Real 1,1 cannot be casted to integer");
+        .hasMessage("Real 1.1 cannot be casted to integer");
 
     // When string
     assertThat(ValueFunctions.castToInteger(StringValues.of("123"))).isEqualTo(123);

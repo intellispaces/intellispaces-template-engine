@@ -1,8 +1,8 @@
 package intellispaces.common.templateengine.expression.value;
 
-import intellispaces.common.templateengine.exception.IrregularValueTypeException;
+import intellispaces.common.base.text.StringFunctions;
+import intellispaces.common.templateengine.exception.IrregularValueTypeExceptions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
-import intellispaces.common.base.text.TextFunctions;
 
 import java.util.Objects;
 
@@ -72,7 +72,7 @@ class StringValueImpl extends AbstractValue implements StringValue {
     } else if (element.type() == ValueTypes.Boolean) {
       subString = (Boolean.toString(((BooleanValue) element).get()));
     } else {
-      throw IrregularValueTypeException.withMessage("Invalid argument value type: {0}. " +
+      throw IrregularValueTypeExceptions.withMessage("Invalid argument value type: {0}. " +
           "Expected string, integer, real or boolean", typename().get());
     }
 
@@ -89,7 +89,7 @@ class StringValueImpl extends AbstractValue implements StringValue {
   @Override
   public Value get(Value key) throws ResolveTemplateException {
     if (key.type() != ValueTypes.Integer) {
-      throw IrregularValueTypeException.withMessage("Invalid index type: {0}. " +
+      throw IrregularValueTypeExceptions.withMessage("Invalid index type: {0}. " +
           "Expected integer value", key.typename().get());
     }
     int index = ((IntegerValue) key).get();
@@ -109,7 +109,7 @@ class StringValueImpl extends AbstractValue implements StringValue {
 
   @Override
   public StringValue capitalizeFirstLetter() {
-    return StringValues.of(TextFunctions.capitalizeFirstLetter(get()));
+    return StringValues.of(StringFunctions.capitalizeFirstLetter(get()));
   }
 
   @Override
