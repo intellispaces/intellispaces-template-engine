@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.expression.compilation;
 
-import intellispaces.common.base.exception.AssumptionViolationException;
+import tech.intellispaces.entity.exception.AssumptionViolationException;
 import intellispaces.common.templateengine.exception.ParseTemplateException;
 import intellispaces.common.templateengine.exception.ParseTemplateExceptions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
@@ -75,7 +75,7 @@ public final class CompileFunctions {
     try {
       Class<?> aClass = classLoader.loadClass(className);
       return (CompiledExpression) aClass.getConstructor().newInstance();
-    } catch (Throwable e) {
+    } catch (Exception e) {
       throw ParseTemplateExceptions.withCauseAndMessage(e, "Failed to process template expression");
     }
   }

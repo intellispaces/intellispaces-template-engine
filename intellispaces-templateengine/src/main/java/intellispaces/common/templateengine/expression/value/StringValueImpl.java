@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.expression.value;
 
-import intellispaces.common.base.text.StringFunctions;
+import tech.intellispaces.entity.text.StringFunctions;
 import intellispaces.common.templateengine.exception.IrregularValueTypeExceptions;
 import intellispaces.common.templateengine.exception.ResolveTemplateException;
 

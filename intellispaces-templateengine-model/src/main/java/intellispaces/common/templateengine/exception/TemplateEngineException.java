@@ -1,7 +1,7 @@
 package intellispaces.common.templateengine.exception;
 
 
-import intellispaces.common.base.exception.AssumptionViolationException;
+import tech.intellispaces.entity.exception.AssumptionViolationException;
 
 public class TemplateEngineException extends AssumptionViolationException {
 
@@ -9,7 +9,7 @@ public class TemplateEngineException extends AssumptionViolationException {
     super(message);
   }
 
-  public TemplateEngineException(String message, Throwable cause) {
+  public TemplateEngineException(String message, Exception cause) {
     super(message, cause);
   }
 }

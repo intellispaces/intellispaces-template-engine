@@ -6,7 +6,7 @@ public class ResolveTemplateException extends TemplateEngineException {
     super(message);
   }
 
-  public ResolveTemplateException(String message, Throwable cause) {
+  public ResolveTemplateException(String message, Exception cause) {
     super(message, cause);
   }
 }

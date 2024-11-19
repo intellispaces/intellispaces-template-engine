@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.exception;
 
-import intellispaces.common.base.text.StringFunctions;
+import tech.intellispaces.entity.text.StringFunctions;
 
 /**
  * Provider of the exception {@link ResolveTemplateException}.
@@ -11,7 +11,7 @@ public interface ResolveTemplateExceptions {
     return new ResolveTemplateException(message);
   }
 
-  static ResolveTemplateException withCauseAndMessage(Throwable cause, String message) {
+  static ResolveTemplateException withCauseAndMessage(Exception cause, String message) {
     return new ResolveTemplateException(message, cause);
   }
 
@@ -20,7 +20,7 @@ public interface ResolveTemplateExceptions {
   }
 
   static ResolveTemplateException withCauseAndMessage(
-      Throwable cause, String template, Object... params
+      Exception cause, String template, Object... params
   ) {
     return new ResolveTemplateException(StringFunctions.resolveTemplate(template, params), cause);
   }

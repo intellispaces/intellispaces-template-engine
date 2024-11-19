@@ -6,7 +6,7 @@ public class ParseTemplateException extends TemplateEngineException {
     super(message);
   }
 
-  public ParseTemplateException(String message, Throwable cause) {
+  public ParseTemplateException(String message, Exception cause) {
     super(message, cause);
   }
 }

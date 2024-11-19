@@ -1,7 +1,7 @@
 package intellispaces.common.templateengine.expression;
 
-import intellispaces.common.base.exception.UnexpectedExceptions;
-import intellispaces.common.base.text.CharFunctions;
+import tech.intellispaces.entity.exception.UnexpectedExceptions;
+import tech.intellispaces.entity.text.CharFunctions;
 import intellispaces.common.templateengine.exception.ParseTemplateException;
 import intellispaces.common.templateengine.exception.ParseTemplateExceptions;
 import intellispaces.common.templateengine.expression.compilation.CompileFunctions;

@@ -1,6 +1,6 @@
 package intellispaces.common.templateengine.exception;
 
-import intellispaces.common.base.text.StringFunctions;
+import tech.intellispaces.entity.text.StringFunctions;
 
 /**
  * Provider of the exception {@link ParseTemplateException}.
@@ -15,12 +15,12 @@ public interface ParseTemplateExceptions {
     return new ParseTemplateException(StringFunctions.resolveTemplate(template, params));
   }
 
-  static ParseTemplateException withCauseAndMessage(Throwable cause, String message) {
+  static ParseTemplateException withCauseAndMessage(Exception cause, String message) {
     return new ParseTemplateException(message, cause);
   }
 
   static ParseTemplateException withCauseAndMessage(
-      Throwable cause, String template, Object... params
+      Exception cause, String template, Object... params
   ) {
     return new ParseTemplateException(StringFunctions.resolveTemplate(template, params), cause);
   }
