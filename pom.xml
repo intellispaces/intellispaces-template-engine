@@ -7,7 +7,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>intellispaces-common</groupId>
+    <groupId>tech.intellispaces.common</groupId>
     <artifactId>intellispaces-templateengine-parent</artifactId>
     <packaging>pom</packaging>
 	
