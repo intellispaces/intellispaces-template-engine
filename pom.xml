@@ -8,19 +8,19 @@
     </parent>
 
     <groupId>tech.intellispaces.common</groupId>
-    <artifactId>intellispaces-templateengine-parent</artifactId>
+    <artifactId>intellispaces-template-engine-parent</artifactId>
     <packaging>pom</packaging>
 	
 	<modules>
-        <module>intellispaces-templateengine-model</module>
-	    <module>intellispaces-templateengine</module>
+        <module>intellispaces-template-engine-model</module>
+	    <module>intellispaces-template-engine</module>
 	</modules>
 	
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>tech.intellispaces.common</groupId>
-                <artifactId>intellispaces-templateengine-model</artifactId>
+                <artifactId>intellispaces-template-engine-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
