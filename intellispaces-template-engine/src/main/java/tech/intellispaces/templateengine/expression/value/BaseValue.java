@@ -1,6 +1,6 @@
 package tech.intellispaces.templateengine.expression.value;
 
-import tech.intellispaces.entity.exception.UnexpectedExceptions;
+import tech.intellispaces.general.exception.UnexpectedExceptions;
 import tech.intellispaces.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.templateengine.expression.value.api.ValueApi;
 

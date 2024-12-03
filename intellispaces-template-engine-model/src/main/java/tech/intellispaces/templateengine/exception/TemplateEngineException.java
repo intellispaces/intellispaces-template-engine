@@ -1,7 +1,6 @@
 package tech.intellispaces.templateengine.exception;
 
-
-import tech.intellispaces.entity.exception.AssumptionViolationException;
+import tech.intellispaces.general.exception.AssumptionViolationException;
 
 public class TemplateEngineException extends AssumptionViolationException {
 

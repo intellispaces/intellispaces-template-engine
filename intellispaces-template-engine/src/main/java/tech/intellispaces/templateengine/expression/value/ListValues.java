@@ -1,6 +1,6 @@
 package tech.intellispaces.templateengine.expression.value;
 
-import tech.intellispaces.entity.collection.ArraysFunctions;
+import tech.intellispaces.general.collection.ArraysFunctions;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,8 +1,8 @@
 package tech.intellispaces.templateengine.expression.value;
 
-import tech.intellispaces.entity.collection.ArraysFunctions;
-import tech.intellispaces.entity.exception.UnexpectedExceptions;
-import tech.intellispaces.entity.function.Functions;
+import tech.intellispaces.general.collection.ArraysFunctions;
+import tech.intellispaces.general.exception.UnexpectedExceptions;
+import tech.intellispaces.general.function.Functions;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,6 +1,6 @@
 package tech.intellispaces.templateengine.element;
 
-import tech.intellispaces.entity.text.StringFunctions;
+import tech.intellispaces.general.text.StringFunctions;
 import tech.intellispaces.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.templateengine.expression.ResolveExpressionFunctions;
 import tech.intellispaces.templateengine.expression.value.ItemValues;

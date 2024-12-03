@@ -1,6 +1,6 @@
 package tech.intellispaces.templateengine.source;
 
-import tech.intellispaces.entity.text.CharFunctions;
+import tech.intellispaces.general.text.CharFunctions;
 
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;

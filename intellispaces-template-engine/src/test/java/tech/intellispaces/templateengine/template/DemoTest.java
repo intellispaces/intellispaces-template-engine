@@ -1,6 +1,6 @@
 package tech.intellispaces.templateengine.template;
 
-import tech.intellispaces.entity.resource.ResourceFunctions;
+import tech.intellispaces.general.resource.ResourceFunctions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

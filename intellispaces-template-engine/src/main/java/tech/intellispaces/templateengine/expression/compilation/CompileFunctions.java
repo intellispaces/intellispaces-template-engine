@@ -1,6 +1,6 @@
 package tech.intellispaces.templateengine.expression.compilation;
 
-import tech.intellispaces.entity.exception.AssumptionViolationException;
+import tech.intellispaces.general.exception.AssumptionViolationException;
 import tech.intellispaces.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.templateengine.exception.ParseTemplateExceptions;
 import tech.intellispaces.templateengine.exception.ResolveTemplateException;
