@@ -1,8 +1,8 @@
 package tech.intellispaces.templateengine.exception;
 
-import tech.intellispaces.general.exception.AssumptionViolationException;
+import tech.intellispaces.general.exception.CheckedException;
 
-public class TemplateEngineException extends AssumptionViolationException {
+public class TemplateEngineException extends CheckedException {
 
   public TemplateEngineException(String message) {
     super(message);

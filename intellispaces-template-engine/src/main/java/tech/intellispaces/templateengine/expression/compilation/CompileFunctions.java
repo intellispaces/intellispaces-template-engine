@@ -1,6 +1,6 @@
 package tech.intellispaces.templateengine.expression.compilation;
 
-import tech.intellispaces.general.exception.AssumptionViolationException;
+import tech.intellispaces.general.exception.CheckedException;
 import tech.intellispaces.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.templateengine.exception.ParseTemplateExceptions;
 import tech.intellispaces.templateengine.exception.ResolveTemplateException;
@@ -93,7 +93,7 @@ public final class CompileFunctions {
         System.getProperty("java.class.path"),
         getJarPath(Template.class),
         getJarPath(Templates.class),
-        getJarPath(AssumptionViolationException.class)
+        getJarPath(CheckedException.class)
     );
   }
 
