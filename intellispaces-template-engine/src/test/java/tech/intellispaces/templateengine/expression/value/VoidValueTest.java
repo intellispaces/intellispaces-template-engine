@@ -97,17 +97,13 @@ public class VoidValueTest {
   }
 
   @Test
-  public void testIsEmpty() {
-    assertThatThrownBy(VoidValues.get()::isEmpty)
-        .isExactlyInstanceOf(NotApplicableOperationException.class)
-        .hasMessage("Operation 'isEmpty' is not applicable for value type void. Expected string, list or map");
+  public void testIsEmpty() throws ResolveTemplateException {
+    assertThat(VoidValues.get().isEmpty().get()).isTrue();
   }
 
   @Test
-  public void testIsNotEmpty() {
-    assertThatThrownBy(VoidValues.get()::isNotEmpty)
-        .isExactlyInstanceOf(NotApplicableOperationException.class)
-        .hasMessage("Operation 'isNotEmpty' is not applicable for value type void. Expected string, list or map");
+  public void testIsNotEmpty() throws ResolveTemplateException {
+    assertThat(VoidValues.get().isNotEmpty().get()).isFalse();
   }
 
   @Test

@@ -68,6 +68,10 @@ Test message
 {{else}}
   {{print "Other string value: "}}{{print $str2}}
 {{end}}
+6.6)
+{{when eachOf($bool1, true).isTrue()}}
+  {{print "Condition true"}}
+{{end}}
 
 ----------------------------------------- 7. Foreach statement ------------------------------------
 7.1)

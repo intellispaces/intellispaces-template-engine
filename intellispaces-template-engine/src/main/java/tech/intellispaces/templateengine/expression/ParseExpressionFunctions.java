@@ -107,7 +107,7 @@ public final class ParseExpressionFunctions {
         ind++;
       }
     }
-    return preparedStatement.toString();
+    return "(" + Value.class.getCanonicalName() + ") (" + preparedStatement + ")";
   }
 
   private static ValueAndWording readListOrMap(char[] chars, int beginIndex) {

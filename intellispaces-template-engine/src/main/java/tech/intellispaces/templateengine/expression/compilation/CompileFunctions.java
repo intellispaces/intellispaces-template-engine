@@ -42,8 +42,7 @@ public final class CompileFunctions {
   }
 
   private static String makeCompiledExpressionSource(String className, String statement) {
-    return
-        "public class " + className + " implements " + CompiledExpression.class.getName() + " {\n" +
+    return "public class " + className + " implements " + CompiledExpression.class.getName() + ", " + ExpressionApiImpl.class.getName() + " {\n" +
             "  public " + Value.class.getName() + " resolve(" + Value.class.getName() + "[] operands) throws " + ResolveTemplateException.class.getName() + " {\n" +
             "    return " + statement + ";\n" +
             "  }\n" +

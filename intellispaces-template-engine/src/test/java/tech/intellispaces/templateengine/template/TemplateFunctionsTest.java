@@ -317,7 +317,8 @@ public class TemplateFunctionsTest {
 
     MarkerPrint markerPrint = (MarkerPrint) template.elements().get(0);
     assertThat(markerPrint.outputExpression().statement()).isEqualTo("true");
-    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo("operands[0]");
+    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     assertThat(markerPrint.outputExpression().operands()).hasSize(1);
     assertThat(markerPrint.outputExpression().operands().get(0).isLiteral()).isTrue();
     assertThat(markerPrint.outputExpression().operands().get(0).asLiteral().value().type()).isEqualTo(ValueTypes.Boolean);
@@ -338,7 +339,8 @@ public class TemplateFunctionsTest {
 
     MarkerPrint markerPrint = (MarkerPrint) template.elements().get(0);
     assertThat(markerPrint.outputExpression().statement()).isEqualTo("123");
-    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo("operands[0]");
+    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     assertThat(markerPrint.outputExpression().operands()).hasSize(1);
     assertThat(markerPrint.outputExpression().operands().get(0).isLiteral()).isTrue();
     assertThat(markerPrint.outputExpression().operands().get(0).asLiteral().value().type()).isEqualTo(ValueTypes.Integer);
@@ -359,7 +361,8 @@ public class TemplateFunctionsTest {
 
     MarkerPrint markerPrint = (MarkerPrint) template.elements().get(0);
     assertThat(markerPrint.outputExpression().statement()).isEqualTo("3.14");
-    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo("operands[0]");
+    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     assertThat(markerPrint.outputExpression().operands()).hasSize(1);
     assertThat(markerPrint.outputExpression().operands().get(0).isLiteral()).isTrue();
     assertThat(markerPrint.outputExpression().operands().get(0).asLiteral().value().type()).isEqualTo(ValueTypes.Real);
@@ -380,7 +383,8 @@ public class TemplateFunctionsTest {
 
     MarkerPrint markerPrint = (MarkerPrint) template.elements().get(0);
     assertThat(markerPrint.outputExpression().statement()).isEqualTo("\" abc \"");
-    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo("operands[0]");
+    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     assertThat(markerPrint.outputExpression().operands()).hasSize(1);
     assertThat(markerPrint.outputExpression().operands().get(0).isLiteral()).isTrue();
     assertThat(markerPrint.outputExpression().operands().get(0).asLiteral().value().type()).isEqualTo(ValueTypes.String);
@@ -401,7 +405,8 @@ public class TemplateFunctionsTest {
 
     MarkerPrint markerPrint = (MarkerPrint) template.elements().get(0);
     assertThat(markerPrint.outputExpression().statement()).isEqualTo("$varName");
-    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo("operands[0]");
+    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     assertThat(markerPrint.outputExpression().operands()).hasSize(1);
     assertThat(markerPrint.outputExpression().operands().get(0).isVariable()).isTrue();
     assertThat(markerPrint.outputExpression().operands().get(0).asVariable().name()).isEqualTo("varName");
@@ -421,7 +426,8 @@ public class TemplateFunctionsTest {
 
     MarkerPrint markerPrint = (MarkerPrint) template.elements().get(0);
     assertThat(markerPrint.outputExpression().statement()).isEqualTo("$varName");
-    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo("operands[0]");
+    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     assertThat(markerPrint.outputExpression().operands()).hasSize(1);
     assertThat(markerPrint.outputExpression().operands().get(0).isVariable()).isTrue();
     assertThat(markerPrint.outputExpression().operands().get(0).asVariable().name()).isEqualTo("varName");
@@ -441,7 +447,8 @@ public class TemplateFunctionsTest {
 
     MarkerPrint markerPrint = (MarkerPrint) template.elements().get(0);
     assertThat(markerPrint.outputExpression().statement()).isEqualTo("$varName");
-    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo("operands[0]");
+    assertThat(markerPrint.outputExpression().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     assertThat(markerPrint.outputExpression().operands()).hasSize(1);
     assertThat(markerPrint.outputExpression().operands().get(0).isVariable()).isTrue();
     assertThat(markerPrint.outputExpression().operands().get(0).asVariable().name()).isEqualTo("varName");
@@ -480,7 +487,8 @@ public class TemplateFunctionsTest {
     assertThat(statementForeach.itemName()).isEqualTo("item");
 
     Assertions.assertThat(statementForeach.collectionExpression().statement()).isEqualTo("$listVar");
-    Assertions.assertThat(statementForeach.collectionExpression().preparedStatement()).isEqualTo("operands[0]");
+    Assertions.assertThat(statementForeach.collectionExpression().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     Assertions.assertThat(statementForeach.collectionExpression().operands()).hasSize(1);
     Assertions.assertThat(statementForeach.collectionExpression().operands().get(0).isVariable()).isTrue();
     Assertions.assertThat(statementForeach.collectionExpression().operands().get(0).asVariable().name()).isEqualTo("listVar");
@@ -502,7 +510,8 @@ public class TemplateFunctionsTest {
     StatementWhen statementWhen = (StatementWhen) template.elements().get(0);
     assertThat(statementWhen.branches()).hasSize(1);
     Assertions.assertThat(statementWhen.branches().get(0).condition().statement()).isEqualTo("true");
-    Assertions.assertThat(statementWhen.branches().get(0).condition().preparedStatement()).isEqualTo("operands[0]");
+    Assertions.assertThat(statementWhen.branches().get(0).condition().preparedStatement()).isEqualTo(
+        "(tech.intellispaces.templateengine.expression.value.Value) (operands[0])");
     Assertions.assertThat(statementWhen.branches().get(0).condition().operands()).hasSize(1);
     Assertions.assertThat(statementWhen.branches().get(0).condition().operands().get(0).isLiteral()).isTrue();
     Assertions.assertThat(statementWhen.branches().get(0).condition().operands().get(0).asLiteral().value().asBoolean().get()).isTrue();

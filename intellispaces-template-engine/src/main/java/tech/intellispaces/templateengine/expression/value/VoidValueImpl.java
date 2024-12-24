@@ -1,5 +1,7 @@
 package tech.intellispaces.templateengine.expression.value;
 
+import tech.intellispaces.templateengine.exception.ResolveTemplateException;
+
 class VoidValueImpl extends AbstractValue implements VoidValue {
 
   VoidValueImpl() {}
@@ -14,6 +16,16 @@ class VoidValueImpl extends AbstractValue implements VoidValue {
     if (other.type() == ValueTypes.Void) {
       return BooleanValues.of(true);
     }
+    return BooleanValues.of(false);
+  }
+
+  @Override
+  public BooleanValue isEmpty() throws ResolveTemplateException {
+    return BooleanValues.of(true);
+  }
+
+  @Override
+  public BooleanValue isNotEmpty() throws ResolveTemplateException {
     return BooleanValues.of(false);
   }
 }
