@@ -51,6 +51,11 @@ abstract class AbstractValue extends BaseValue {
   }
 
   @Override
+  public BooleanValue isNotVoid() {
+    return BooleanValues.of(ValueTypes.Void != this.type());
+  }
+
+  @Override
   public BooleanValue isEmpty() throws ResolveTemplateException {
     throw NotApplicableOperationExceptions.withMessage("Operation 'isEmpty' is not applicable for " +
         "value type {0}. Expected string, list or map", typename().get());

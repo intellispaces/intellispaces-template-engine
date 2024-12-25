@@ -65,7 +65,14 @@ public final class ParseExpressionFunctions {
     while (ind < chars.length) {
       char curChar = chars[ind];
       char nextChar = ind + 1 < chars.length ? chars[ind + 1] : 0;
-      if (curChar == '"') {
+      if (curChar == '.' && nextChar == '"') {
+        // Replace to "get" operation
+        String name = readString(chars, ind + 1);
+        preparedStatement.append(".get(");
+        appendStringLiteral(preparedStatement, name, operands, operandWord2IndexMap);
+        preparedStatement.append(")");
+        ind += name.length() + 3;
+      } else if (curChar == '"') {
         String string = readString(chars, ind);
         ind += string.length() + 2;
         appendStringLiteral(preparedStatement, string, operands, operandWord2IndexMap);
@@ -94,7 +101,7 @@ public final class ParseExpressionFunctions {
           );
           ind += valueAndWording.wording().length();
         } else {
-          // Replace to <get> operation
+          // Replace to "get" operation
           String subStatement = readFetchOperand(chars, ind);
           String preparedSubExpression = prepareStatement(subStatement, operands, operandWord2IndexMap);
           preparedStatement.append(".get(");

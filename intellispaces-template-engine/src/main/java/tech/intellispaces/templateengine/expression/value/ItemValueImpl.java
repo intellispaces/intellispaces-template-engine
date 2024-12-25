@@ -116,6 +116,11 @@ class ItemValueImpl extends BaseValue implements Value {
   }
 
   @Override
+  public BooleanValue isNotVoid() {
+    return element.isNotVoid();
+  }
+
+  @Override
   public BooleanValue isEmpty() throws ResolveTemplateException {
     return element.isEmpty();
   }

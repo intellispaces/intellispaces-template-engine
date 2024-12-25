@@ -58,6 +58,8 @@ public interface ValueApi {
 
   ValueApi isVoid();
 
+  ValueApi isNotVoid();
+
   ValueApi eq(ValueApi other) throws ResolveTemplateException;
 
   ValueApi eqAnyOf(ValueApi value1, ValueApi value2) throws ResolveTemplateException;

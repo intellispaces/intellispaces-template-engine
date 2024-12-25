@@ -89,7 +89,7 @@ Test message
 8.1)
 {{$list1[1]}}
 8.2)
-{{$map1["key2"]}}
+{{$map1."key2"}}
 8.3)
 {{print "abc"[1]}}
 

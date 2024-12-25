@@ -22,6 +22,9 @@ public interface Value extends ValueApi {
   BooleanValue isVoid();
 
   @Override
+  BooleanValue isNotVoid();
+
+  @Override
   BooleanValue asBoolean() throws ResolveTemplateException;
 
   @Override
