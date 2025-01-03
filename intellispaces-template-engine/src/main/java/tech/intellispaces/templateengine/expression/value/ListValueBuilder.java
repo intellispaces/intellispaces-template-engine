@@ -64,7 +64,7 @@ public final class ListValueBuilder {
   private static void validate(List<? extends Value> list) {
     Objects.requireNonNull(list);
     if (list.stream().anyMatch(v -> v.isVoid().get())) {
-      throw UnexpectedExceptions.withMessage("List cannot be contain void value");
+      throw UnexpectedExceptions.withMessage("List cannot contain void value");
     }
   }
 }
