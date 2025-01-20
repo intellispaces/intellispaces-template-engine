@@ -33,6 +33,7 @@ import tech.intellispaces.templateengine.element.WhenStatements;
 import tech.intellispaces.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.templateengine.exception.ParseTemplateExceptions;
 import tech.intellispaces.templateengine.exception.ResolveTemplateException;
+import tech.intellispaces.templateengine.exception.ResolveTemplateExceptions;
 import tech.intellispaces.templateengine.expression.ParseExpressionFunctions;
 import tech.intellispaces.templateengine.expression.value.Value;
 import tech.intellispaces.templateengine.expression.value.ValueFunctions;
@@ -87,12 +88,22 @@ public final class TemplateFunctions {
   ) throws ResolveTemplateException {
     Map<String, Value> values = new HashMap<>();
     for (Map.Entry<String, Object> entry : variables.entrySet()) {
-      values.put(entry.getKey(), ValueFunctions.objectToValue(entry.getValue()));
+      try {
+        values.put(entry.getKey(), ValueFunctions.objectToValue(entry.getValue()));
+      } catch (Exception e) {
+        throw ResolveTemplateExceptions.withCauseAndMessage(e, "Unable to resolve value of the variable '{0}'",
+            entry.getKey());
+      }
     }
 
     var sb = new StringBuilder();
     for (TemplateElement element : template.elements()) {
-      sb.append(element.resolve(values));
+      try {
+        sb.append(element.resolve(values));
+      } catch (Exception e) {
+        throw ResolveTemplateExceptions.withCauseAndMessage(e, "Unable to resolve template element '{0}'",
+            element.type().name());
+      }
     }
     return sb.toString();
   }
