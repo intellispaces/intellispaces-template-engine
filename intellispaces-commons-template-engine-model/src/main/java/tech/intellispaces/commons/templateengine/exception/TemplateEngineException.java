@@ -1,6 +1,6 @@
 package tech.intellispaces.commons.templateengine.exception;
 
-import tech.intellispaces.commons.base.exception.CheckedException;
+import tech.intellispaces.commons.exception.CheckedException;
 
 public class TemplateEngineException extends CheckedException {
 

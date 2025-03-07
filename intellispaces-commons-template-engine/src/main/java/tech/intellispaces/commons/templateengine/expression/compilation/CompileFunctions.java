@@ -2,7 +2,7 @@ package tech.intellispaces.commons.templateengine.expression.compilation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import tech.intellispaces.commons.base.exception.CheckedException;
+import tech.intellispaces.commons.exception.CheckedException;
 import tech.intellispaces.commons.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.commons.templateengine.exception.ParseTemplateExceptions;
 import tech.intellispaces.commons.templateengine.exception.ResolveTemplateException;

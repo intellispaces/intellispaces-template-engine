@@ -1,6 +1,6 @@
 package tech.intellispaces.commons.templateengine.expression;
 
-import tech.intellispaces.commons.base.exception.UnexpectedExceptions;
+import tech.intellispaces.commons.exception.UnexpectedExceptions;
 import tech.intellispaces.commons.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.commons.templateengine.exception.ResolveTemplateExceptions;
 import tech.intellispaces.commons.templateengine.expression.value.ListValue;

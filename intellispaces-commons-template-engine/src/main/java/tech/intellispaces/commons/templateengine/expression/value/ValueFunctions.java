@@ -1,8 +1,8 @@
 package tech.intellispaces.commons.templateengine.expression.value;
 
-import tech.intellispaces.commons.base.exception.UnexpectedExceptions;
-import tech.intellispaces.commons.base.function.FunctionFunctions;
-import tech.intellispaces.commons.base.function.Functions;
+import tech.intellispaces.commons.exception.UnexpectedExceptions;
+import tech.intellispaces.commons.function.FunctionFunctions;
+import tech.intellispaces.commons.function.Functions;
 import tech.intellispaces.commons.templateengine.exception.ResolveTemplateException;
 import tech.intellispaces.commons.templateengine.exception.ResolveTemplateExceptions;
 
