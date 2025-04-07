@@ -3,11 +3,11 @@
 
     <parent>
         <groupId>tech.intellispaces</groupId>
-        <artifactId>intellispaces-template-engine-parent</artifactId>
+        <artifactId>intellispaces-templateengine-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-template-engine</artifactId>
+    <artifactId>intellispaces-templateengine</artifactId>
     <packaging>jar</packaging>
 	
     <build>
@@ -31,7 +31,7 @@
         <!-- Intellispaces -->
         <dependency>
             <groupId>tech.intellispaces</groupId>
-            <artifactId>intellispaces-template-engine-model</artifactId>
+            <artifactId>intellispaces-templateengine-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

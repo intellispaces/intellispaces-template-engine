@@ -9,19 +9,19 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>intellispaces-template-engine-parent</artifactId>
+    <artifactId>intellispaces-templateengine-parent</artifactId>
     <packaging>pom</packaging>
 	
 	<modules>
-        <module>intellispaces-template-engine-model</module>
-	    <module>intellispaces-template-engine</module>
+        <module>intellispaces-templateengine-model</module>
+	    <module>intellispaces-templateengine</module>
 	</modules>
 	
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>tech.intellispaces</groupId>
-                <artifactId>intellispaces-template-engine-model</artifactId>
+                <artifactId>intellispaces-templateengine-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
