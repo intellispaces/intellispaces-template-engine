@@ -1,35 +1,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <description>A template engine library.</description>
+
     <parent>
-        <groupId>tech.intellispaces.parent</groupId>
+        <groupId>tech.intellispaces</groupId>
         <artifactId>intellispaces-parent-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>tech.intellispaces.commons</groupId>
-    <artifactId>intellispaces-commons-template-engine-parent</artifactId>
+    <artifactId>intellispaces-template-engine-parent</artifactId>
     <packaging>pom</packaging>
 	
 	<modules>
-        <module>intellispaces-commons-template-engine-model</module>
-	    <module>intellispaces-commons-template-engine</module>
+        <module>intellispaces-template-engine-model</module>
+	    <module>intellispaces-template-engine</module>
 	</modules>
 	
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>tech.intellispaces.commons</groupId>
-                <artifactId>intellispaces-commons-template-engine-model</artifactId>
+                <groupId>tech.intellispaces</groupId>
+                <artifactId>intellispaces-template-engine-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>tech.intellispaces.commons</groupId>
+                <groupId>tech.intellispaces</groupId>
                 <artifactId>intellispaces-commons</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>tech.intellispaces.commons</groupId>
+                <groupId>tech.intellispaces</groupId>
                 <artifactId>intellispaces-commons-model</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
