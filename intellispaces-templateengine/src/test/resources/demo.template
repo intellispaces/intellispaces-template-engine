@@ -85,11 +85,11 @@ Test message
   {{$item.index()}}: {{$item}} - isFirst: {{$item.isFirst()}}, isNotFirst: {{$item.isNotFirst()}}, isLast: {{$item.isLast()}}, isNotLast: {{$item.isNotLast()}}
 {{end}}
 
------------------------------------------ 8. Fetch statement --------------------------------------
+----------------------------------------- 8. Extract statement ------------------------------------
 8.1)
 {{$list1[1]}}
 8.2)
-{{$map1."key2"}}
+{{$map1["key2"]}}
 8.3)
 {{print "abc"[1]}}
 

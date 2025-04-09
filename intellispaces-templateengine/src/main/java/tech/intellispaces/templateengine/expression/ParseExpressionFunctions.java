@@ -65,14 +65,7 @@ public final class ParseExpressionFunctions {
     while (ind < chars.length) {
       char curChar = chars[ind];
       char nextChar = ind + 1 < chars.length ? chars[ind + 1] : 0;
-      if (curChar == '.' && nextChar == '"') {
-        // Replace to "get" operation
-        String name = readString(chars, ind + 1);
-        preparedStatement.append(".get(");
-        appendStringLiteral(preparedStatement, name, operands, operandWord2IndexMap);
-        preparedStatement.append(")");
-        ind += name.length() + 3;
-      } else if (curChar == '"') {
+      if (curChar == '"') {
         String string = readString(chars, ind);
         ind += string.length() + 2;
         appendStringLiteral(preparedStatement, string, operands, operandWord2IndexMap);

@@ -67,7 +67,7 @@ item1 item2 item3 |
   1: item2 - isFirst: false, isNotFirst: true, isLast: false, isNotLast: true
   2: item3 - isFirst: false, isNotFirst: true, isLast: true, isNotLast: false
 
------------------------------------------ 8. Fetch statement --------------------------------------
+----------------------------------------- 8. Extract statement ------------------------------------
 8.1)
 item2
 8.2)
