@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>tech.intellispaces</groupId>
+        <groupId>tech.intellispaces.commons</groupId>
         <artifactId>intellispaces-templateengine-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -30,12 +30,12 @@
     <dependencies>
         <!-- Intellispaces -->
         <dependency>
-            <groupId>tech.intellispaces</groupId>
+            <groupId>tech.intellispaces.commons</groupId>
             <artifactId>intellispaces-templateengine-model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>tech.intellispaces</groupId>
+            <groupId>tech.intellispaces.commons</groupId>
             <artifactId>intellispaces-commons</artifactId>
         </dependency>
 
