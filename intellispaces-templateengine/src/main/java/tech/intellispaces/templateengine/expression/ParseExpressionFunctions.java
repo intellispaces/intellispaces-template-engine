@@ -4,7 +4,7 @@ import tech.intellispaces.commons.exception.UnexpectedExceptions;
 import tech.intellispaces.commons.text.CharFunctions;
 import tech.intellispaces.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.templateengine.exception.ParseTemplateExceptions;
-import tech.intellispaces.templateengine.expression.compilation.CompileFunctions;
+import tech.intellispaces.templateengine.expression.compilation.CompiledExpressions;
 import tech.intellispaces.templateengine.expression.value.BooleanValues;
 import tech.intellispaces.templateengine.expression.value.IntegerValues;
 import tech.intellispaces.templateengine.expression.value.ListValues;
@@ -306,7 +306,7 @@ public final class ParseExpressionFunctions {
           .orElse(null);
       CompiledExpression compiledExpression = (key != null ? STATEMENTS_CACHE.get(key) : null);
       if (compiledExpression == null) {
-        compiledExpression = CompileFunctions.compileExpression(preparedStatement);
+        compiledExpression = CompiledExpressions.compileExpression(preparedStatement);
         STATEMENTS_CACHE.put(new StatementKey(preparedStatement), compiledExpression);
       }
       return compiledExpression;
