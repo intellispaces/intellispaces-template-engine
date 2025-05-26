@@ -2,6 +2,8 @@ package tech.intellispaces.templateengine.expression;
 
 import tech.intellispaces.commons.compilation.CompilationFunctions;
 import tech.intellispaces.commons.exception.CheckedException;
+import tech.intellispaces.commons.text.StringFunctions;
+import tech.intellispaces.commons.type.ClassFunctions;
 import tech.intellispaces.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.templateengine.exception.ParseTemplateExceptions;
 import tech.intellispaces.templateengine.exception.ResolveTemplateException;
@@ -21,7 +23,9 @@ public final class CompiledExpressions {
 
   public static CompiledExpression compileExpression(String statement) throws ParseTemplateException {
     try {
-      String className = "CompiledExpression" + UUID.randomUUID().toString().replace("-", "");
+      String className = "CompiledExpression" + StringFunctions.capitalizeFirstLetter(
+          UUID.randomUUID().toString().replace("-", "")
+      );
       return CompilationFunctions.createInstance(
           className,
           makeCompiledExpressionSource(className, statement),
@@ -44,9 +48,9 @@ public final class CompiledExpressions {
   private static Set<String> getClassPaths() {
     return Set.of(
         System.getProperty("java.class.path"),
-        CompilationFunctions.getJarPath(Template.class),
-        CompilationFunctions.getJarPath(Templates.class),
-        CompilationFunctions.getJarPath(CheckedException.class)
+        ClassFunctions.getJarPath(Template.class),
+        ClassFunctions.getJarPath(Templates.class),
+        ClassFunctions.getJarPath(CheckedException.class)
     );
   }
 }
