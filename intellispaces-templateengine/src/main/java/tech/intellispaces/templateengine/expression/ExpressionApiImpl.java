@@ -1,4 +1,4 @@
-package tech.intellispaces.templateengine.expression.compilation;
+package tech.intellispaces.templateengine.expression;
 
 import tech.intellispaces.templateengine.expression.value.EachOfs;
 import tech.intellispaces.templateengine.expression.value.Value;

@@ -1,11 +1,10 @@
-package tech.intellispaces.templateengine.expression.compilation;
+package tech.intellispaces.templateengine.expression;
 
 import tech.intellispaces.commons.compilation.CompilationFunctions;
 import tech.intellispaces.commons.exception.CheckedException;
 import tech.intellispaces.templateengine.exception.ParseTemplateException;
 import tech.intellispaces.templateengine.exception.ParseTemplateExceptions;
 import tech.intellispaces.templateengine.exception.ResolveTemplateException;
-import tech.intellispaces.templateengine.expression.CompiledExpression;
 import tech.intellispaces.templateengine.expression.value.Value;
 import tech.intellispaces.templateengine.template.Template;
 import tech.intellispaces.templateengine.template.Templates;
